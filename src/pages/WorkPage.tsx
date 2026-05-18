@@ -9,6 +9,9 @@ import MagneticButton from '@/components/MagneticButton';
 import { FloatingPurpleShapes } from '@/components/ui/floating-purple-shapes';
 import { GradientBackground } from '@/components/ui/gradient-backgrounds';
 import { SEO } from '@/components/SEO';
+import { Helmet } from 'react-helmet-async';
+import { FreeAuditModal } from '@/components/funnels/FreeAuditModal';
+import { BookStrategyCallModal } from '@/components/funnels/BookStrategyCallModal';
 
 /* ─── Static data ─────────────────────────────────────────────────────────── */
 
@@ -45,7 +48,15 @@ const CaseStudyCard: React.FC<{ study: any; index: number }> = ({ study }) => (
               </div>
             </div>
           ) : (
-            <img src={study.image} alt={study.client} width={800} height={500} loading="lazy" decoding="async"
+            <img
+              src={study.image}
+              srcSet={`${study.image.replace(/[?&]w=\d+/, '').replace('fm=webp', '').split('&q=')[0]}?w=480&q=75&fm=webp 480w, ${study.image.replace(/[?&]w=\d+/, '').replace('fm=webp', '').split('&q=')[0]}?w=768&q=75&fm=webp 768w, ${study.image} 1200w`}
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) calc(50vw - 32px), calc(33vw - 40px)"
+              alt={`${study.client} ${study.industry} marketing case study results`}
+              width={800}
+              height={500}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105" />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -79,7 +90,15 @@ const CaseStudyCard: React.FC<{ study: any; index: number }> = ({ study }) => (
 const SampleWebsiteCard: React.FC<{ industry: typeof SAMPLE_WEBSITES[0] }> = ({ industry }) => (
   <StaggerItem className="group relative bg-white/70 backdrop-blur-md rounded-2xl md:rounded-[32px] p-4 md:p-5 border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:border-primary/20">
     <div className="relative aspect-[16/10] rounded-xl md:rounded-[24px] overflow-hidden mb-4 md:mb-8 shadow-inner">
-      <img src={industry.img} alt={industry.title} width={800} height={500} loading="lazy" decoding="async"
+      <img
+        src={industry.img}
+        srcSet={`${industry.img.replace(/[?&]w=\d+/, '')}&w=480&fm=webp 480w, ${industry.img.replace(/[?&]w=\d+/, '')}&w=768&fm=webp 768w, ${industry.img} 1200w`}
+        sizes="(max-width: 639px) 100vw, (max-width: 1023px) calc(50vw - 32px), calc(33vw - 40px)"
+        alt={`${industry.title} web development and design portfolio example`}
+        width={800}
+        height={500}
+        loading="lazy"
+        decoding="async"
         className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110" />
       <div className="absolute top-4 right-4 z-20">
         <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm">
@@ -126,14 +145,18 @@ const BottomCTA: React.FC = () => (
           </StaggerItem>
           <StaggerItem className="pt-4 md:pt-8 flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
             <MagneticButton>
-              <button className="bg-slate-900 text-white px-8 md:px-10 py-4 md:py-5 rounded-full font-bold text-base md:text-lg btn-premium flex items-center justify-center gap-3 primary-button w-full sm:w-auto">
-                Book a Strategy Call <ArrowRight className="w-6 h-6" />
-              </button>
+              <BookStrategyCallModal sourcePage="work_page">
+                <button className="bg-slate-900 text-white px-8 md:px-10 py-4 md:py-5 rounded-full font-bold text-base md:text-lg btn-premium flex items-center justify-center gap-3 primary-button w-full sm:w-auto">
+                  Book a Strategy Call <ArrowRight className="w-6 h-6" />
+                </button>
+              </BookStrategyCallModal>
             </MagneticButton>
             <MagneticButton>
-              <button className="px-8 md:px-10 py-4 md:py-5 rounded-full font-bold text-base md:text-lg text-slate-600 border border-slate-200 hover:bg-white transition-all flex items-center justify-center gap-2 group w-full sm:w-auto">
-                Free Audit
-              </button>
+              <FreeAuditModal>
+                <button className="px-8 md:px-10 py-4 md:py-5 rounded-full font-bold text-base md:text-lg text-slate-600 border border-slate-200 hover:bg-white transition-all flex items-center justify-center gap-2 group w-full sm:w-auto">
+                  Free Audit
+                </button>
+              </FreeAuditModal>
             </MagneticButton>
           </StaggerItem>
         </StaggerContainer>
@@ -151,6 +174,18 @@ const WorkPage: React.FC = () => (
       title="Our Work & Case Studies | Adibuz"
       description="Explore our portfolio of successful digital transformations. See how Adibuz has helped businesses scale through strategic marketing and AI automation."
     />
+    <Helmet>
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.adibuz.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Work", "item": "https://www.adibuz.com/work" }
+          ]
+        })}
+      </script>
+    </Helmet>
     <SimpleHeader />
     <FloatingPurpleShapes />
 

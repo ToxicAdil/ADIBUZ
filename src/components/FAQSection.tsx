@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { ChevronDown } from 'lucide-react';
 import { FadeInUp } from '@/lib/animations';
 
@@ -36,6 +37,22 @@ const faqs = [
 export function FAQSection() {
   return (
     <section id="faqs" className="py-16 md:py-24">
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqs.map((faq) => ({
+              "@type": "Question",
+              "name": faq.q,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+              }
+            }))
+          })}
+        </script>
+      </Helmet>
       <div className="container-custom">
         <div className="grid lg:grid-cols-[1fr,2fr] gap-12 lg:gap-20">
           <div className="space-y-8">

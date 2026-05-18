@@ -273,12 +273,12 @@ const TestimonialCard = ({
 							<img
 								className="block w-full h-full object-center object-cover"
 								src={backgroundImage}
-								alt="Background layer"
+								alt="Decorative background for client testimonial"
 								referrerPolicy="no-referrer"
 							/>
 						</div>
 					</div>
-					<ProfileImage src={testimonial.profileImage} alt={testimonial.name} />
+					<ProfileImage src={testimonial.profileImage} alt={`${testimonial.name}, ${testimonial.designation} - Client Review`} />
 					<motion.p
 						layoutId={layout ? `title-${testimonial.name}` : undefined}
 						className="text-slate-800 text-xl md:text-2xl font-bold text-center [text-wrap:balance] mt-8 px-6 leading-snug"

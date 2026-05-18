@@ -33,7 +33,7 @@ export const InsightPreviewCard: React.FC = () => {
                   <div className="aspect-[16/10] overflow-hidden relative bg-slate-50">
                     <img 
                       src={featuredInsight.featured_image} 
-                      alt={featuredInsight.title} 
+                      alt={`${featuredInsight.title} - Adibuz Marketing Editorial Preview`} 
                       className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-700 ease-out"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-80" />

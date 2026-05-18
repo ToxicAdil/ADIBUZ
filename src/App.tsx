@@ -7,6 +7,7 @@ import { FloatingPurpleShapes } from '@/components/ui/floating-purple-shapes';
 import { BackgroundGradientGlow } from '@/components/ui/background-gradient-glow';
 import { SimpleHeader } from '@/components/ui/simple-header';
 import { SEO } from '@/components/SEO';
+import { GlobalGrowthSection } from '@/components/sections/GlobalGrowthSection';
 
 // ====================================================================
 // PERFORMANCE: Lazy-load ALL components that use framer-motion / heavy deps
@@ -27,9 +28,7 @@ const CircularTestimonials = lazy(() =>
     default: m.CircularTestimonials,
   }))
 );
-const InteractiveGlobe = lazy(() =>
-  import('./components/ui/interactive-globe').then((m) => ({ default: m.InteractiveGlobe }))
-);
+
 const LogoCloud = lazy(() =>
   import('./components/ui/logo-cloud-4').then((m) => ({ default: m.LogoCloud }))
 );
@@ -99,22 +98,7 @@ const services = [
   'Data Analytics',
 ];
 
-const globeMarkers = [
-  { lat: 28.61, lng: 77.21, label: 'India' },
-  { lat: 37.77, lng: -122.41, label: 'USA' },
-  { lat: 43.65, lng: -79.38, label: 'Canada' },
-  { lat: -33.86, lng: 151.2, label: 'Australia' },
-  { lat: -26.2, lng: 28.04, label: 'South Africa' },
-  { lat: 25.2, lng: 55.27, label: 'Dubai' },
-];
 
-const globeConnections = [
-  { from: [28.61, 77.21] as [number, number], to: [37.77, -122.41] as [number, number] },
-  { from: [28.61, 77.21] as [number, number], to: [43.65, -79.38] as [number, number] },
-  { from: [28.61, 77.21] as [number, number], to: [-33.86, 151.2] as [number, number] },
-  { from: [28.61, 77.21] as [number, number], to: [-26.2, 28.04] as [number, number] },
-  { from: [28.61, 77.21] as [number, number], to: [25.2, 55.27] as [number, number] },
-];
 
 const testimonialData = [
   {
@@ -474,82 +458,7 @@ export default function App() {
                 </div>
               </section>
 
-              <section
-                className="py-8 relative overflow-hidden"
-                style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 600px' }}
-                aria-label="Global Reach"
-              >
-                <div className="container-custom">
-                  <FadeInUp className="premium-card rounded-3xl md:rounded-[32px] p-6 md:p-8 lg:py-[24px] lg:px-[60px] overflow-hidden">
-                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center relative z-10">
-                      <FadeInUp className="space-y-8">
-                        <div className="space-y-4">
-                          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight leading-[1.2]">
-                            Scaling Brands <br />
-                            <span className="text-gradient">Beyond Borders.</span>
-                          </h2>
-                          <p className="text-slate-500 text-lg md:text-xl font-medium leading-relaxed max-w-xl">
-                            We help businesses grow across{' '}
-                            <span className="text-[#3A0F63] font-bold">global markets</span> with
-                            data-driven{' '}
-                            <span className="text-[#3A0F63] font-bold">marketing systems</span>.
-                          </p>
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-4">
-                          <div className="space-y-2">
-                            <div className="text-3xl md:text-4xl font-[900] text-[#3A0F63] tracking-tight">
-                              25+
-                            </div>
-                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
-                              Clients
-                            </div>
-                          </div>
-                          <div className="space-y-2">
-                            <div className="text-3xl md:text-4xl font-[900] text-[#3A0F63] tracking-tight">
-                              ₹35L+
-                            </div>
-                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
-                              Ad Spend Managed
-                            </div>
-                          </div>
-                          <div className="space-y-2">
-                            <div className="text-3xl md:text-4xl font-[900] text-[#3A0F63] tracking-tight">
-                              6
-                            </div>
-                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
-                              Countries Served
-                            </div>
-                          </div>
-                        </div>
-                        <button
-                          className="bg-[#3A0F63] text-white px-8 py-4 rounded-full text-sm font-bold shadow-xl shadow-[#3A0F63]/20 hover:shadow-[#3A0F63]/30 transition-all"
-                          aria-label="Start growing your brand beyond borders"
-                        >
-                          Grow Beyond Borders
-                        </button>
-                      </FadeInUp>
-                      <ScaleInView className="w-full h-[300px] sm:h-[350px] md:h-[450px] flex items-center justify-center relative overflow-hidden">
-                        <div className="w-full h-full max-w-[300px] sm:max-w-[400px] md:max-w-none mx-auto">
-                          <Suspense fallback={<div className="w-full h-full" />}>
-                            <InteractiveGlobe
-                              size={450}
-                              markers={globeMarkers}
-                              connections={globeConnections}
-                              dotColor="rgba(124, 58, 237, ALPHA)"
-                              arcColor="rgba(124, 58, 237, 0.3)"
-                              markerColor="rgba(58, 15, 99, 1)"
-                            />
-                          </Suspense>
-                        </div>
-                      </ScaleInView>
-                    </div>
-                    <div
-                      className="absolute -bottom-20 -right-20 w-64 h-64 bg-primary/5 blur-[100px] rounded-full"
-                      aria-hidden="true"
-                    />
-                  </FadeInUp>
-                </div>
-              </section>
+              <GlobalGrowthSection />
 
               <Suspense fallback={<SectionFallback />}>
                 <AboutAdibuz />

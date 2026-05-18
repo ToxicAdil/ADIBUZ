@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 import MagneticButton from './MagneticButton';
+import { BookStrategyCallModal } from '@/components/funnels/BookStrategyCallModal';
 
 interface HeroContentProps {
   heroScale: ReturnType<typeof import('motion/react').useTransform>;
@@ -67,14 +68,16 @@ export function HeroContent({ heroScale, heroY }: HeroContentProps) {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.65 }}
         >
           <MagneticButton>
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              transition={{ type: 'spring', stiffness: 300 }}
-              data-cursor-text="Book"
-              className="w-full md:w-auto bg-[#3A0F63] text-white px-[36px] py-[16px] rounded-[50px] font-semibold text-[clamp(0.85rem,1.2vw,1rem)] flex items-center justify-center gap-3 shadow-lg hover:shadow-xl"
-            >
-              Book a Strategy Call <ArrowRight className="w-5 h-5" />
-            </motion.button>
+            <BookStrategyCallModal sourcePage="hero">
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+                data-cursor-text="Book"
+                className="w-full md:w-auto bg-[#3A0F63] text-white px-[36px] py-[16px] rounded-[50px] font-semibold text-[clamp(0.85rem,1.2vw,1rem)] flex items-center justify-center gap-3 shadow-lg hover:shadow-xl"
+              >
+                Book a Strategy Call <ArrowRight className="w-5 h-5" />
+              </motion.button>
+            </BookStrategyCallModal>
           </MagneticButton>
 
           <MagneticButton>

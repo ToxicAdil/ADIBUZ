@@ -45,7 +45,10 @@ function PremiumFeatured({ insight }: { insight: Insight }) {
           <img
             src={insight.featured_image}
             alt={insight.title}
+            width={860}
+            height={520}
             loading="lazy"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-[1.04]"
           />
           {/* Gradient overlay */}
@@ -117,7 +120,10 @@ function TrendingCard({ insight, rank }: { insight: Insight; rank: number }) {
           <img
             src={insight.featured_image}
             alt={insight.title}
+            width={80}
+            height={64}
             loading="lazy"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         </div>
@@ -190,9 +196,9 @@ export default function InsightsPage() {
         >
 
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-[900] tracking-tight text-slate-900 mb-6 leading-[1.06]">
-            Insights &{' '}
-            <span className="text-gradient">Strategy</span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-[900] tracking-tight text-slate-900 mb-6 leading-[1.06]">
+            AI Marketing Insights &{' '}
+            <span className="text-gradient">Digital Growth Strategies</span>
           </h1>
           <p className="text-lg sm:text-xl text-slate-500 leading-relaxed max-w-xl mx-auto">
             Expert perspectives on building, scaling, and automating modern digital brands.

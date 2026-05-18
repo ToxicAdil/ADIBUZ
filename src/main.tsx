@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App.tsx';
 import ScrollToTop from './components/ScrollToTop.tsx';
+import { ConsentManager } from './components/ConsentManager.tsx';
 import './index.css';
 
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
@@ -21,6 +22,11 @@ const CaseStudyDetailPage = lazy(() => import('./pages/CaseStudyDetailPage.tsx')
 const ChatAssistantPage = lazy(() => import('./pages/ChatAssistantPage.tsx'));
 const InsightsPage = lazy(() => import('./pages/InsightsPage.tsx'));
 const InsightDetailPage = lazy(() => import('./pages/InsightDetailPage.tsx'));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage.tsx'));
+const TermsOfUsePage = lazy(() => import('./pages/TermsOfUsePage.tsx'));
+const ContactPage = lazy(() => import('./pages/ContactPage.tsx'));
+const ServicePage = lazy(() => import('./pages/ServicePage.tsx'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage.tsx'));
 
 // Minimal loading fallback
 const PageLoader = () => (
@@ -34,6 +40,14 @@ createRoot(document.getElementById('root')!).render(
     <ErrorBoundary>
       <HelmetProvider>
         <BrowserRouter>
+          {/*
+            ConsentManager is placed OUTSIDE <Routes> and <Suspense> so it:
+            - Mounts exactly once for the entire app lifetime
+            - Is never re-mounted or unmounted by route changes
+            - Renders null — all work is DOM side-effects
+          */}
+          <ConsentManager />
+
           <Suspense fallback={<PageLoader />}>
             <ScrollToTop />
             <Routes>
@@ -44,6 +58,11 @@ createRoot(document.getElementById('root')!).render(
               <Route path="/insights" element={<InsightsPage />} />
               <Route path="/insights/:slug" element={<InsightDetailPage />} />
               <Route path="/assistant" element={<ChatAssistantPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/services/:slug" element={<ServicePage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+              <Route path="/terms" element={<TermsOfUsePage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>
           <Suspense fallback={null}>

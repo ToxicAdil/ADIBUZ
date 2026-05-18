@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Target, Zap, TrendingUp, BarChart3, ArrowRight, Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import AdibuzLogo from '../components/AdibuzLogo';
 import MagneticButton from '../components/MagneticButton';
 import CustomCursor from '../components/CustomCursor';
@@ -23,6 +24,18 @@ const AboutPage = () => {
         title="About Adibuz | Our Mission & Team" 
         description="Learn about the team behind Adibuz. We are a premium digital marketing agency focused on strategic AI automation, creative design, and data-driven growth."
       />
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.adibuz.com/" },
+              { "@type": "ListItem", "position": 2, "name": "About", "item": "https://www.adibuz.com/about" }
+            ]
+          })}
+        </script>
+      </Helmet>
       <CustomCursor />
       
       <SimpleHeader />

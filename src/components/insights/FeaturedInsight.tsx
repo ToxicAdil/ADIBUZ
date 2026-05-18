@@ -25,7 +25,7 @@ export function FeaturedInsight({ insight }: { insight: Insight }) {
           <div className="absolute inset-0 bg-slate-100 animate-pulse" />
           <img 
             src={insight.featured_image} 
-            alt={insight.title}
+            alt={`${insight.title} - Featured Adibuz Marketing Insight`}
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
           />
@@ -40,7 +40,7 @@ export function FeaturedInsight({ insight }: { insight: Insight }) {
           )}
         </div>
 
-        {/* Content Section */}
+        {/* Content section and many more !!!!!!!!! */}
         <div className="flex flex-col justify-center p-8 sm:p-12 lg:p-16 relative z-10 bg-white lg:bg-white/95 backdrop-blur-xl">
           <div className="flex items-center gap-4 text-[14px] font-medium text-slate-500 mb-6 uppercase tracking-wider">
             <span>{formattedDate}</span>

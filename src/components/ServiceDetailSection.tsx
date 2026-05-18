@@ -39,7 +39,7 @@ const ServiceDetailSection = memo(
       isMobileDevice && posterUrl ? (
         <img
           src={posterUrl}
-          alt={`${title} showcase`}
+          alt={`${title} marketing service visual showcase for Adibuz AI agency`}
           className="w-full h-full object-cover block"
           style={{ borderRadius: 'inherit' }}
           loading="lazy"

@@ -7,9 +7,10 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   return {
     plugins: [react(), tailwindcss()],
-    define: {
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-    },
+    // ⚠️  SECURITY: Do NOT expose secret API keys via `define`. Vite bakes
+    //    `define` values directly into the JS output where anyone can read
+    //    them in DevTools. Server-side keys (Gemini, etc.) must be called
+    //    through a Supabase Edge Function or Vercel API Route instead.
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),

@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 
 interface Testimonial {
   quote: string;
@@ -186,7 +187,35 @@ export const CircularTestimonials = ({
   };
 
   return (
-    <div className="testimonial-container">
+    <>
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Adibuz",
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "5",
+              "reviewCount": testimonials.length
+            },
+            "review": testimonials.map((t) => ({
+              "@type": "Review",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5",
+                "bestRating": "5"
+              },
+              "author": {
+                "@type": "Person",
+                "name": t.name
+              },
+              "reviewBody": t.quote
+            }))
+          })}
+        </script>
+      </Helmet>
+      <div className="testimonial-container">
       <div className="testimonial-grid">
         {/* Images */}
         <div className="image-container" ref={imageContainerRef}>
@@ -194,7 +223,7 @@ export const CircularTestimonials = ({
             <img
               key={testimonial.src}
               src={testimonial.src}
-              alt={testimonial.name}
+              alt={`${testimonial.name} - Adibuz Client Testimonial`}
               className="testimonial-image"
               data-index={index}
               style={getImageStyle(index)}
@@ -371,7 +400,8 @@ export const CircularTestimonials = ({
           }
         }
       `}</style>
-    </div>
+      </div>
+    </>
   );
 };
 

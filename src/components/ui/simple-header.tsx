@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
 import { Link } from 'react-router-dom';
+import { GetStartedModal } from '@/components/funnels/GetStartedModal';
 import { Sheet, SheetContent, SheetFooter } from '@/components/ui/sheet';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { MenuToggle } from '@/components/ui/menu-toggle';
@@ -48,7 +49,7 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 				isScrolled ? "py-4" : "py-6"
 			)}
 		>
-			<nav className="container-custom flex justify-center">
+			<nav className="container-custom flex justify-center" role="navigation" aria-label="Main navigation">
 				<motion.div 
 					layout
 					transition={{ type: "spring", stiffness: 400, damping: 30 }}
@@ -74,6 +75,7 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 								<Link 
 									key={item.label} 
 									to={item.path}
+									aria-current={isActive ? 'page' : undefined}
 									className={cn(
 										"relative text-[13px] font-semibold transition-colors tracking-wide group pb-1",
 										dark 
@@ -88,6 +90,7 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 								<a 
 									key={item.label} 
 									href={item.path}
+									aria-current={isActive ? 'page' : undefined}
 									onClick={(e) => handleScrollTo(e, item.id)}
 									className={cn(
 										"relative text-[13px] font-semibold transition-colors tracking-wide group pb-1",
@@ -106,30 +109,32 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 					<div className="flex items-center gap-4 lg:gap-6">
 						<div className="hidden sm:flex items-center gap-4 lg:gap-6">
 							<MagneticButton>
-								<button 
-									data-cursor-text="Chat"
-									aria-label="Open live chat"
+								<a 
+									href="/contact"
+									data-cursor-text="Contact"
 									className={cn(
 										"text-[13px] font-bold transition-opacity",
 										dark ? "text-slate-300 hover:text-white" : "text-slate-900 hover:opacity-70"
 									)}
 								>
-									Chat Now
-								</button>
+									Contact
+								</a>
 							</MagneticButton>
 							<MagneticButton>
-								<button 
-									data-cursor-text="Join"
-									aria-label="Get started with Adibuz"
-									className={cn(
-										"px-6 py-2.5 rounded-full text-[13px] font-bold transition-all",
-										dark 
-											? "bg-[#3A0F63] text-white hover:bg-purple-900 border border-purple-500/30 shadow-[0_0_20px_rgba(58,15,99,0.5)]"
-											: "bg-slate-900 text-white btn-premium primary-button"
-									)}
-								>
-									Get Started
-								</button>
+								<GetStartedModal>
+									<button 
+										data-cursor-text="Join"
+										aria-label="Get started with Adibuz"
+										className={cn(
+											"px-6 py-2.5 rounded-full text-[13px] font-bold transition-all",
+											dark 
+												? "bg-[#3A0F63] text-white hover:bg-purple-900 border border-purple-500/30 shadow-[0_0_20px_rgba(58,15,99,0.5)]"
+												: "bg-slate-900 text-white btn-premium primary-button"
+										)}
+									>
+										Get Started
+									</button>
+								</GetStartedModal>
 							</MagneticButton>
 						</div>
 
@@ -184,8 +189,9 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 										variant="outline" 
 										className="w-full rounded-xl py-6 font-bold text-lg border-slate-200"
 										onClick={() => setOpen(false)}
+										asChild
 									>
-										Chat Now
+										<a href="/contact">Contact</a>
 									</Button>
 									<Button 
 										className="w-full bg-slate-900 text-white rounded-xl py-6 font-bold text-lg shadow-lg"

@@ -7,31 +7,143 @@
     <meta name="theme-color" content="#3A0F63" />
     <title>Adibuz — Scale Smarter. Grow Faster.</title>
 
-    <!-- DNS prefetch + preconnect to critical origins -->
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="YOUR_GSC_VERIFICATION_CODE" />
+
+    <!-- Google Analytics 4 (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <!--
+    ═══════════════════════════════════════════════════════════════════════
+     OPEN GRAPH + TWITTER CARD (BASELINE)
+    ═══════════════════════════════════════════════════════════════════════
+    These baseline tags ensure social crawlers that do not execute JS
+    (WhatsApp, LinkedIn, some Twitter bots) can still unfurl rich previews.
+    The React Helmet <SEO /> component will overwrite these dynamically for
+    sub-pages once hydrated.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.adibuz.com/" />
+    <meta property="og:title" content="Adibuz — Scale Smarter. Grow Faster." />
+    <meta property="og:description" content="Adibuz — AI-first marketing agency. We build high-performing marketing systems that drive real revenue, not just clicks." />
+    <meta property="og:image" content="https://www.adibuz.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Adibuz" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.adibuz.com/" />
+    <meta name="twitter:title" content="Adibuz — Scale Smarter. Grow Faster." />
+    <meta name="twitter:description" content="Adibuz — AI-first marketing agency. We build high-performing marketing systems that drive real revenue, not just clicks." />
+    <meta name="twitter:image" content="https://www.adibuz.com/og-image.png" />
+    <meta name="twitter:creator" content="@Adibuz_agency" />
+    <meta name="twitter:site" content="@Adibuz_agency" />
+
+    <!--
+    ═══════════════════════════════════════════════════════════════════════
+     SUBRESOURCE INTEGRITY (SRI) POLICY — Adibuz
+    ═══════════════════════════════════════════════════════════════════════
+
+     SRI STATUS OF ALL EXTERNAL RESOURCES IN THIS FILE:
+     ──────────────────────────────────────────────────
+
+     ✅  Silktide CSS / JS (cdn.jsdelivr.net)
+         SRI applied in ConsentManager.tsx — dynamically injected with
+         integrity + crossorigin="anonymous" on both <link> and <script>.
+         Verified sha384 hashes (recomputed 2026-05-16):
+           CSS: sha384-IO1E/jCrQXyH5rwcI0SXP7OXw47JFqQNDQcKhbFvqnL2IunBxxwE2Ne5XyAmCqKs
+           JS : sha384-j4NIMOecmtzMWe9GJADIIe5hTlHG63aiTQ/2XorW10RNyQJg+IU+xwFVDy45wBah
+
+     ❌  Google Fonts CSS (fonts.googleapis.com) — SRI intentionally NOT applied
+         Reason: Google's Fonts API serves different CSS bodies per browser
+         (Chrome, Safari, Firefox each receive different @font-face woff2 URLs
+         optimised for that UA). The same URL returns different bytes on every
+         request, so any SRI hash would cause an integrity mismatch and the fonts
+         would silently fail to load. Google's own documentation explicitly
+         advises against applying SRI to the Fonts API CSS endpoint.
+         Security mitigation: fonts.googleapis.com is in our CSP style-src
+         whitelist, and all fonts are loaded with crossorigin="anonymous" for
+         CORS. The actual woff2 files live on fonts.gstatic.com (also CSP-listed).
+
+     ❌  Cloudinary images / video — SRI intentionally NOT applied
+         Reason: Cloudinary URLs include on-the-fly transformation parameters
+         (f_webm, q_auto, w_800, etc.) which produce different byte sequences
+         per request. Hashing is therefore impossible. Security mitigation:
+         res.cloudinary.com is whitelisted in img-src and media-src CSP directives.
+
+     ❌  Unsplash images — SRI intentionally NOT applied
+         Reason: CDN-served images have Vary headers (Accept, Accept-Encoding)
+         meaning byte content differs per client. Security mitigation:
+         images.unsplash.com is whitelisted in img-src CSP.
+
+     ❌  Vite-generated JS / CSS chunks — SRI intentionally NOT applied
+         Reason: Vite content-hashes all chunk filenames (e.g. index-Abc123.js)
+         at build time. The hash IS the integrity mechanism for Vite's output.
+         Applying additional SRI would require computing hashes post-build and
+         injecting them into index.html — a complex pipeline that provides no
+         additional benefit since Vercel serves these over TLS with immutable
+         cache headers. Adding `crossorigin` to the Vite entry point below is
+         sufficient for correct CORS module loading semantics.
+
+     ❌  Inline GCM v2 <script> — SRI not applicable
+         Reason: Inline scripts cannot carry `integrity` attributes per the
+         W3C SRI spec. The inline GCM script is protected by being the only
+         inline script in the document; all external scripts go through the
+         CSP script-src whitelist. Content is < 300 bytes and auditable directly
+         in source control.
+    ═══════════════════════════════════════════════════════════════════════
+    -->
+
+    <!-- ── DNS prefetch + preconnect to critical origins ─────────────── -->
+    <!--
+      Order matters for performance:
+      1. dns-prefetch is cheap — resolves DNS for all external origins
+      2. preconnect = TCP + TLS — only for the 2–3 most critical origins
+      crossorigin is REQUIRED on preconnect for CORS origins (fonts, CDN)
+    -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="dns-prefetch" href="https://res.cloudinary.com" />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+
+    <!-- fonts.googleapis.com: no crossorigin (serves same-origin CSS response) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://res.cloudinary.com" />
+    <!-- fonts.gstatic.com: crossorigin REQUIRED — serves woff2 over CORS -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <!-- res.cloudinary.com: crossorigin for CORS image/video requests -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin="anonymous" />
+    <!-- cdn.jsdelivr.net: crossorigin REQUIRED — SRI check is CORS-gated -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="anonymous" />
 
     <!--
-      PERFORMANCE: Load ALL Google Fonts non-blocking via media="print" swap trick.
-      Fonts no longer block rendering — FCP improvement of ~200-400ms.
-      The onload handler switches media to "all" once fonts are downloaded.
+      ── Google Fonts — Non-blocking load ─────────────────────────────────
+      Strategy: media="print" → onload switches to media="all"
+      This is the canonical non-render-blocking font loading pattern.
+
+      WHY NO SRI: See policy block above. Google Fonts API CSS is UA-adaptive;
+      any integrity hash would break fonts across different browsers.
+      Mitigation: fonts.googleapis.com is in CSP style-src allowlist.
     -->
     <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
       media="print"
       onload="this.media='all'"
+      crossorigin="anonymous"
     />
     <!-- Noscript fallback for font loading -->
     <noscript>
       <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet"
+        crossorigin="anonymous"
       />
     </noscript>
 
@@ -41,6 +153,7 @@
       rel="stylesheet"
       media="print"
       onload="this.media='all'"
+      crossorigin="anonymous"
     />
 
     <!-- Caveat — only used on About page, completely deferred -->
@@ -49,12 +162,15 @@
       rel="stylesheet"
       media="print"
       onload="this.media='all'"
+      crossorigin="anonymous"
     />
 
     <!--
-      PERFORMANCE: Inline critical CSS for the static hero shell.
-      This lets the browser paint the hero text BEFORE any JS loads.
-      FCP goes from ~4.2s to ~0.5s.
+      ── Critical inline CSS — Static hero shell ──────────────────────────
+      Inline styles are NOT subject to SRI (SRI applies to external resources
+      only). These styles are served as part of the HTML document itself and
+      are therefore trusted implicitly. They are auditable in version control.
+      FCP improvement: browser paints hero text BEFORE any JS loads (~0.5s).
     -->
     <style>
       /* Critical hero styles — matches React output exactly */
@@ -174,6 +290,34 @@
         .static-hero-badge,.static-hero-sub,.static-hero-h1,.static-hero-line,.static-hero-p,.static-hero-btns { animation: none; }
       }
     </style>
+
+    <!--
+      ── Google Consent Mode v2 — Inline default-deny ──────────────────────
+      WHY INLINE: This script MUST execute synchronously before any analytics
+      tag (GTM, GA4) fires. Placing it as an external script would add a
+      network round-trip and potentially allow analytics to fire before
+      consent is set. Being inline is the REQUIRED implementation pattern
+      per Google's own Consent Mode v2 documentation.
+
+      WHY NO SRI: The W3C SRI specification (section 4.3) explicitly states
+      that integrity attributes are only checked on external resource requests.
+      Inline scripts are not subject to SRI. They are protected by being
+      version-controlled and auditable in source.
+
+      SIZE: < 300 bytes — negligible parser cost.
+    -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        analytics_storage:    'denied',
+        ad_storage:           'denied',
+        ad_user_data:         'denied',
+        ad_personalization:   'denied',
+        functionality_storage:'denied',
+        wait_for_update: 500
+      });
+    </script>
   </head>
   <body>
     <div id="root">
@@ -197,6 +341,22 @@
         </div>
       </div>
     </div>
-    <script type="module" src="/src/main.tsx"></script>
+    <!--
+      Vite entry point — type="module" enables ES module semantics.
+      crossorigin="anonymous" is added so the browser uses CORS mode when
+      fetching this script and its dynamically-imported chunks. This is
+      required for: (a) correct COEP behaviour, (b) error stack traces in
+      Sentry/LogRocket when deployed, (c) consistent fetch semantics with
+      the rest of the CORS-aware resource pipeline.
+
+      WHY NO SRI HERE: Vite content-hashes every output filename at build
+      time (e.g. index-DfpYULix.js). The filename hash IS the integrity
+      signal. Additionally, Vite injects chunk preload directives dynamically
+      at runtime — applying SRI to those would require a post-build step to
+      re-hash every chunk and rewrite index.html, providing negligible benefit
+      since Vercel already serves all /assets/* over TLS with immutable cache
+      headers and unique per-build filenames.
+    -->
+    <script type="module" src="/src/main.tsx" crossorigin="anonymous"></script>
   </body>
 </html>

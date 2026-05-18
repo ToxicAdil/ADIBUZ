@@ -1,4 +1,4 @@
-/* Font loaded via preload in index.html — no blocking @import */
+﻿/* Font loaded via preload in index.html — no blocking @import */
 @import "tailwindcss";
 
 :root {
@@ -8,10 +8,16 @@
 }
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  
+  /*
+   * font-sans: Inter is the primary web font (loaded async in index.html).
+   * Fallback stack ensures readable text during font-swap — no blank flash.
+   * Segoe UI on Windows, SF Pro on macOS/iOS, Roboto on Android.
+   * This satisfies Lighthouse "Use system or variable fonts" recommendation.
+   */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
   --color-primary: #3A0F63;
-  
+
   --radius-xl: 16px;
   --radius-2xl: 24px;
 }
@@ -22,60 +28,59 @@
     overflow-x: clip;
     -webkit-text-size-adjust: 100%;
   }
-  
+
   section, header {
     scroll-margin-top: 80px;
   }
-  
+
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     color: var(--text-main);
     background-color: #fdfaff;
-    background-image: 
+    background-image:
       radial-gradient(circle at 15% 50%, rgba(167, 139, 250, 0.12) 0%, transparent 50%),
       radial-gradient(circle at 85% 30%, rgba(109, 40, 217, 0.08) 0%, transparent 50%);
     background-attachment: fixed;
     min-height: 100vh;
     overflow-x: clip;
     width: 100%;
-    /* Prevent horizontal scroll from any child overflow */
     max-width: 100vw;
   }
 
   /* Premium SaaS Typography System (Unified) */
-  h1 { 
-    font-weight: 700; 
-    letter-spacing: -0.04em; 
-    line-height: 1.05; 
-    color: #0A0A0A; 
+  h1 {
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    color: #0A0A0A;
   }
-  h2 { 
-    font-weight: 600; 
-    letter-spacing: -0.03em; 
-    line-height: 1.15; 
-    color: #111111; 
+  h2 {
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: #111111;
   }
-  h3, h4 { 
-    font-weight: 600; 
-    letter-spacing: -0.015em; 
-    line-height: 1.2; 
-    color: #171717; 
+  h3, h4 {
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    color: #171717;
   }
-  p { 
-    font-weight: 400; 
-    line-height: 1.65; 
-    color: #525252; 
+  p {
+    font-weight: 400;
+    line-height: 1.65;
+    color: #525252;
   }
-  .badge, .label, .tag, .section-label, .category, .ai-badge { 
-    font-weight: 600; 
-    letter-spacing: 0.08em; 
+  .badge, .label, .tag, .section-label, .category, .ai-badge {
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     font-size: 0.75rem;
-    color: #4C1D95; /* Deep purple */
+    color: #4C1D95;
   }
-  button, .btn { 
-    font-weight: 600; 
-    letter-spacing: -0.01em; 
+  button, .btn {
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
   /* Ensure interactive elements also show cursor */
@@ -585,7 +590,7 @@
 
 /* ============================
    SHOWCASE: CSS-DRIVEN ANIMATIONS
-   (Runs on compositor thread — zero main-thread cost)
+   (Runs on compositor thread â€” zero main-thread cost)
    ============================ */
 
 /* Rotating dashed ring around profile images */
@@ -618,7 +623,7 @@
   will-change: transform;
 }
 
-/* Feature card – use minimal backdrop-blur on mobile */
+/* Feature card â€“ use minimal backdrop-blur on mobile */
 .showcase-feature-card {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -696,7 +701,7 @@
   }
 }
 
-/* Prefers reduced motion — kill ALL animations */
+/* Prefers reduced motion â€” kill ALL animations */
 @media (prefers-reduced-motion: reduce) {
   .showcase-ring-rotate,
   .showcase-glow-pulse,
@@ -973,7 +978,7 @@
    CHAT FAB ANIMATIONS
 ============================ */
 
-/* Eye blink — squish scaleY to 0.05 for a crisp blink */
+/* Eye blink â€” squish scaleY to 0.05 for a crisp blink */
 @keyframes fabBlink {
   0%, 45%, 55%, 100% {
     transform: scaleY(1);
@@ -985,8 +990,647 @@
   }
 }
 
-/* Subtle background pulse — stays nearly invisible so it never covers the face */
+/* Subtle background pulse â€” stays nearly invisible so it never covers the face */
 @keyframes fabPulse {
   0%, 100% { opacity: 0; }
   50%       { opacity: 0.06; }
 }
+
+/* ============================
+   PRIVACY POLICY: PROSE STYLES
+   ============================ */
+.prose-custom a {
+  color: #3A0F63;
+  font-weight: 500;
+  text-decoration: none;
+}
+.prose-custom a:hover {
+  text-decoration: underline;
+}
+
+/* ============================
+   CSS GLOBE (hero background fallback)
+   ============================ */
+.css-globe {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, rgba(167,139,250,0.25), rgba(109,40,217,0.05) 60%, transparent 80%);
+  animation: globeRotateY 30s linear infinite;
+  will-change: transform;
+}
+
+
+/* ================================================================
+   SILKTIDE CONSENT MANAGER â€” ADIBUZ PREMIUM REDESIGN
+   Targeting Silktide's real IDs: #stcm-wrapper #stcm-banner
+   #stcm-modal #stcm-icon #stcm-backdrop
+   Zero overlap with any Adibuz site selectors.
+   ================================================================ */
+
+/* â”€â”€ 1. CSS variable overrides on the wrapper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-wrapper {
+  --fontFamily:                'Inter', ui-sans-serif, system-ui, sans-serif;
+  /* Primary action color â€” Adibuz deep purple */
+  --primaryColor:              #7C3AED;
+  /* Panel backgrounds â€” soft white glass */
+  --backgroundColor:           rgba(255, 255, 255, 0.96);
+  /* Body text on light background */
+  --textColor:                 #1e1145;
+  /* Backdrop */
+  --backdropBackgroundColor:   rgba(30, 10, 60, 0.45);
+  --backdropBackgroundBlur:    6px;
+  /* Icon */
+  --iconColor:                 #3A0F63;
+  --iconBackgroundColor:       #ffffff;
+  /* Shadow */
+  --boxShadow:
+    0 4px 24px rgba(58, 15, 99, 0.13),
+    0 1px 4px  rgba(58, 15, 99, 0.08);
+  z-index: 99999;
+}
+
+/* â”€â”€ 2. All text inside uses Inter â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-wrapper,
+#stcm-wrapper * {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+/* â”€â”€ 3. BACKDROP â€” softer purple tint with blur â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-backdrop {
+  background: rgba(20, 5, 45, 0.45) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+}
+
+/* â”€â”€ 4. BANNER (cookie bar) â€” Adibuz glassmorphism card â”€â”€â”€â”€â”€â”€â”€â”€
+   Resets Silktide's dark theme, applies light glass panel        */
+#stcm-banner {
+  /* Light glassmorphism background */
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+
+  /* Adibuz card border */
+  border: 1px solid rgba(124, 58, 237, 0.15) !important;
+  border-radius: 24px !important;
+
+  /* Shadow */
+  box-shadow:
+    0 8px 40px rgba(58, 15, 99, 0.13),
+    0 1.5px 6px  rgba(58, 15, 99, 0.07) !important;
+
+  /* Spacing */
+  padding: 28px 32px !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  width: 520px !important;
+  max-width: calc(100vw - 40px) !important;
+
+  /* Smooth entrance */
+  animation: adibuz-banner-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+
+  color: #1e1145 !important;
+}
+
+/* Overrides for links inside banner */
+#stcm-banner a {
+  color: #7C3AED !important;
+  background-color: transparent !important;
+  text-decoration: underline !important;
+  text-decoration-color: rgba(124, 58, 237, 0.4) !important;
+}
+#stcm-banner a:hover {
+  color: #3A0F63 !important;
+  text-decoration-color: rgba(58, 15, 99, 0.7) !important;
+}
+
+/* Banner heading / description text */
+#stcm-banner p {
+  color: #374151 !important;
+  font-size: 14.5px !important;
+  line-height: 1.65 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Adibuz entrance animation */
+@keyframes adibuz-banner-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* â”€â”€ 5. BANNER â€” action row layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-banner .stcm-actions {
+  margin-top: 20px !important;
+  gap: 10px !important;
+  flex-direction: column !important;
+}
+@media (min-width: 500px) {
+  #stcm-banner .stcm-actions {
+    flex-direction: row !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+  }
+}
+
+#stcm-banner .stcm-actions-row {
+  gap: 10px !important;
+}
+
+/* â”€â”€ 6. ALL BUTTONS â€” shared reset + shared style â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-wrapper .stcm-button {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 13.5px !important;
+  letter-spacing: -0.01em !important;
+  border-radius: 9999px !important;
+  padding: 10px 22px !important;
+  line-height: 1.4 !important;
+  min-height: 40px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease !important;
+  border: none !important;
+}
+
+/* â”€â”€ 7. PRIMARY BUTTON â€” Adibuz purple gradient â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-wrapper .stcm-button-primary {
+  background: linear-gradient(135deg, #3A0F63 0%, #6D28D9 55%, #7C3AED 100%) !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 4px 16px rgba(58, 15, 99, 0.30),
+    inset 0 1px 0 rgba(255,255,255,0.18) !important;
+}
+#stcm-wrapper .stcm-button-primary:hover {
+  background: linear-gradient(135deg, #4c1285 0%, #7C3AED 55%, #8b5cf6 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow:
+    0 8px 28px rgba(58, 15, 99, 0.38),
+    inset 0 1px 0 rgba(255,255,255,0.22) !important;
+  color: #ffffff !important;
+}
+
+/* â”€â”€ 8. SECONDARY BUTTON â€” outlined ghost â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-wrapper .stcm-button-secondary {
+  background: rgba(58, 15, 99, 0.05) !important;
+  color: #3A0F63 !important;
+  border: 1.5px solid rgba(58, 15, 99, 0.22) !important;
+  box-shadow: none !important;
+}
+#stcm-wrapper .stcm-button-secondary:hover {
+  background: rgba(58, 15, 99, 0.10) !important;
+  color: #3A0F63 !important;
+  border-color: rgba(58, 15, 99, 0.40) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* â”€â”€ 9. PREFERENCES BUTTON (link-style "Preferences") â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Base state */
+#stcm-banner .stcm-preferences-button,
+#stcm-banner button.stcm-preferences-button {
+  color: #7C3AED !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-decoration: underline !important;
+  text-decoration-color: rgba(124, 58, 237, 0.4) !important;
+  cursor: pointer !important;
+  margin: 0 !important;
+  gap: 4px !important;
+  min-height: auto !important;
+  /* Undo any .stcm-button transform/lift */
+  transform: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+/* ALL interactive states â€” keep text always visible purple */
+#stcm-banner .stcm-preferences-button:hover,
+#stcm-banner .stcm-preferences-button:focus,
+#stcm-banner .stcm-preferences-button:active,
+#stcm-banner .stcm-preferences-button:focus-visible,
+#stcm-banner button.stcm-preferences-button:hover,
+#stcm-banner button.stcm-preferences-button:focus,
+#stcm-banner button.stcm-preferences-button:active {
+  color: #3A0F63 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  text-decoration: underline !important;
+  text-decoration-color: rgba(58, 15, 99, 0.6) !important;
+  opacity: 1 !important;
+}
+
+/* Span children â€” inherit the visible colour on every state */
+#stcm-banner .stcm-preferences-button span,
+#stcm-banner button.stcm-preferences-button span {
+  font-size: 13px !important;
+  color: inherit !important;
+}
+#stcm-banner .stcm-preferences-button:hover span,
+#stcm-banner .stcm-preferences-button:focus span,
+#stcm-banner button.stcm-preferences-button:hover span {
+  color: #3A0F63 !important;
+}
+
+
+/* â”€â”€ 10. MODAL (preferences dialog) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-modal {
+  background: rgba(255, 255, 255, 0.97) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+
+  border: 1px solid rgba(124, 58, 237, 0.14) !important;
+  border-radius: 28px !important;
+
+  box-shadow:
+    0 24px 80px rgba(58, 15, 99, 0.18),
+    0 2px 8px rgba(58, 15, 99, 0.08) !important;
+
+  padding: 36px 40px !important;
+  width: 680px !important;
+  max-width: calc(100vw - 32px) !important;
+  max-height: calc(100vh - 48px) !important;
+  overflow-y: auto !important;
+
+  color: #1e1145 !important;
+  animation: adibuz-modal-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+@keyframes adibuz-modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Modal scrollbar */
+#stcm-modal::-webkit-scrollbar { width: 4px; }
+#stcm-modal::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.25);
+  border-radius: 4px;
+}
+
+/* â”€â”€ 11. MODAL HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-modal header {
+  margin-bottom: 8px !important;
+  border-bottom: 1px solid rgba(124, 58, 237, 0.10) !important;
+  padding-bottom: 20px !important;
+}
+
+#stcm-modal h1 {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: #1e1145 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.2 !important;
+}
+
+/* Close button */
+#stcm-modal .stcm-modal-close {
+  background: rgba(58, 15, 99, 0.06) !important;
+  color: #3A0F63 !important;
+  border-radius: 50% !important;
+  width: 36px !important;
+  height: 36px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: background 0.18s !important;
+  flex-shrink: 0 !important;
+}
+#stcm-modal .stcm-modal-close:hover {
+  background: rgba(58, 15, 99, 0.13) !important;
+}
+#stcm-modal .stcm-modal-close svg {
+  fill: #3A0F63 !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* â”€â”€ 12. MODAL BODY TEXT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-modal section {
+  margin-top: 24px !important;
+}
+#stcm-modal p {
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+  color: #6b7280 !important;
+  opacity: 1 !important;
+}
+
+/* â”€â”€ 13. MODAL â€” Consent rows (category cards) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-modal fieldset {
+  background: rgba(124, 58, 237, 0.03) !important;
+  border: 1px solid rgba(124, 58, 237, 0.10) !important;
+  border-radius: 16px !important;
+  padding: 20px 24px !important;
+  margin-bottom: 12px !important;
+}
+#stcm-modal fieldset:last-of-type {
+  margin-bottom: 0 !important;
+}
+#stcm-modal legend {
+  font-size: 14.5px !important;
+  font-weight: 700 !important;
+  color: #1e1145 !important;
+  letter-spacing: -0.01em !important;
+  padding: 0 6px !important;
+}
+#stcm-modal .stcm-consent-row {
+  gap: 16px !important;
+  align-items: center !important;
+}
+
+/* â”€â”€ 14. TOGGLE SWITCHES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-modal .stcm-toggle {
+  width: 52px !important;
+  height: 28px !important;
+  cursor: pointer !important;
+}
+#stcm-modal .stcm-toggle-track {
+  width: 52px !important;
+  height: 28px !important;
+  background: #e2e8f0 !important;
+  border-radius: 9999px !important;
+  transition: background 0.2s ease !important;
+}
+#stcm-modal .stcm-toggle-thumb {
+  width: 22px !important;
+  height: 22px !important;
+  top: 3px !important;
+  left: 3px !important;
+  background: #ffffff !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18) !important;
+  border-radius: 50% !important;
+  transition: left 0.2s ease !important;
+}
+
+/* Checked: Adibuz purple track */
+#stcm-modal .stcm-toggle input:checked + .stcm-toggle-track {
+  background: linear-gradient(135deg, #3A0F63, #7C3AED) !important;
+}
+#stcm-modal .stcm-toggle input:checked ~ .stcm-toggle-thumb {
+  left: calc(100% - 25px) !important;
+}
+
+/* ON/OFF text labels â€” hide to keep it minimal */
+#stcm-modal .stcm-toggle-on,
+#stcm-modal .stcm-toggle-off {
+  display: none !important;
+}
+
+/* Disabled state */
+#stcm-modal .stcm-toggle input:disabled + .stcm-toggle-track {
+  background: linear-gradient(135deg, rgba(58, 15, 99, 0.5), rgba(124, 58, 237, 0.5)) !important;
+  opacity: 0.65 !important;
+  cursor: not-allowed !important;
+}
+
+/* Focus ring */
+#stcm-modal .stcm-toggle:focus-within {
+  outline: none !important;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #7C3AED !important;
+  border-radius: 9999px !important;
+}
+
+/* â”€â”€ 15. MODAL FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-modal footer {
+  margin-top: 28px !important;
+  padding-top: 20px !important;
+  border-top: 1px solid rgba(124, 58, 237, 0.10) !important;
+  gap: 10px !important;
+}
+
+/* â”€â”€ 16. COOKIE ICON (floating button, bottom-left) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-icon {
+  width: 52px !important;
+  height: 52px !important;
+  bottom: 20px !important;
+  left: 20px !important;
+  background: linear-gradient(135deg, #3A0F63 0%, #6D28D9 100%) !important;
+  box-shadow: 0 4px 20px rgba(58, 15, 99, 0.35) !important;
+  border-radius: 50% !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+#stcm-icon:hover {
+  transform: scale(1.08) !important;
+  box-shadow: 0 8px 28px rgba(58, 15, 99, 0.45) !important;
+}
+#stcm-icon svg {
+  fill: #ffffff !important;
+  width: 24px !important;
+  height: 24px !important;
+}
+
+/* â”€â”€ 17. LINKS inside wrapper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-wrapper a {
+  color: #7C3AED !important;
+}
+#stcm-wrapper a:hover {
+  color: #3A0F63 !important;
+}
+
+/* â”€â”€ 18. HIDE ALL SILKTIDE BRANDING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Silktide credit link in modal footer */
+#stcm-modal footer a.stcm-credit-link,
+#stcm-modal footer a[href*="silktide"],
+#stcm-modal a.stcm-logo,
+#stcm-banner a.stcm-logo,
+/* Any link pointing to silktide.com */
+#stcm-wrapper a[href*="silktide.com"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* â”€â”€ 19. MOBILE RESPONSIVE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+@media (max-width: 600px) {
+  #stcm-banner {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    width: auto !important;
+    max-width: none !important;
+    padding: 22px 20px !important;
+    border-radius: 20px !important;
+  }
+  #stcm-banner .stcm-actions {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  #stcm-wrapper .stcm-button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  #stcm-modal {
+    padding: 24px 20px !important;
+    border-radius: 20px !important;
+    max-width: calc(100vw - 20px) !important;
+    max-height: calc(100vh - 24px) !important;
+  }
+  #stcm-modal fieldset {
+    padding: 16px !important;
+  }
+  #stcm-icon {
+    bottom: 80px !important; /* clear ChatFAB on mobile */
+    left: 16px !important;
+    width: 48px !important;
+    height: 48px !important;
+  }
+}
+
+/* â”€â”€ 20. ACCESSIBILITY â€” focus rings match Adibuz brand â”€â”€â”€â”€â”€â”€â”€â”€ */
+#stcm-wrapper a:focus-visible,
+#stcm-wrapper button:focus-visible,
+#stcm-wrapper [tabindex]:focus-visible {
+  outline: 2px solid #7C3AED !important;
+  outline-offset: 3px !important;
+  border-radius: 6px !important;
+}
+#stcm-icon:focus-visible {
+  outline: 2px solid #ffffff !important;
+  outline-offset: 4px !important;
+  box-shadow: 0 0 0 6px rgba(124, 58, 237, 0.4) !important;
+}
+
+/* â”€â”€ 21. REDUCED MOTION â€” kill all animations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+@media (prefers-reduced-motion: reduce) {
+  #stcm-banner,
+  #stcm-modal,
+  #stcm-icon,
+  #stcm-wrapper .stcm-button,
+  #stcm-modal .stcm-toggle-track,
+  #stcm-modal .stcm-toggle-thumb {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   RESPONSIVENESS 10/10 ADDITIONS
+   Phases 1 (nav), 2 (section grids), 4 (fluid typography)
+   All rules are ADDITIVE â€” no existing selectors are modified.
+   Target: iPhone SE (375 px) as smallest device, 1440 px as widest.
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+/* â”€â”€ PHASE 1: Nav scroll clearance (sticky header = ~80px tall) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#home, #services, #clients, #strategic-marketing,
+#web-development, #seo, #about, #contact {
+  scroll-margin-top: 88px;
+}
+
+@media (max-width: 1023px) {
+  nav button[aria-label*="navigation"] {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+}
+
+/* â”€â”€ PHASE 2: Section grid/flexbox breakpoints â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+/* ServiceDetailSection: two-column split â†’ single column on mobile */
+@media (max-width: 767px) {
+  .service-detail-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px;
+  }
+  .service-detail-grid > * { order: unset !important; }
+}
+
+/* AboutTeam: single column on phones < 480px */
+@media (max-width: 479px) {
+  .team-grid-stagger { grid-template-columns: 1fr !important; }
+}
+
+/* Stats rows: vertical stack below 480px */
+@media (max-width: 479px) {
+  .stats-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+  }
+}
+
+/* AboutPreviewCTA image stack: limit height on mobile */
+@media (max-width: 767px) {
+  .about-preview-visual { height: 360px !important; }
+}
+
+/* Tap target floors on mobile (WCAG 2.5.5 + Lighthouse Best Practices) */
+@media (max-width: 1023px) {
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"],
+  input[type="reset"] {
+    min-height: 44px;
+  }
+  p a[href], li a[href], span a[href], .no-tap-expand { min-height: unset; }
+}
+
+/* â”€â”€ PHASE 4: Fluid typography â€” clamp() â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+/* Opt-in utility classes */
+.fluid-h1 { font-size: clamp(1.875rem, 7vw, 4rem)   !important; line-height: 1.08 !important; letter-spacing: -0.04em !important; }
+.fluid-h2 { font-size: clamp(1.5rem, 4vw, 3rem)     !important; line-height: 1.15 !important; letter-spacing: -0.03em !important; }
+.fluid-h3 { font-size: clamp(1.125rem, 2.5vw, 1.75rem) !important; line-height: 1.2 !important; }
+.fluid-p  { font-size: clamp(0.938rem, 1.5vw, 1.125rem) !important; line-height: 1.7 !important; }
+
+/* Hero h1: replace 3-step pixel media queries with single clamp */
+.hero-left h1 { font-size: clamp(1.875rem, 7.5vw, 3.75rem) !important; }
+
+/* Phone-range heading clamp (< 480px) */
+@media (max-width: 479px) {
+  h1.font-black,
+  h1[class*="tracking-tight"] {
+    font-size: clamp(1.75rem, 10vw, 2.5rem) !important;
+    line-height: 1.1 !important;
+  }
+  h2.font-black,
+  h2[class*="font-bold"][class*="tracking-tight"] {
+    font-size: clamp(1.4rem, 8vw, 2rem) !important;
+    line-height: 1.15 !important;
+  }
+  .hero-left p { font-size: clamp(0.938rem, 4vw, 1rem) !important; }
+}
+
+/* Mid-range heading clamp (480â€“767px) */
+@media (min-width: 480px) and (max-width: 767px) {
+  h1.font-black,
+  h1[class*="tracking-tight"] { font-size: clamp(2rem, 9vw, 3rem) !important; }
+  h2.font-black,
+  h2[class*="font-bold"][class*="tracking-tight"] { font-size: clamp(1.6rem, 7vw, 2.4rem) !important; }
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   END: RESPONSIVENESS 10/10 ADDITIONS
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */

@@ -11,7 +11,26 @@ import { NewsletterCTA } from '../components/insights/NewsletterCTA';
 import { SimpleHeader } from '@/components/ui/simple-header';
 import { Footer } from '@/components/ui/footer-section';
 import CustomCursor from '../components/CustomCursor';
+import { ArrowRight } from 'lucide-react';
 import { SEO } from '@/components/SEO';
+
+const SERVICE_LINKS: Record<string, { slug: string, title: string, cta: string }> = {
+  'marketing': { slug: 'strategic-marketing', title: 'Strategic Marketing', cta: 'Ready to launch data-driven marketing campaigns?' },
+  'social': { slug: 'social-media', title: 'Social Media Management', cta: 'Want to grow your social community?' },
+  'automation': { slug: 'automation', title: 'AI Automation', cta: 'Need to automate your business workflows?' },
+  'development': { slug: 'web-development', title: 'Web Development', cta: 'Looking for a high-performance website?' },
+  'seo': { slug: 'seo', title: 'Robust SEO', cta: 'Ready to dominate search engine rankings?' },
+  'design': { slug: 'visual-branding', title: 'Visual Branding', cta: 'Want to elevate your brand identity?' },
+  'branding': { slug: 'visual-branding', title: 'Visual Branding', cta: 'Want to elevate your brand identity?' },
+};
+
+function getServiceCTA(categoryName?: string) {
+  const cat = (categoryName || '').toLowerCase();
+  for (const [key, data] of Object.entries(SERVICE_LINKS)) {
+    if (cat.includes(key)) return data;
+  }
+  return { slug: 'strategic-marketing', title: 'Strategic Marketing', cta: 'Ready to scale your business?' }; // default
+}
 
 export default function InsightDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -60,7 +79,44 @@ export default function InsightDetailPage() {
         title={`${insight.seo_title || insight.title} | Adibuz Insights`}
         description={insight.seo_description || insight.excerpt}
         ogImage={insight.featured_image}
+        ogType="article"
+        articlePublishedTime={insight.created_at}
+        articleModifiedTime={insight.updated_at}
       />
+
+      {/* BlogPosting JSON-LD for Google rich results */}
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": insight.seo_title || insight.title,
+            "description": insight.seo_description || insight.excerpt,
+            "image": insight.featured_image,
+            "url": `https://www.adibuz.com/insights/${insight.slug}`,
+            "datePublished": insight.created_at,
+            "dateModified": insight.updated_at,
+            "author": {
+              "@type": "Person",
+              "name": insight.author_name
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Adibuz",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.adibuz.com/adibuz-logo.png"
+              }
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `https://www.adibuz.com/insights/${insight.slug}`
+            },
+            "articleSection": insight.category?.name,
+            "keywords": insight.tags?.join(', ')
+          })}
+        </script>
+      </Helmet>
 
       <div className="relative z-10">
         <ReadingProgress />
@@ -127,7 +183,7 @@ export default function InsightDetailPage() {
         >
           <img 
             src={insight.featured_image} 
-            alt={insight.title}
+            alt={`${insight.title} - Adibuz AI Marketing Insights Article`}
             className="w-full h-full object-cover"
           />
         </motion.div>
@@ -156,10 +212,24 @@ export default function InsightDetailPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="prose prose-lg prose-slate prose-headings:font-bold prose-headings:text-slate-900 prose-a:text-[#3A0F63] prose-img:rounded-2xl max-w-none"
+              className="prose prose-lg prose-slate prose-headings:font-bold prose-headings:text-slate-900 prose-a:text-[#3A0F63] prose-img:rounded-2xl max-w-none mb-12"
             >
               <ReactMarkdown>{insight.content}</ReactMarkdown>
             </motion.div>
+
+            {/* Automated Internal Linking (SEO) */}
+            <div className="bg-[#fcfaff] border border-slate-200/60 rounded-2xl p-6 md:p-8 mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">{getServiceCTA(insight.category?.name).cta}</h3>
+                <p className="text-slate-500">Discover how our {getServiceCTA(insight.category?.name).title} services can accelerate your growth.</p>
+              </div>
+              <Link 
+                to={`/services/${getServiceCTA(insight.category?.name).slug}`}
+                className="shrink-0 inline-flex items-center gap-2 bg-[#3A0F63] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#2A0A4A] transition-colors shadow-md hover:shadow-lg"
+              >
+                Learn More <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
 
             {/* Mobile Share */}
             <div className="lg:hidden mt-12 pt-8 border-t border-slate-200 flex items-center gap-4">

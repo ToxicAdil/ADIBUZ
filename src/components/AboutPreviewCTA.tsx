@@ -56,7 +56,11 @@ export const AboutPreviewCTA: React.FC = () => {
                                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent z-10" />
                                     <img
                                         src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop"
+                                        srcSet="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=75&w=480&auto=format&fit=crop&fm=webp 480w, https://images.unsplash.com/photo-1560250097-0b93528c311a?q=75&w=768&auto=format&fit=crop&fm=webp 768w, https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1200&auto=format&fit=crop&fm=webp 1200w"
+                                        sizes="(max-width: 767px) 60vw, (max-width: 1023px) 40vw, 280px"
                                         alt="Adibuz Leadership"
+                                        width={600}
+                                        height={800}
                                         className="w-full h-full object-cover"
                                         loading="lazy"
                                         decoding="async"
@@ -80,7 +84,11 @@ export const AboutPreviewCTA: React.FC = () => {
                                 >
                                     <img
                                         src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop"
+                                        srcSet="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=75&w=480&auto=format&fit=crop&fm=webp 480w, https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop&fm=webp 768w"
+                                        sizes="(max-width: 767px) 44vw, 180px"
                                         alt="Strategy Team"
+                                        width={400}
+                                        height={400}
                                         className="w-full h-full object-cover"
                                         loading="lazy"
                                         decoding="async"

@@ -107,11 +107,13 @@ const TeamCard: React.FC<{ member: any, index: number }> = ({ member, index }) =
         
         <img 
           src={member.image} 
-          alt={member.name}
-          width={800}
-          height={1000}
+          alt={`${member.name}, ${member.role} at Adibuz Marketing Agency`}
+          width={400}
+          height={500}
           loading="lazy"
           decoding="async"
+          srcSet={`${member.image.replace(/&w=\d+/, '&w=480')} 480w, ${member.image.replace(/&w=\d+/, '&w=768')} 768w, ${member.image} 1200w`}
+          sizes="(max-width: 479px) 100vw, (max-width: 767px) calc(50vw - 20px), (max-width: 1279px) calc(33vw - 24px), 280px"
           className="w-full h-full object-cover object-center filter grayscale contrast-125 transition-all duration-500 group-hover:grayscale-0 group-hover:scale-[1.03]"
         />
         

@@ -104,7 +104,7 @@ const ANIMATIONS: Record<string, any> = {
     visible: {
       opacity: 1,
       y: 0,
-      filter: 'blur(0px)',
+      filter : 'blur(0px)',
       transition: { type: 'spring', stiffness: 100, damping: 20 },
     },
     exit: { opacity: 0, y: -10, filter: 'blur(5px)' },

@@ -1,27 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<!--
+  sitemap.xml — Adibuz (https://www.adibuz.com)
+  Strategic AI & Digital Marketing Agency
+
+  Last updated : 2026-05-16
+  Canonical    : https://www.adibuz.com  (www-prefixed — matches <link rel="canonical">)
+  Standard     : https://www.sitemaps.org/schemas/sitemap/0.9
+  Image ext    : https://www.google.com/schemas/sitemap-image/1.1
+
+  Maintenance note:
+    Static pages → update <lastmod> on any content change.
+    Blog posts  → update <lastmod> when a post is edited.
+    New posts   → add a new <url> block in the "Insight Articles" section
+                  and update the /insights <lastmod> date.
+-->
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
+
+  <!-- ══════════════════════════════════════════════════════════
+       TIER 1 — Core pages (highest priority, crawled most often)
+       ══════════════════════════════════════════════════════════ -->
+
+  <!-- Homepage -->
   <url>
-    <loc>https://adibuz.com/</loc>
-    <lastmod>2026-05-15</lastmod>
+    <loc>https://www.adibuz.com/</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- About -->
   <url>
-    <loc>https://adibuz.com/about</loc>
-    <lastmod>2026-05-15</lastmod>
+    <loc>https://www.adibuz.com/about</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
+
+  <!-- Work / Portfolio index -->
   <url>
-    <loc>https://adibuz.com/work</loc>
-    <lastmod>2026-05-15</lastmod>
+    <loc>https://www.adibuz.com/work</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
+
+  <!-- Insights / Blog index -->
   <url>
-    <loc>https://adibuz.com/insights</loc>
-    <lastmod>2026-05-15</lastmod>
+    <loc>https://www.adibuz.com/insights</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.90</priority>
   </url>
+
+  <!-- Contact Us -->
+  <url>
+    <loc>https://www.adibuz.com/contact</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- ══════════════════════════════════════════════════════════
+       TIER 2 — Services & Case Study pages
+       ══════════════════════════════════════════════════════════ -->
+
+  <!-- Services -->
+  <url>
+    <loc>https://www.adibuz.com/services/seo</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.adibuz.com/services/web-development</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.adibuz.com/services/strategic-marketing</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.adibuz.com/services/social-media</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.adibuz.com/services/automation</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.adibuz.com/services/visual-branding</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+
+  <!-- Case Study: Askin Astrology -->
+  <url>
+    <loc>https://www.adibuz.com/work/askin-astrology</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Case Study: LuxeDecor -->
+  <url>
+    <loc>https://www.adibuz.com/work/luxe-decor</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Case Study: TechStart SaaS -->
+  <url>
+    <loc>https://www.adibuz.com/work/techstart-saas</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       TIER 3 — Insight / Blog article detail pages
+       Source: Supabase `insights` table (published = true)
+       Update <lastmod> when a post is edited in the CMS.
+       To add a new post: copy any <url> block below and update
+       <loc>, <lastmod>, and <image:loc> accordingly.
+       ══════════════════════════════════════════════════════════ -->
+
+  <!-- Blog: AI-Powered Marketing Systems -->
+  <url>
+    <loc>https://www.adibuz.com/insights/ai-powered-marketing-systems</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Blog: Why Agency Websites Fail -->
+  <url>
+    <loc>https://www.adibuz.com/insights/why-agency-websites-fail</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Blog: Future of SEO in the AI Era -->
+  <url>
+    <loc>https://www.adibuz.com/insights/future-of-seo-ai-era</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Blog: How Automation Is Changing Digital Marketing -->
+  <url>
+    <loc>https://www.adibuz.com/insights/automation-changing-digital-marketing</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Blog: Building a Premium Brand Identity -->
+  <url>
+    <loc>https://www.adibuz.com/insights/building-premium-brand-identity</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Blog: Scaling Paid Ads with Machine Learning -->
+  <url>
+    <loc>https://www.adibuz.com/insights/scaling-paid-ads-machine-learning</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Blog: Growth System Framework for SaaS -->
+  <url>
+    <loc>https://www.adibuz.com/insights/growth-system-framework-saas</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Blog: Digital Strategy for Agencies -->
+  <url>
+    <loc>https://www.adibuz.com/insights/digital-strategy-for-agencies</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       TIER 4 — Legal / low-priority static pages
+       These are indexed for trust signals but de-prioritised.
+       ══════════════════════════════════════════════════════════ -->
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://www.adibuz.com/privacy-policy</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.30</priority>
+  </url>
+
+  <!-- Terms of Use -->
+  <url>
+    <loc>https://www.adibuz.com/terms</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.30</priority>
+  </url>
+
+  <!--
+    NOTE: /assistant (Chat AI tool) is intentionally omitted.
+    It is a dynamic interactive tool, not indexable content.
+    Googlebot is also blocked from /assistant in robots.txt.
+  -->
+
 </urlset>
