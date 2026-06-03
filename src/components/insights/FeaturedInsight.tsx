@@ -49,7 +49,7 @@ export function FeaturedInsight({ insight }: { insight: Insight }) {
           </div>
 
           <Link to={`/insights/${insight.slug}`} className="group-hover:text-[#3A0F63] transition-colors focus:outline-none">
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-slate-900 mb-6 leading-[1.15] tracking-tight">
+            <h2 className="adibuz-gradient-text text-3xl sm:text-4xl lg:text-[42px] font-bold mb-6 leading-[1.15] tracking-tight">
               {insight.title}
               <span className="absolute inset-0 z-10" aria-hidden="true" />
             </h2>

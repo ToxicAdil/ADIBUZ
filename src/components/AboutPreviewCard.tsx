@@ -24,7 +24,7 @@ export const AboutPreviewCard: React.FC = () => {
             <div className="w-full md:w-5/12 space-y-8 relative z-10">
               <div className="flex items-center gap-4">
                 <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] flex items-center justify-center flex-shrink-0">
-                  <Users className="w-8 h-8 md:w-10 md:h-10 text-slate-900 ml-1" />
+                  <Users className="w-8 h-8 md:w-10 md:h-10 text-[#12091f] ml-1" />
                 </div>
                 <div className="flex gap-2 opacity-30 hidden sm:flex">
                   {[...Array(10)].map((_, i) => (
@@ -36,7 +36,7 @@ export const AboutPreviewCard: React.FC = () => {
               <div className="space-y-4">
 
                 
-                <p className="text-slate-500 font-medium leading-relaxed md:text-lg max-w-sm">
+                <p className="text-[#6f667d] font-medium leading-relaxed md:text-lg max-w-sm">
                   A quick look into the people, culture, and intelligent systems driving modern digital growth for ambitious brands.
                 </p>
               </div>
@@ -44,12 +44,12 @@ export const AboutPreviewCard: React.FC = () => {
 
             {/* RIGHT SIDE */}
             <div className="w-full md:w-7/12 space-y-8 relative z-10">
-              <h2 className="text-5xl md:text-6xl lg:text-[72px] font-black text-slate-900 tracking-tight leading-[1.05]">
+              <h2 className="adibuz-gradient-text text-5xl md:text-6xl lg:text-[72px] font-black tracking-tight leading-[1.05]">
                 Who are <br />
-                <span className="text-[#8B5CF6]">we?</span>
+                we?
               </h2>
 
-              <p className="text-slate-500 text-lg md:text-xl font-medium leading-relaxed max-w-xl">
+              <p className="text-[#6f667d] text-lg md:text-xl font-medium leading-relaxed max-w-xl">
                 We are a technology-first growth agency combining strategic marketing, AI automation, and premium web experiences to build scalable digital ecosystems.
               </p>
 
@@ -57,7 +57,7 @@ export const AboutPreviewCard: React.FC = () => {
                 <MagneticButton>
                   <Link 
                     to="/about"
-                    className="w-full sm:w-auto bg-slate-900 text-white px-8 py-4 rounded-full font-bold text-base btn-premium flex items-center justify-center gap-3 shadow-xl shadow-slate-900/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
+                    className="w-full sm:w-auto bg-[#12091f] text-white px-8 py-4 rounded-full font-bold text-base btn-premium flex items-center justify-center gap-3 shadow-xl shadow-[#12091f]/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
                   >
                     About Adibuz <ArrowRight className="w-5 h-5" />
                   </Link>
@@ -66,7 +66,7 @@ export const AboutPreviewCard: React.FC = () => {
                 <MagneticButton>
                   <Link 
                     to="/about#team"
-                    className="w-full sm:w-auto px-8 py-4 rounded-full font-bold text-base text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all duration-300 flex items-center justify-center text-center"
+                    className="w-full sm:w-auto px-8 py-4 rounded-full font-bold text-base text-[#6f667d] border border-[rgba(58,15,99,0.12)] hover:bg-[#f8f3ff] transition-all duration-300 flex items-center justify-center text-center"
                   >
                     Meet the Team
                   </Link>

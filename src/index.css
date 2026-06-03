@@ -3,8 +3,20 @@
 
 :root {
   --primary-color: #3A0F63;
-  --text-main: #0f172a;
-  --text-secondary: #6b7280;
+  --brand-ink: #12091f;
+  --brand-graphite: #201a2b;
+  --brand-muted: #6f667d;
+  --brand-line: rgba(58, 15, 99, 0.12);
+  --brand-plum: #3A0F63;
+  --brand-violet: #6D28D9;
+  --brand-orchid: #A855F7;
+  --brand-mist: #f7f2ff;
+  --brand-paper: #fffdf8;
+  --brand-surface: rgba(255, 255, 255, 0.78);
+  --brand-surface-strong: rgba(255, 255, 255, 0.94);
+  --brand-heading-gradient: linear-gradient(105deg, #3A0F63 0%, #4B1480 34%, #6D28D9 72%, #C084FC 100%);
+  --text-main: #12091f;
+  --text-secondary: #6f667d;
 }
 
 @theme {
@@ -36,10 +48,11 @@
   body {
     font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     color: var(--text-main);
-    background-color: #fdfaff;
+    background-color: var(--brand-paper);
     background-image:
-      radial-gradient(circle at 15% 50%, rgba(167, 139, 250, 0.12) 0%, transparent 50%),
-      radial-gradient(circle at 85% 30%, rgba(109, 40, 217, 0.08) 0%, transparent 50%);
+      radial-gradient(circle at 12% 18%, rgba(168, 85, 247, 0.10) 0%, transparent 34%),
+      radial-gradient(circle at 88% 12%, rgba(58, 15, 99, 0.08) 0%, transparent 30%),
+      linear-gradient(180deg, #fffdf8 0%, #f8f3ff 46%, #ffffff 100%);
     background-attachment: fixed;
     min-height: 100vh;
     overflow-x: clip;
@@ -52,31 +65,31 @@
     font-weight: 700;
     letter-spacing: -0.04em;
     line-height: 1.05;
-    color: #0A0A0A;
+    color: var(--brand-ink);
   }
   h2 {
     font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 1.15;
-    color: #111111;
+    color: var(--brand-ink);
   }
   h3, h4 {
     font-weight: 600;
     letter-spacing: -0.015em;
     line-height: 1.2;
-    color: #171717;
+    color: var(--brand-graphite);
   }
   p {
     font-weight: 400;
     line-height: 1.65;
-    color: #525252;
+    color: var(--brand-muted);
   }
   .badge, .label, .tag, .section-label, .category, .ai-badge {
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     font-size: 0.75rem;
-    color: #4C1D95;
+    color: var(--brand-plum);
   }
   button, .btn {
     font-weight: 600;
@@ -99,7 +112,7 @@
    RESPONSIVE CONTAINER
    ============================ */
 .container-custom {
-  max-width: 1200px;
+  max-width: 1240px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 16px;
@@ -124,9 +137,168 @@
 
 @media (min-width: 1024px) {
   .container-custom {
-    padding-left: 80px;
-    padding-right: 80px;
+    padding-left: 56px;
+    padding-right: 56px;
   }
+}
+
+/* ============================
+   ADIBUZ PREMIUM DESIGN SYSTEM
+   ============================ */
+.adibuz-page {
+  background:
+    radial-gradient(circle at 10% 10%, rgba(168, 85, 247, 0.10), transparent 30%),
+    radial-gradient(circle at 90% 5%, rgba(58, 15, 99, 0.08), transparent 28%),
+    linear-gradient(180deg, #fffdf8 0%, #f8f3ff 48%, #ffffff 100%);
+  color: var(--brand-ink);
+}
+
+.adibuz-section {
+  padding-block: clamp(3.5rem, 7vw, 7rem);
+}
+
+.adibuz-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: fit-content;
+  border: 1px solid var(--brand-line);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--brand-plum);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 0 10px 30px rgba(58, 15, 99, 0.06);
+}
+
+.adibuz-display {
+  color: var(--brand-ink);
+  font-size: clamp(2.45rem, 7vw, 5.6rem);
+  font-weight: 850;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.adibuz-heading {
+  color: var(--brand-plum);
+  background: var(--brand-heading-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 820;
+  letter-spacing: -0.04em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.adibuz-subheading {
+  color: var(--brand-muted);
+  font-size: clamp(1rem, 1.55vw, 1.18rem);
+  line-height: 1.75;
+  font-weight: 500;
+}
+
+.adibuz-gradient-text,
+.text-gradient,
+.shimmer-text {
+  background: var(--brand-heading-gradient);
+  background-size: 160% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.adibuz-surface,
+.premium-card {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.72)),
+    radial-gradient(circle at 15% 0%, rgba(168, 85, 247, 0.08), transparent 35%);
+  border: 1px solid var(--brand-line);
+  box-shadow:
+    0 24px 70px rgba(22, 8, 43, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(18px);
+}
+
+.adibuz-card {
+  background: var(--brand-surface-strong);
+  border: 1px solid var(--brand-line);
+  border-radius: 24px;
+  box-shadow: 0 18px 50px rgba(22, 8, 43, 0.07);
+}
+
+.adibuz-button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  min-height: 48px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #2e0b50 0%, #3A0F63 45%, #6D28D9 100%);
+  color: #fff;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  box-shadow: 0 16px 35px rgba(58, 15, 99, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.adibuz-button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 45px rgba(58, 15, 99, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  filter: saturate(1.08);
+}
+
+.adibuz-button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 48px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--brand-line);
+  color: var(--brand-graphite);
+  font-weight: 720;
+  box-shadow: 0 10px 30px rgba(22, 8, 43, 0.05);
+  transition: transform 180ms ease, border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.adibuz-button-secondary:hover {
+  transform: translateY(-2px);
+  color: var(--brand-plum);
+  border-color: rgba(58, 15, 99, 0.26);
+  background: #fff;
+}
+
+.adibuz-input {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid rgba(58, 15, 99, 0.14);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--brand-ink);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.adibuz-input:focus {
+  outline: none;
+  background: #fff;
+  border-color: rgba(58, 15, 99, 0.45);
+  box-shadow: 0 0 0 4px rgba(58, 15, 99, 0.10);
+}
+
+.adibuz-muted-band {
+  background: rgba(255, 255, 255, 0.46);
+  border-block: 1px solid var(--brand-line);
+  backdrop-filter: blur(12px);
 }
 
 /* ============================
@@ -137,7 +309,7 @@
 }
 
 .premium-card {
-  @apply relative backdrop-blur-2xl border border-slate-200 transition-all duration-300 ease-out bg-white/80;
+  @apply transition-all duration-300 ease-out;
   border-radius: 20px;
 }
 
@@ -207,24 +379,6 @@
 /* ============================
    TEXT GRADIENTS & EFFECTS
    ============================ */
-.text-gradient {
-  background: linear-gradient(
-    to right,
-    #2E1065 0%,
-    #581C87 30%,
-    #7E22CE 50%,
-    #581C87 70%,
-    #2E1065 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientMove 8s linear infinite;
-  display: inline-block;
-  font-weight: 700;
-}
-
 .bg-gradient-brand {
   background-color: var(--primary-color);
 }
@@ -359,24 +513,6 @@
 /* ============================
    SHIMMER TEXT
    ============================ */
-.shimmer-text {
-  background: linear-gradient(
-    to right,
-    #2E1065 0%,
-    #581C87 30%,
-    #7E22CE 50%,
-    #581C87 70%,
-    #2E1065 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientMove 8s linear infinite;
-  display: inline-block;
-  font-weight: 700;
-}
-
 @keyframes gradientMove {
   0% { background-position: 0% center; }
   100% { background-position: 200% center; }
@@ -876,10 +1012,27 @@
 
 /* Disable heavy animations on mobile */
 @media (max-width: 768px) {
+  .css-globe-container,
+  .css-globe {
+    display: none !important;
+  }
+
+  [style*="shapeBob"] {
+    animation: none !important;
+  }
+
+  [style*="shapeEnter"] {
+    animation-duration: 0.8s !important;
+  }
+
+  .premium-card,
+  .adibuz-surface {
+    backdrop-filter: none;
+  }
+
   .css-globe {
     width: min(200px, 50vw);
     height: min(200px, 50vw);
-    animation-duration: 30s;
   }
 }
 
@@ -1430,8 +1583,8 @@
 #stcm-icon {
   width: 52px !important;
   height: 52px !important;
-  bottom: 20px !important;
-  left: 20px !important;
+  bottom: 28px !important;
+  left: 28px !important;
   background: linear-gradient(135deg, #3A0F63 0%, #6D28D9 100%) !important;
   box-shadow: 0 4px 20px rgba(58, 15, 99, 0.35) !important;
   border-radius: 50% !important;
@@ -1500,8 +1653,8 @@
     padding: 16px !important;
   }
   #stcm-icon {
-    bottom: 80px !important; /* clear ChatFAB on mobile */
-    left: 16px !important;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 18px) !important;
+    left: 18px !important;
     width: 48px !important;
     height: 48px !important;
   }

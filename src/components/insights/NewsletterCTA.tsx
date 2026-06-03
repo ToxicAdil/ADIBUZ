@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
-import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Send } from 'lucide-react';
 import { insightService } from '../../services/insightService';
 
 export function NewsletterCTA() {
@@ -16,7 +15,7 @@ export function NewsletterCTA() {
     try {
       await insightService.subscribeNewsletter(email);
       setStatus('success');
-      setMessage('Welcome aboard! You are successfully subscribed.');
+      setMessage('Welcome aboard. You are subscribed.');
       setEmail('');
     } catch (err) {
       setStatus('error');
@@ -25,70 +24,62 @@ export function NewsletterCTA() {
   };
 
   return (
-    <motion.section 
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8 }}
-      className="my-24 container-custom"
-    >
-      <div className="relative rounded-[40px] overflow-hidden bg-[#3A0F63] text-white p-10 sm:p-16 lg:p-24 text-center">
-        {/* Background Decorative Elements */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute -top-[50%] -left-[10%] w-[70%] h-[150%] bg-gradient-to-r from-purple-500/20 to-transparent blur-[120px] rounded-full rotate-12" />
-          <div className="absolute -bottom-[50%] -right-[10%] w-[70%] h-[150%] bg-gradient-to-l from-blue-500/20 to-transparent blur-[120px] rounded-full -rotate-12" />
-        </div>
+    <section className="relative z-10 py-14 md:py-24">
+      <div className="container-custom">
+        <div className="relative overflow-hidden rounded-[32px] border border-[#6D28D9]/20 bg-[linear-gradient(135deg,#4A1278_0%,#3A0F63_48%,#2E1065_100%)] px-6 py-12 text-center shadow-[0_28px_90px_rgba(58,15,99,0.24)] md:px-12 md:py-16">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.24),transparent_46%)]" aria-hidden="true" />
 
-        <div className="relative z-10 max-w-2xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 tracking-tight">
-            Stay ahead of the curve.
-          </h2>
-          <p className="text-lg sm:text-xl text-purple-100 mb-10 opacity-90 leading-relaxed">
-            Join 5,000+ founders and marketers receiving our weekly insights on AI, growth systems, and digital strategy.
-          </p>
+          <div className="relative mx-auto max-w-2xl">
+            <span className="inline-flex rounded-full border border-white/10 bg-white/8 px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-white/70">
+              Weekly strategy notes
+            </span>
+            <h2 className="mt-6 text-3xl font-black tracking-tight text-white md:text-5xl">
+              Stay ahead of the growth curve.
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-base font-medium leading-relaxed text-white/66 md:text-lg">
+              Receive concise insights on AI, search, funnels, and digital strategy. Built for founders and marketing operators.
+            </p>
 
-          <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto relative">
-            <div className="relative flex items-center">
-              <input
-                type="email"
-                required
-                disabled={status === 'loading' || status === 'success'}
-                placeholder="Enter your work email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder-purple-200 px-6 py-4 rounded-full outline-none focus:bg-white/15 focus:border-white/40 transition-all disabled:opacity-50"
-              />
-              <button
-                type="submit"
-                disabled={status === 'loading' || status === 'success'}
-                className="absolute right-2 top-2 bottom-2 bg-white text-[#3A0F63] px-6 rounded-full font-bold hover:bg-purple-50 transition-colors disabled:opacity-50 flex items-center gap-2 shadow-lg"
-              >
-                {status === 'loading' ? (
-                  <div className="w-5 h-5 border-2 border-[#3A0F63] border-t-transparent rounded-full animate-spin" />
-                ) : (
-                  <>Subscribe <Send className="w-4 h-4" /></>
-                )}
-              </button>
-            </div>
+            <form onSubmit={handleSubmit} className="mx-auto mt-8 max-w-lg">
+              <div className="grid gap-3 rounded-[24px] border border-white/10 bg-white/8 p-2 sm:grid-cols-[1fr_auto]">
+                <input
+                  type="email"
+                  required
+                  disabled={status === 'loading' || status === 'success'}
+                  placeholder="Enter your work email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="min-h-12 rounded-[18px] bg-transparent px-4 text-sm font-semibold text-white outline-none placeholder:text-white/42 disabled:opacity-60"
+                />
+                <button
+                  type="submit"
+                  disabled={status === 'loading' || status === 'success'}
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-[18px] bg-white px-5 text-sm font-black text-primary transition-colors hover:bg-[#f4ecff] disabled:opacity-60"
+                >
+                  {status === 'loading' ? (
+                    <span className="h-5 w-5 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
+                  ) : (
+                    <>Subscribe <Send className="h-4 w-4" /></>
+                  )}
+                </button>
+              </div>
 
-            {status === 'success' && (
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="absolute -bottom-8 left-0 right-0 flex items-center justify-center gap-2 text-green-300 text-sm font-medium">
-                <CheckCircle2 className="w-4 h-4" /> {message}
-              </motion.div>
-            )}
-            
-            {status === 'error' && (
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="absolute -bottom-8 left-0 right-0 flex items-center justify-center gap-2 text-red-300 text-sm font-medium">
-                <AlertCircle className="w-4 h-4" /> {message}
-              </motion.div>
-            )}
-          </form>
-          
-          <p className="mt-12 text-sm text-purple-200/60">
-            No spam. Unsubscribe at any time.
-          </p>
+              {status === 'success' && (
+                <p className="mt-4 flex items-center justify-center gap-2 text-sm font-semibold text-emerald-300">
+                  <CheckCircle2 className="h-4 w-4" /> {message}
+                </p>
+              )}
+              {status === 'error' && (
+                <p className="mt-4 flex items-center justify-center gap-2 text-sm font-semibold text-red-300">
+                  <AlertCircle className="h-4 w-4" /> {message}
+                </p>
+              )}
+            </form>
+
+            <p className="mt-5 text-xs font-semibold text-white/38">No spam. Unsubscribe anytime.</p>
+          </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

@@ -46,7 +46,7 @@ export function ContactForm() {
   };
 
   return (
-    <div className="premium-card p-8 md:p-12">
+    <div className="premium-card rounded-3xl p-6 md:p-10">
       {/* Screen-reader live region for status announcements */}
       <div aria-live="polite" aria-atomic="true" className="sr-only">
         {formState === 'success' && 'Your message has been sent successfully.'}
@@ -63,13 +63,13 @@ export function ContactForm() {
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
             <CheckCircle className="w-8 h-8 text-green-600" aria-hidden="true" />
           </div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-2">Message Sent!</h2>
-          <p className="text-slate-500">
+          <h2 className="adibuz-gradient-text text-2xl font-bold mb-2">Message Sent!</h2>
+          <p className="text-[#6f667d]">
             Thank you for reaching out. Our team will get back to you within 24 hours.
           </p>
           <button
             onClick={() => setFormState('idle')}
-            className="mt-8 text-[#3A0F63] font-medium hover:underline focus:outline-none focus:underline"
+            className="mt-8 text-[#3A0F63] font-bold hover:underline focus:outline-none focus:underline"
           >
             Send another message
           </button>
@@ -83,7 +83,7 @@ export function ContactForm() {
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label htmlFor="name" className="text-sm font-medium text-slate-700">
+              <label htmlFor="name" className="text-sm font-bold text-[#201a2b]">
                 Full Name <span className="text-red-500" aria-hidden="true">*</span>
               </label>
               <input
@@ -93,12 +93,12 @@ export function ContactForm() {
                 required
                 autoComplete="name"
                 aria-required="true"
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white/50 focus:bg-white focus:ring-2 focus:ring-[#3A0F63]/20 focus:border-[#3A0F63] transition-all outline-none"
+                className="adibuz-input px-4 py-3"
                 placeholder="John Doe"
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium text-slate-700">
+              <label htmlFor="email" className="text-sm font-bold text-[#201a2b]">
                 Email Address <span className="text-red-500" aria-hidden="true">*</span>
               </label>
               <input
@@ -108,14 +108,14 @@ export function ContactForm() {
                 required
                 autoComplete="email"
                 aria-required="true"
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white/50 focus:bg-white focus:ring-2 focus:ring-[#3A0F63]/20 focus:border-[#3A0F63] transition-all outline-none"
+                className="adibuz-input px-4 py-3"
                 placeholder="john@company.com"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="company" className="text-sm font-medium text-slate-700">
+            <label htmlFor="company" className="text-sm font-bold text-[#201a2b]">
               Company / Organization
             </label>
             <input
@@ -123,13 +123,13 @@ export function ContactForm() {
               id="company"
               name="company"
               autoComplete="organization"
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white/50 focus:bg-white focus:ring-2 focus:ring-[#3A0F63]/20 focus:border-[#3A0F63] transition-all outline-none"
+              className="adibuz-input px-4 py-3"
               placeholder="Your Company Ltd."
             />
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="message" className="text-sm font-medium text-slate-700">
+            <label htmlFor="message" className="text-sm font-bold text-[#201a2b]">
               How can we help you? <span className="text-red-500" aria-hidden="true">*</span>
             </label>
             <textarea
@@ -138,7 +138,7 @@ export function ContactForm() {
               required
               rows={4}
               aria-required="true"
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white/50 focus:bg-white focus:ring-2 focus:ring-[#3A0F63]/20 focus:border-[#3A0F63] transition-all outline-none resize-none"
+              className="adibuz-input px-4 py-3 resize-none"
               placeholder="Tell us about your project, goals, or timeline..."
             />
           </div>
@@ -156,7 +156,7 @@ export function ContactForm() {
           <button
             type="submit"
             disabled={formState === 'submitting'}
-            className="w-full bg-[#3A0F63] text-white px-8 py-4 rounded-xl text-sm font-bold shadow-xl shadow-[#3A0F63]/20 hover:shadow-[#3A0F63]/30 hover:bg-[#2e0b50] transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#3A0F63] focus:ring-offset-2"
+            className="adibuz-button-primary w-full px-8 py-4 text-sm disabled:opacity-70 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#3A0F63] focus:ring-offset-2"
           >
             {formState === 'submitting' ? (
               <>

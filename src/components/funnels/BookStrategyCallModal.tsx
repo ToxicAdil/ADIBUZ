@@ -243,7 +243,7 @@ export function BookStrategyCallModal({
                 {(['calendly', 'form'] as Step[]).map((s, i) => (
                   <React.Fragment key={s}>
                     <div className={`h-1.5 rounded-full transition-all duration-500 ${
-                      step === s ? 'w-8 bg-primary' : step === 'success' || (s === 'calendly' && step === 'form')
+                      step === s ? 'w-8 bg-primary' : (s === 'calendly' && step === 'form')
                         ? 'w-8 bg-primary/40' : 'w-8 bg-slate-200'
                     }`} />
                     {i === 0 && <div className="w-3 h-px bg-slate-200" />}

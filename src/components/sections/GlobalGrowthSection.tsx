@@ -42,9 +42,9 @@ export function GlobalGrowthSection() {
                   <Globe className="w-4 h-4" />
                   <span>International Scaling</span>
                 </div>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1]">
+                <h2 className="adibuz-gradient-text text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
                   Grow Your Brand <br />
-                  <span className="text-gradient">Beyond Borders.</span>
+                  Beyond Borders.
                 </h2>
                 <p className="text-slate-600 text-lg md:text-xl font-medium leading-relaxed max-w-xl">
                   Unlock new revenue streams. We build data-driven marketing engines tailored for 

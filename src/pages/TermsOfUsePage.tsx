@@ -23,7 +23,7 @@ const Section = memo(({ id, icon: Icon, title, children }: {
         <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center" aria-hidden="true">
           <Icon className="w-5 h-5 text-primary" />
         </div>
-        <h2 id={`${id}-heading`} className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">{title}</h2>
+        <h2 id={`${id}-heading`} className="adibuz-gradient-text text-xl md:text-2xl font-bold tracking-tight">{title}</h2>
       </div>
       <div className="prose-custom">{children}</div>
     </section>
@@ -95,8 +95,8 @@ const TermsOfUsePage = () => (
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/8 border border-primary/15 text-[12px] font-semibold text-primary uppercase tracking-widest mb-6">
           <FileText className="w-3.5 h-3.5" aria-hidden="true" /> Legal
         </div>
-        <h1 className="text-4xl md:text-6xl font-[900] tracking-tight text-slate-900 leading-[1.05] mb-5">
-          Terms of <span className="text-gradient">Use</span>
+        <h1 className="adibuz-gradient-text text-4xl md:text-6xl font-[900] tracking-tight leading-[1.05] mb-5">
+          Terms of Use
         </h1>
         <p className="text-slate-500 text-lg md:text-xl font-medium leading-relaxed max-w-xl mx-auto mb-6">
           By using our website or services, you agree to these terms. Please read them carefully — we've kept them clear and honest.

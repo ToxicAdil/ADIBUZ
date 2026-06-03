@@ -112,6 +112,7 @@ export function InteractiveGlobe({
   const timeRef = useRef(0);
   const isVisibleRef = useRef(true);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const sizeRef = useRef({ width: 0, height: 0, dpr: 1 });
 
   // Generate globe dots (land approximation via density sampling)
   const dotsRef = useRef<[number, number, number][]>([]);
@@ -132,18 +133,36 @@ export function InteractiveGlobe({
     dotsRef.current = dots;
   }, []);
 
+  const syncCanvasSize = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const width = Math.max(1, Math.floor(canvas.clientWidth));
+    const height = Math.max(1, Math.floor(canvas.clientHeight));
+
+    if (
+      sizeRef.current.width === width &&
+      sizeRef.current.height === height &&
+      sizeRef.current.dpr === dpr
+    ) {
+      return;
+    }
+
+    sizeRef.current = { width, height, dpr };
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+  }, []);
+
   const draw = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const w = canvas.clientWidth;
-    const h = canvas.clientHeight;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    ctx.scale(dpr, dpr);
+    const { width: w, height: h, dpr } = sizeRef.current;
+    if (!w || !h) return;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     // Skip rendering when off-screen
     if (!isVisibleRef.current) {
@@ -231,9 +250,6 @@ export function InteractiveGlobe({
       [x2, y2, z2] = rotateX(x2, y2, z2, rx);
       [x2, y2, z2] = rotateY(x2, y2, z2, ry);
 
-      // Only draw if both points face camera
-      if (z1 > radius * 0.3 && z2 > radius * 0.3) continue;
-
       const [sx1, sy1] = project(x1, y1, z1, cx, cy, fov);
       const [sx2, sy2] = project(x2, y2, z2, cx, cy, fov);
 
@@ -302,23 +318,33 @@ export function InteractiveGlobe({
   }, [dotColor, arcColor, markerColor, autoRotateSpeed, connections, markers]);
 
   useEffect(() => {
+    syncCanvasSize();
     animRef.current = requestAnimationFrame(draw);
     
     // Add IntersectionObserver to pause when off-screen
     const canvas = canvasRef.current;
     if (canvas) {
+      const resizeObserver = new ResizeObserver(syncCanvasSize);
+      resizeObserver.observe(canvas);
+
       observerRef.current = new IntersectionObserver(
         ([entry]) => { isVisibleRef.current = entry.isIntersecting; },
         { threshold: 0.05 }
       );
       observerRef.current.observe(canvas);
+
+      return () => {
+        cancelAnimationFrame(animRef.current);
+        resizeObserver.disconnect();
+        observerRef.current?.disconnect();
+      };
     }
     
     return () => {
       cancelAnimationFrame(animRef.current);
       observerRef.current?.disconnect();
     };
-  }, [draw]);
+  }, [draw, syncCanvasSize]);
 
   // Mouse drag handlers
   const onPointerDown = useCallback(

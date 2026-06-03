@@ -9,7 +9,7 @@ import { FadeInUp } from '@/lib/animations';
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-[#fdfaff] flex flex-col font-sans selection:bg-primary/20 selection:text-primary">
+    <div className="min-h-screen adibuz-page flex flex-col font-sans selection:bg-primary/20 selection:text-primary">
       <SEO 
         title="Contact Our Digital Marketing Agency | Adibuz" 
         description="Get in touch with Adibuz to scale your business with data-driven AI marketing, web development, and SEO. Response within 24 hours." 
@@ -34,10 +34,11 @@ export default function ContactPage() {
         <div className="container-custom relative z-10">
           <div className="max-w-3xl mx-auto">
             <FadeInUp className="text-center mb-12 space-y-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight leading-[1.1]">
-                Contact Our <span className="text-gradient">Digital Marketing Agency</span>
+              <span className="adibuz-kicker mx-auto">Start the Growth Conversation</span>
+              <h1 className="adibuz-heading">
+                Contact Our <span className="adibuz-gradient-text">Digital Marketing Agency</span>
               </h1>
-              <p className="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto">
+              <p className="adibuz-subheading max-w-2xl mx-auto">
                 Ready to scale your brand? Fill out the form below and our team of experts will get back to you within 24 hours.
               </p>
             </FadeInUp>

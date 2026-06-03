@@ -15,23 +15,10 @@ const isMobileDevice =
 
 // Defer Three.js loading — only on desktop, only after idle
 const ThreeGlobe = !isMobileDevice
-  ? lazy(
-      () =>
-        new Promise<{ default: React.ComponentType<{ radius: number; speed: number }> }>(
-          (resolve) => {
-            const load = () => {
-              import("./globe-three-inner").then((m) =>
-                resolve({ default: m.ThreeGlobeInner })
-              );
-            };
-            // Increase timeout: give LCP a chance to complete first
-            if ("requestIdleCallback" in window) {
-              (window as any).requestIdleCallback(load, { timeout: 6000 });
-            } else {
-              setTimeout(load, 5000);
-            }
-          }
-        )
+  ? lazy(() =>
+      import("./globe-three-inner").then((m) => ({
+        default: m.ThreeGlobeInner,
+      }))
     )
   : null;
 
@@ -64,9 +51,26 @@ const DotGlobeHero = React.forwardRef<HTMLDivElement, DotGlobeHeroProps>(
 
     useEffect(() => {
       if (isMobileDevice) return; // Never show Three on mobile
-      // Small delay to let React paint first, then schedule Three.js
-      const timer = setTimeout(() => setShowThree(true), 200);
-      return () => clearTimeout(timer);
+
+      let timer: ReturnType<typeof setTimeout> | null = null;
+      let idleHandle: number | null = null;
+
+      const revealThree = () => {
+        timer = setTimeout(() => setShowThree(true), 600);
+      };
+
+      if ("requestIdleCallback" in window) {
+        idleHandle = (window as any).requestIdleCallback(revealThree, { timeout: 2200 });
+      } else {
+        revealThree();
+      }
+
+      return () => {
+        if (timer) clearTimeout(timer);
+        if (idleHandle !== null && "cancelIdleCallback" in window) {
+          (window as any).cancelIdleCallback(idleHandle);
+        }
+      };
     }, []);
 
     return (
@@ -85,7 +89,7 @@ const DotGlobeHero = React.forwardRef<HTMLDivElement, DotGlobeHeroProps>(
       >
         {/* Globe Container — opacity 0.10 on mobile, 0.18 on desktop */}
         <motion.div
-          className="absolute inset-0 z-0 pointer-events-none opacity-[0.10] md:opacity-[0.18]"
+          className="absolute inset-0 z-0 pointer-events-none opacity-[0.18] md:opacity-[0.26]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.4, ease: "easeOut", delay: 0.3 }}

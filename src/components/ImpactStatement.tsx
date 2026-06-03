@@ -1,39 +1,65 @@
 import React from 'react';
 import { motion } from 'motion/react';
 
+const proofPoints = [
+  { value: '6', label: 'Countries' },
+  { value: '40+', label: 'Systems Built' },
+  { value: '8', label: 'Growth Channels' },
+];
+
 const ImpactStatement = () => {
   return (
-    <section className="w-full pt-[40px] pb-[60px] md:pt-[80px] md:pb-[140px] flex flex-col items-center justify-center relative bg-transparent px-5 md:px-[37px] overflow-hidden">
-
-      {/* Premium background radial glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 blur-[150px] rounded-full pointer-events-none z-0" />
+    <section className="w-full py-12 md:py-20 relative bg-transparent px-5 md:px-[37px] overflow-hidden">
+      <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/6 blur-[130px] pointer-events-none z-0" />
       
-      <div className="max-w-4xl mx-auto flex flex-col items-center relative z-10 text-center">
-        
-        {/* Caption */}
-        <motion.span 
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.75, ease: "easeOut" }}
+        className="relative z-10 mx-auto max-w-6xl overflow-hidden rounded-[34px] border border-[rgba(58,15,99,0.10)] bg-white/72 px-6 py-10 text-center shadow-[0_24px_80px_rgba(22,8,43,0.07)] backdrop-blur-xl md:px-10 md:py-14"
+      >
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" aria-hidden="true" />
+        <div className="absolute left-0 top-0 h-40 w-40 rounded-full bg-purple-400/10 blur-3xl" aria-hidden="true" />
+        <div className="absolute bottom-0 right-0 h-40 w-40 rounded-full bg-primary/10 blur-3xl" aria-hidden="true" />
+
+        <div className="relative mx-auto max-w-4xl">
+          <motion.span 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-primary text-[12px] md:text-[14px] font-bold uppercase tracking-[0.25em] mb-8 block"
-        >
-          Serving clients across multiple countries worldwide
-        </motion.span>
+            className="adibuz-kicker mx-auto mb-7"
+          >
+            Serving clients across multiple countries worldwide
+          </motion.span>
 
-        {/* Impact Heading */}
-        <motion.div
-           initial={{ opacity: 0, y: 40 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true, margin: "-100px" }}
-           transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-        >
-          <h2 className="text-slate-900 text-[26px] sm:text-[36px] md:text-[56px] lg:text-[70px] font-[900] leading-[1.1] tracking-tight">
-            We build scalable growth systems for brands that want <span className="text-gradient">real results.</span>
-          </h2>
-        </motion.div>
+          <motion.div
+             initial={{ opacity: 0, y: 34 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true, margin: "-100px" }}
+             transition={{ duration: 0.9, ease: "easeOut", delay: 0.1 }}
+          >
+            <h2 className="adibuz-gradient-text text-[30px] sm:text-[40px] md:text-[58px] lg:text-[68px] font-[950] leading-[1.02] tracking-[-0.045em]">
+              Scalable growth systems for brands that want real results.
+            </h2>
+          </motion.div>
 
-      </div>
+          <p className="mx-auto mt-6 max-w-2xl text-base font-semibold leading-relaxed text-[#6f667d] md:text-lg">
+            Strategy, creative, performance, and automation aligned into one clean operating system.
+          </p>
+
+          <div className="mx-auto mt-8 grid max-w-2xl grid-cols-3 gap-3">
+            {proofPoints.map((item) => (
+              <div key={item.label} className="rounded-2xl border border-[rgba(58,15,99,0.10)] bg-white/78 px-3 py-4 shadow-sm">
+                <p className="text-2xl font-black tracking-tight text-primary md:text-3xl">{item.value}</p>
+                <p className="mt-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#827891]">{item.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </motion.div>
     </section>
   );
 };

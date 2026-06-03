@@ -47,7 +47,7 @@ export default function InsightDetailPage() {
   if (error || !insight) {
     return (
       <div className="min-h-screen bg-[#FAFAFA] flex flex-col items-center justify-center pt-24 px-4 text-center">
-        <h1 className="text-3xl font-bold text-slate-900 mb-4">Article Not Found</h1>
+        <h1 className="adibuz-gradient-text text-3xl font-bold mb-4">Article Not Found</h1>
         <p className="text-slate-600 mb-8">The insight you're looking for doesn't exist or has been removed.</p>
         <Link to="/insights" className="text-[#3A0F63] font-semibold flex items-center gap-2 hover:underline">
           <ArrowLeft className="w-4 h-4" /> Back to Insights

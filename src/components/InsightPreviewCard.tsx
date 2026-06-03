@@ -55,11 +55,11 @@ export const InsightPreviewCard: React.FC = () => {
                       <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {featuredInsight.read_time} MIN READ</span>
                     </div>
                     
-                    <h3 className="text-xl md:text-[22px] font-bold text-slate-900 mb-4 leading-[1.3] group-hover/card:text-[#8B5CF6] transition-colors tracking-tight">
+                    <h3 className="text-xl md:text-[22px] font-bold text-[#12091f] mb-4 leading-[1.3] group-hover/card:text-primary transition-colors tracking-tight">
                       {featuredInsight.title}
                     </h3>
                     
-                    <div className="mt-auto flex items-center text-[#8B5CF6] font-bold text-[13px] tracking-wide">
+                    <div className="mt-auto flex items-center text-primary font-bold text-[13px] tracking-wide">
                       Read Article <ArrowRight className="w-4 h-4 ml-2 group-hover/card:translate-x-1.5 transition-transform duration-300" />
                     </div>
                   </div>
@@ -69,12 +69,12 @@ export const InsightPreviewCard: React.FC = () => {
 
             {/* RIGHT SIDE (MASTER THE MARKET) */}
             <div className="w-full md:w-7/12 space-y-8 relative z-10 flex flex-col justify-center pl-0 md:pl-8">
-              <h2 className="text-5xl md:text-6xl lg:text-[72px] font-black text-slate-900 tracking-tight leading-[1.05]">
+              <h2 className="adibuz-gradient-text text-5xl md:text-6xl lg:text-[72px] font-black tracking-tight leading-[1.05]">
                 Master the <br />
-                <span className="text-[#8B5CF6]">market.</span>
+                market.
               </h2>
 
-              <p className="text-slate-500 text-lg md:text-xl font-medium leading-relaxed max-w-xl">
+              <p className="text-[#6f667d] text-lg md:text-xl font-medium leading-relaxed max-w-xl">
                 Explore our library of premium editorial content designed to help you build, scale, and automate modern digital brands with precision.
               </p>
 
@@ -82,7 +82,7 @@ export const InsightPreviewCard: React.FC = () => {
                 <MagneticButton>
                   <Link 
                     to="/insights"
-                    className="w-full sm:w-auto bg-slate-900 text-white px-8 py-4 rounded-full font-bold text-base btn-premium flex items-center justify-center gap-3 shadow-xl shadow-slate-900/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
+                    className="w-full sm:w-auto bg-[#12091f] text-white px-8 py-4 rounded-full font-bold text-base btn-premium flex items-center justify-center gap-3 shadow-xl shadow-[#12091f]/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
                   >
                     Read Insights <ArrowRight className="w-5 h-5" />
                   </Link>

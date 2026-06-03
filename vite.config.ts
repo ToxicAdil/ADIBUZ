@@ -18,7 +18,14 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       // CSS loads via <link> in HTML — parallel with JS, not chained behind it
-      cssCodeSplit: false,
+      cssCodeSplit: true,
+      modulePreload: {
+        resolveDependencies(_filename, deps) {
+          return deps.filter(
+            (dep) => !/vendor-(three|supabase|gsap)/.test(dep)
+          );
+        },
+      },
       // Terser removes dead code and minifies more aggressively than esbuild
       minify: 'esbuild',
       target: 'es2020',

@@ -33,7 +33,7 @@ const CaseStudyDetailPage: React.FC = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#fdfaff]">
         <div className="text-center space-y-6 px-6">
-          <h1 className="text-4xl font-bold text-slate-900">Case Study Not Found</h1>
+          <h1 className="adibuz-gradient-text text-4xl font-bold">Case Study Not Found</h1>
           <p className="text-slate-500 max-w-md mx-auto">
             The requested case study could not be found. Please check the URL or head back to the main list.
           </p>
@@ -73,7 +73,7 @@ const CaseStudyDetailPage: React.FC = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="text-5xl md:text-8xl font-black text-slate-900 tracking-tight leading-[1.05]"
+                className="adibuz-gradient-text text-5xl md:text-8xl font-black tracking-tight leading-[1.05]"
               >
                 {study.client}
               </motion.h1>
@@ -129,7 +129,7 @@ const CaseStudyDetailPage: React.FC = () => {
                   className="space-y-8"
                 >
                   <div className="space-y-4">
-                    <h2 className="text-3xl font-black text-slate-900 tracking-tight uppercase">The Problem</h2>
+                    <h2 className="adibuz-gradient-text text-3xl font-black tracking-tight uppercase">The Problem</h2>
                     <div className="w-20 h-1.5 rounded-full bg-primary/20" />
                   </div>
                   <p className="text-xl md:text-2xl text-slate-600 font-medium leading-relaxed">
@@ -144,7 +144,7 @@ const CaseStudyDetailPage: React.FC = () => {
                   className="space-y-8"
                 >
                   <div className="space-y-4">
-                    <h2 className="text-3xl font-black text-slate-900 tracking-tight uppercase">What We Did</h2>
+                    <h2 className="adibuz-gradient-text text-3xl font-black tracking-tight uppercase">What We Did</h2>
                     <div className="w-20 h-1.5 rounded-full bg-primary/20" />
                   </div>
                   <ul className="space-y-6">
@@ -168,7 +168,7 @@ const CaseStudyDetailPage: React.FC = () => {
                 <div className="flex flex-col items-center text-center space-y-12 relative z-10">
                   <div className="space-y-4">
                     <span className="text-sm font-black uppercase tracking-[0.3em] text-primary">Key Performance Metrics</span>
-                    <h2 className="text-4xl md:text-6xl font-black tracking-tight">Exponential <span className="text-primary">Impact.</span></h2>
+                    <h2 className="text-4xl md:text-6xl font-black tracking-tight text-white">Exponential Impact.</h2>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-20 w-full pt-8">
@@ -201,7 +201,7 @@ const CaseStudyDetailPage: React.FC = () => {
                 className="space-y-12"
               >
                 <div className="text-center space-y-4">
-                  <h2 className="text-4xl font-black text-slate-900 tracking-tight uppercase">The Visual Proof</h2>
+                  <h2 className="adibuz-gradient-text text-4xl font-black tracking-tight uppercase">The Visual Proof</h2>
                   <p className="text-slate-500 font-medium text-lg">Peek inside the systems that delivered these results.</p>
                 </div>
                 
@@ -243,7 +243,7 @@ const CaseStudyDetailPage: React.FC = () => {
                   <BarChart3 className="w-8 h-8" />
                 </div>
                 
-                <blockquote className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight leading-[1.2]">
+                <blockquote className="adibuz-gradient-text text-3xl md:text-5xl font-bold tracking-tight leading-[1.2]">
                    "{study.testimonial.quote}"
                 </blockquote>
                 

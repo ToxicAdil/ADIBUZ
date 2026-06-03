@@ -1,80 +1,72 @@
 import React from 'react';
-import { motion } from 'motion/react';
-import { ShoppingBag, Rocket, Monitor, User, Store } from 'lucide-react';
-import { Sparkles } from './ui/sparkles';
+import { ArrowUpRight, Monitor, Rocket, ShoppingBag, Store, User, Building2 } from 'lucide-react';
 
 const clients = [
-  { name: 'D2C', icon: ShoppingBag },
-  { name: 'Startups', icon: Rocket },
-  { name: 'SaaS', icon: Monitor },
-  { name: 'Experts', icon: User },
-  { name: 'E-Comm', icon: Store }
+  { name: 'D2C Brands', focus: 'Retention systems', desc: 'Funnels, paid acquisition, and lifecycle journeys built around repeat revenue.', icon: ShoppingBag },
+  { name: 'Startups', focus: 'Market entry', desc: 'Positioning, launch websites, and demand systems for faster traction.', icon: Rocket },
+  { name: 'SaaS Teams', focus: 'Pipeline growth', desc: 'Content, SEO, automation, and conversion flows for qualified demand.', icon: Monitor },
+  { name: 'Experts', focus: 'Authority building', desc: 'Premium platforms for creators, consultants, and specialist-led brands.', icon: User },
+  { name: 'E-Commerce', focus: 'Store performance', desc: 'Product clarity, search visibility, ads, and conversion-focused storefronts.', icon: Store },
+  { name: 'Local Brands', focus: 'Lead flow', desc: 'Credible local presence, tracking, and campaign systems for measurable enquiries.', icon: Building2 },
 ];
 
 const WhoWeWorkWith = () => {
   return (
-    <section className="w-full h-auto py-6 flex flex-col items-center relative overflow-hidden bg-transparent">
-      
-      {/* Background Radial Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-primary/5 blur-[120px] rounded-full pointer-events-none z-0" />
+    <section className="relative w-full overflow-hidden bg-transparent px-5 py-12 md:px-[37px] md:py-20">
+      <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/6 blur-[150px] pointer-events-none" />
 
-      {/* Hero Header Context */}
-      <div className="w-full relative z-20 flex flex-col items-center pt-0">
-        
-        {/* Title Group */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="text-center flex flex-col items-center relative z-20 mb-14"
-        >
-          <h2 className="text-slate-900 text-3xl md:text-5xl lg:text-6xl font-[900] tracking-tight mb-4 md:mb-6 mt-0">
-            Who We Work With
-          </h2>
-          <p className="text-slate-500 text-base md:text-lg lg:text-xl font-medium max-w-2xl leading-relaxed px-4">
-            We partner with ambitious brands ready to scale with data-driven systems.
-          </p>
-        </motion.div>
+      <div className="relative z-10 mx-auto max-w-6xl overflow-hidden rounded-[34px] border border-[rgba(58,15,99,0.10)] bg-white/82 shadow-[0_24px_80px_rgba(22,8,43,0.07)] backdrop-blur-xl">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/35 to-transparent" aria-hidden="true" />
+        <div className="absolute right-[-160px] top-[-160px] h-80 w-80 rounded-full bg-purple-400/12 blur-3xl" aria-hidden="true" />
 
-        {/* Inline Grid (Mock Logos) */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-14 z-20 mb-12 md:mb-20 px-5 md:px-[37px] max-w-6xl mx-auto items-center justify-items-center"
-        >
-          {clients.map((client, i) => {
-            const Icon = client.icon;
-            return (
-              <div 
-                key={i} 
-                className="flex items-center gap-2.5 text-slate-500 hover:text-primary transition-opacity duration-300 opacity-80 hover:opacity-100 cursor-default"
-              >
-                <Icon className="w-6 h-6 md:w-7 md:h-7" strokeWidth={2.5} fill="currentColor" />
-                <span className="font-[800] tracking-tight text-base md:text-xl lg:text-2xl whitespace-nowrap">
-                  {client.name}
-                </span>
-              </div>
-            );
-          })}
-        </motion.div>
+        <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="relative flex flex-col justify-between border-b border-[rgba(58,15,99,0.10)] p-7 md:p-10 lg:border-b-0 lg:border-r lg:p-12">
+            <div>
+              <span className="adibuz-kicker">Who We Work With</span>
+              <h2 className="adibuz-gradient-text mt-6 text-[34px] font-[950] leading-[1.02] tracking-[-0.045em] md:text-[58px]">
+                Growth partners for focused, ambitious brands.
+              </h2>
+              <p className="mt-6 max-w-xl text-base font-semibold leading-relaxed text-[#6f667d] md:text-lg">
+                We work best with teams that need strategy, website, content, ads, and automation moving as one operating system.
+              </p>
+            </div>
 
-        {/* Aceternity Sparkles Arc */}
-        <div className="relative -mt-16 md:-mt-32 h-60 md:h-96 w-full max-w-[1200px] overflow-hidden [mask-image:radial-gradient(50%_50%,black,transparent)] z-10 pointer-events-none">
-          <div className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#a855f7,transparent_70%)] before:opacity-10" />
-          <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-purple-500/20 bg-[#fdfaff] shadow-[inset_0_20px_50px_rgba(58,15,99,0.05)]" />
-          <Sparkles
-            density={800}
-            className="absolute inset-x-0 bottom-0 h-full w-full [mask-image:radial-gradient(50%_50%,black,transparent_85%)]"
-            color="#a855f7"
-            size={1.5}
-          />
+            <div className="mt-10 grid grid-cols-3 gap-3">
+              {['Acquire', 'Convert', 'Scale'].map((item) => (
+                <div key={item} className="rounded-2xl border border-[rgba(58,15,99,0.10)] bg-[#fbf8ff]/80 px-3 py-4 text-center">
+                  <p className="text-[11px] font-black uppercase tracking-[0.16em] text-primary">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2">
+            {clients.map((client) => {
+              const Icon = client.icon;
+              return (
+                <article
+                  key={client.name}
+                  className="group min-h-[174px] border-b border-[rgba(58,15,99,0.10)] bg-white/40 p-6 transition-colors duration-300 hover:bg-[#fbf8ff] sm:border-r sm:[&:nth-child(2n)]:border-r-0 lg:p-7"
+                >
+                  <div className="flex h-full flex-col justify-between gap-5">
+                    <div className="flex items-start justify-between gap-5">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-primary ring-1 ring-[rgba(58,15,99,0.12)] transition-colors group-hover:bg-primary group-hover:text-white">
+                      <Icon className="h-5 w-5" strokeWidth={2.4} />
+                      </div>
+                      <ArrowUpRight className="h-4 w-4 text-[#b8adc5] transition-colors group-hover:text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-black uppercase tracking-[0.16em] text-primary">{client.focus}</p>
+                      <h3 className="mt-2 text-xl font-black tracking-tight text-[#12091f]">{client.name}</h3>
+                      <p className="mt-2 text-sm font-semibold leading-relaxed text-[#6f667d]">{client.desc}</p>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
-
       </div>
-      
     </section>
   );
 };

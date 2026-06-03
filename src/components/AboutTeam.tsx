@@ -66,8 +66,8 @@ const AboutTeam = () => {
         
         {/* Hero Header */}
         <FadeInUp>
-          <h2 className="text-slate-900 text-3xl md:text-5xl lg:text-6xl font-[900] tracking-tight text-center mb-8 md:mb-12 mt-10 select-none uppercase">
-            OUR TEAM
+          <h2 className="adibuz-heading text-center mb-8 md:mb-12 select-none">
+            Meet the <span className="adibuz-gradient-text">Adibuz Team</span>
           </h2>
         </FadeInUp>
 
@@ -88,7 +88,7 @@ const AboutTeam = () => {
 const TeamCard: React.FC<{ member: any, index: number }> = ({ member, index }) => {
   return (
     <div
-      className="group relative w-full h-full bg-white rounded-[18px] border border-slate-200/50 shadow-sm overflow-hidden transition-all duration-300 hover:border-purple-300 hover:shadow-xl hover:-translate-y-1.5"
+      className="group relative w-full h-full bg-white rounded-[22px] border border-[rgba(58,15,99,0.12)] shadow-[0_18px_50px_rgba(22,8,43,0.07)] overflow-hidden transition-all duration-300 hover:border-purple-300 hover:shadow-xl hover:-translate-y-1.5"
     >
       {/* Soft Blurred Gradient SaaS Effect */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">

@@ -58,7 +58,7 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 						isScrolled 
 							? dark 
 								? "bg-black/90 backdrop-blur-md border border-white/10 rounded-[16px] px-6 sm:px-8 py-3 shadow-lg max-w-5xl"
-								: "bg-[#ffffff] border border-slate-100 rounded-[16px] px-6 sm:px-8 py-3 shadow-[0_8px_30px_rgba(0,0,0,0.06)] max-w-5xl"
+								: "bg-white/86 backdrop-blur-xl border border-[rgba(58,15,99,0.12)] rounded-[18px] px-5 sm:px-7 py-3 shadow-[0_18px_50px_rgba(22,8,43,0.08)] max-w-5xl"
 							: "py-2 px-2 max-w-7xl"
 					)}
 				>
@@ -77,10 +77,10 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 									to={item.path}
 									aria-current={isActive ? 'page' : undefined}
 									className={cn(
-										"relative text-[13px] font-semibold transition-colors tracking-wide group pb-1",
+										"relative text-[13px] font-bold transition-colors tracking-wide group pb-1",
 										dark 
 											? isActive ? "text-purple-400" : "text-slate-400 hover:text-white"
-											: isActive ? "text-slate-900" : "text-slate-500 hover:text-slate-900"
+											: isActive ? "text-[#12091f]" : "text-[#6f667d] hover:text-[#12091f]"
 									)}
 								>
 									{item.label}
@@ -93,10 +93,10 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 									aria-current={isActive ? 'page' : undefined}
 									onClick={(e) => handleScrollTo(e, item.id)}
 									className={cn(
-										"relative text-[13px] font-semibold transition-colors tracking-wide group pb-1",
+										"relative text-[13px] font-bold transition-colors tracking-wide group pb-1",
 										dark 
 											? isActive ? "text-purple-400" : "text-slate-400 hover:text-white"
-											: isActive ? "text-slate-900" : "text-slate-500 hover:text-slate-900"
+											: isActive ? "text-[#12091f]" : "text-[#6f667d] hover:text-[#12091f]"
 									)}
 								>
 									{item.label}
@@ -114,7 +114,7 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 									data-cursor-text="Contact"
 									className={cn(
 										"text-[13px] font-bold transition-opacity",
-										dark ? "text-slate-300 hover:text-white" : "text-slate-900 hover:opacity-70"
+										dark ? "text-slate-300 hover:text-white" : "text-[#12091f] hover:text-primary"
 									)}
 								>
 									Contact
@@ -129,7 +129,7 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 											"px-6 py-2.5 rounded-full text-[13px] font-bold transition-all",
 											dark 
 												? "bg-[#3A0F63] text-white hover:bg-purple-900 border border-purple-500/30 shadow-[0_0_20px_rgba(58,15,99,0.5)]"
-												: "bg-slate-900 text-white btn-premium primary-button"
+												: "adibuz-button-primary px-6 py-2.5"
 										)}
 									>
 										Get Started
@@ -154,47 +154,57 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 								/>
 							</Button>
 							<SheetContent
-								className="bg-background/95 supports-[backdrop-filter]:bg-background/80 gap-0 backdrop-blur-lg border-r-0 sm:border-r"
+								className="w-[min(420px,calc(100vw-24px))] max-w-none bg-[#fffdf8]/98 supports-[backdrop-filter]:bg-[#fffdf8]/94 gap-0 backdrop-blur-xl border-r-0 sm:border-r border-[rgba(58,15,99,0.12)] rounded-r-[28px] overflow-hidden"
 								showClose={false}
 								side="left"
 							>
-								<div className="flex flex-col gap-y-4 px-6 pt-20 pb-10 overflow-y-auto">
-									<div className="flex items-center gap-2 mb-8 border-b border-slate-100 pb-6">
-										<AdibuzLogo height={48} className={cn(dark && "brightness-0 invert")} />
-									</div>
-									{navItems.map((item) => (
-										item.path && !item.path.includes('#') ? (
-											<Link
-												key={item.label}
-												to={item.path}
-												className="text-xl sm:text-2xl font-bold text-slate-900 hover:text-primary transition-colors py-3 min-h-[48px] flex items-center"
-												onClick={() => setOpen(false)}
-											>
-												{item.label}
-											</Link>
-										) : (
-											<a
-												key={item.label}
-												href={item.path}
-												className="text-xl sm:text-2xl font-bold text-slate-900 hover:text-primary transition-colors py-3 min-h-[48px] flex items-center"
-												onClick={(e) => handleScrollTo(e, item.id)}
-											>
-												{item.label}
-											</a>
-										)
-									))}
+								<div className="flex items-center justify-between px-6 pt-6 pb-5 border-b border-[rgba(58,15,99,0.10)] shrink-0">
+									<AdibuzLogo height={44} className={cn(dark && "brightness-0 invert")} />
+									<button
+										type="button"
+										aria-label="Close navigation menu"
+										onClick={() => setOpen(false)}
+										className="h-11 w-11 rounded-full bg-white/80 border border-[rgba(58,15,99,0.12)] text-[#50627a] flex items-center justify-center shadow-sm"
+									>
+										<span className="text-2xl leading-none">&times;</span>
+									</button>
 								</div>
-								<SheetFooter className="flex flex-col gap-4 p-6 bg-slate-50/50 border-t mt-auto">
+								<div id="mobile-nav" className="flex-1 overflow-y-auto px-6 py-8">
+									<div className="flex flex-col gap-y-3">
+										{navItems.map((item) => (
+											item.path && !item.path.includes('#') ? (
+												<Link
+													key={item.label}
+													to={item.path}
+													className="text-xl sm:text-2xl font-bold text-[#12091f] hover:text-primary transition-colors py-2.5 min-h-[48px] flex items-center"
+													onClick={() => setOpen(false)}
+												>
+													{item.label}
+												</Link>
+											) : (
+												<a
+													key={item.label}
+													href={item.path}
+													className="text-xl sm:text-2xl font-bold text-[#12091f] hover:text-primary transition-colors py-2.5 min-h-[48px] flex items-center"
+													onClick={(e) => handleScrollTo(e, item.id)}
+												>
+													{item.label}
+												</a>
+											)
+										))}
+									</div>
+								</div>
+								<SheetFooter className="flex flex-col gap-4 p-6 bg-white/80 border-t border-[rgba(58,15,99,0.12)] mt-0 shrink-0">
 									<Button 
 										variant="outline" 
-										className="w-full rounded-xl py-6 font-bold text-lg border-slate-200"
+										className="w-full rounded-2xl py-6 font-bold text-lg border-[rgba(58,15,99,0.14)]"
 										onClick={() => setOpen(false)}
 										asChild
 									>
 										<a href="/contact">Contact</a>
 									</Button>
 									<Button 
-										className="w-full bg-slate-900 text-white rounded-xl py-6 font-bold text-lg shadow-lg"
+										className="w-full adibuz-button-primary rounded-2xl py-6 font-bold text-lg shadow-lg"
 										onClick={() => setOpen(false)}
 									>
 										Get Started

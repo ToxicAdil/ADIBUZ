@@ -1,70 +1,91 @@
 'use client';
+
 import React from 'react';
 import { InstagramIcon, LinkedinIcon } from 'lucide-react';
 import AdibuzLogo from '@/components/AdibuzLogo';
-import { FadeInUp } from '@/lib/animations';
 
 export function Footer() {
-	return (
-		<footer className="relative w-full flex flex-col items-center justify-center border-t border-slate-200/60 bg-white/60 backdrop-blur-2xl px-6 py-8 md:py-10">
-			{/* Top glow accent */}
-			<div className="absolute top-0 right-1/2 left-1/2 h-px w-1/3 -translate-x-1/2 -translate-y-1/2 rounded-full blur" style={{ background: 'linear-gradient(90deg, transparent, rgba(58,15,99,0.4), transparent)' }} />
+  return (
+    <footer className="relative w-full border-t border-[rgba(58,15,99,0.10)] bg-white/75 backdrop-blur-xl px-5 py-10 md:px-8 md:py-12">
+      <div
+        className="absolute top-0 left-1/2 h-px w-1/2 max-w-md -translate-x-1/2 rounded-full blur"
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(58,15,99,0.35), transparent)' }}
+        aria-hidden="true"
+      />
 
-			<div className="w-full max-w-7xl mx-auto flex flex-col items-center">
-				{/* Center Logo */}
-				<FadeInUp className="flex flex-col items-center justify-center py-6 md:py-10 lg:py-12">
-					<AdibuzLogo height={80} />
-				</FadeInUp>
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center">
+        <div className="flex w-full flex-col items-center gap-7 border-b border-[rgba(58,15,99,0.10)] pb-8 md:pb-10">
+          <AdibuzLogo height={74} />
 
-				{/* Bottom Bar Container */}
-				<div className="w-full border-t border-slate-200/80 pt-6 pb-2">
-					<FadeInUp delay={0.2} className="w-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-4">
-						{/* Left: Links & Email */}
-						<div className="flex flex-wrap items-center justify-center lg:justify-start gap-5 lg:gap-6 flex-1">
-							<a href="/privacy-policy" className="text-[13px] md:text-sm font-medium text-slate-500 hover:text-[#3A0F63] transition-colors">
-								Privacy Policy
-							</a>
-							<a href="/terms" title="Adibuz Terms of Use" className="text-[13px] md:text-sm font-medium text-slate-500 hover:text-[#3A0F63] transition-colors">
-								Terms of Use
-							</a>
-							{/* Cookie Preferences — reopens Silktide consent banner */}
-							<button
-								type="button"
-								id="cookie-preferences-btn"
-								aria-label="Manage cookie preferences"
-								onClick={() => window.adibuzOpenCookiePrefs?.()}
-								className="text-[13px] md:text-sm font-medium text-slate-500 hover:text-[#3A0F63] transition-colors bg-transparent border-none p-0 min-h-0 min-w-0"
-								style={{ cursor: 'pointer' }}
-							>
-								Cookie Preferences
-							</button>
-							<a href="mailto:hello@adibuz.com" className="px-5 py-2 rounded-full border border-slate-300/60 bg-white/60 hover:bg-white text-[13px] md:text-sm font-medium text-slate-600 hover:text-[#3A0F63] hover:shadow-sm transition-all">
-								hello@adibuz.com
-							</a>
-						</div>
+          <div className="flex w-full flex-col items-center gap-5 md:flex-row md:justify-center md:gap-8">
+            <nav aria-label="Footer navigation" className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-center">
+              <a href="/privacy-policy" className="inline-flex min-h-5 items-center text-sm font-semibold leading-none text-[#5f6f88] transition-colors hover:text-[#3A0F63]">
+                Privacy Policy
+              </a>
+              <a href="/terms" title="Adibuz Terms of Use" className="inline-flex min-h-5 items-center text-sm font-semibold leading-none text-[#5f6f88] transition-colors hover:text-[#3A0F63]">
+                Terms of Use
+              </a>
+              <button
+                type="button"
+                id="cookie-preferences-btn"
+                aria-label="Manage cookie preferences"
+                onClick={() => window.adibuzOpenCookiePrefs?.()}
+                className="inline-flex min-h-5 min-w-0 items-center border-none bg-transparent p-0 text-sm font-semibold leading-none text-[#5f6f88] transition-colors hover:text-[#3A0F63]"
+                style={{ cursor: 'pointer' }}
+              >
+                Cookie Preferences
+              </button>
+            </nav>
 
-						{/* Center: Copyright */}
-						<div className="flex-1 flex justify-center text-center">
-							<p className="text-slate-400 text-xs md:text-[13px] font-medium">
-								© {new Date().getFullYear()} Adibuz. All rights reserved.
-							</p>
-						</div>
+            <a
+              href="mailto:hello@adibuz.com"
+              className="inline-flex min-h-11 items-center justify-center rounded-full border border-[rgba(58,15,99,0.14)] bg-white/80 px-5 text-sm font-bold text-[#45698f] shadow-sm transition-all hover:bg-white hover:text-[#3A0F63] hover:shadow-md"
+            >
+              hello@adibuz.com
+            </a>
+          </div>
+        </div>
 
-						{/* Right: Socials */}
-						<div className="flex-1 flex items-center justify-center lg:justify-end gap-6">
-							<a href="https://www.instagram.com/adibuz_agency/" aria-label="Follow Adibuz on Instagram" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-[#3A0F63] transition-colors">
-								<InstagramIcon className="w-5 h-5" aria-hidden="true" />
-							</a>
-							<a href="https://x.com/Adibuz_agency" aria-label="Follow Adibuz on X (Twitter)" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-[#3A0F63] transition-colors">
-								<svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-							</a>
-							<a href="https://linkedin.com/company/adibuz" aria-label="Follow Adibuz on LinkedIn" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-[#3A0F63] transition-colors">
-								<LinkedinIcon className="w-5 h-5" aria-hidden="true" />
-							</a>
-						</div>
-					</FadeInUp>
-				</div>
-			</div>
-		</footer>
-	);
+        <div className="grid w-full grid-cols-1 items-center gap-5 pt-7 text-center md:grid-cols-[1fr_auto_1fr]">
+          <p className="text-sm font-semibold text-[#7b98b8] md:text-left">
+            &copy; {new Date().getFullYear()} Adibuz. All rights reserved.
+          </p>
+
+          <div className="flex items-center justify-center gap-4">
+            <a
+              href="https://www.instagram.com/adibuz_agency/"
+              aria-label="Follow Adibuz on Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(58,15,99,0.10)] bg-white/70 text-[#7b98b8] transition-colors hover:text-[#3A0F63]"
+            >
+              <InstagramIcon className="w-5 h-5" aria-hidden="true" />
+            </a>
+            <a
+              href="https://x.com/Adibuz_agency"
+              aria-label="Follow Adibuz on X (Twitter)"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(58,15,99,0.10)] bg-white/70 text-[#7b98b8] transition-colors hover:text-[#3A0F63]"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            <a
+              href="https://linkedin.com/company/adibuz"
+              aria-label="Follow Adibuz on LinkedIn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(58,15,99,0.10)] bg-white/70 text-[#7b98b8] transition-colors hover:text-[#3A0F63]"
+            >
+              <LinkedinIcon className="w-5 h-5" aria-hidden="true" />
+            </a>
+          </div>
+
+          <div className="hidden md:block" aria-hidden="true" />
+        </div>
+      </div>
+    </footer>
+  );
 }

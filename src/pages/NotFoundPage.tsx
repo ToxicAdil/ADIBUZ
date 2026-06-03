@@ -49,7 +49,7 @@ export default function NotFoundPage() {
             </div>
 
             {/* Heading */}
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
+            <h1 className="adibuz-gradient-text text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Page Not Found
             </h1>
             <p className="text-slate-500 text-lg leading-relaxed mb-10 max-w-md mx-auto">

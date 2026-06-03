@@ -16,21 +16,21 @@ export function HeroContent({ heroScale, heroY }: HeroContentProps) {
       className="flex flex-col items-center justify-center w-full h-full relative z-10"
     >
       {/* Hero Content Centered */}
-      <div className="flex flex-col items-center justify-center text-center w-full max-w-[900px] mx-auto">
+      <div className="flex flex-col items-center justify-center text-center w-full max-w-[960px] mx-auto px-5">
         {/* Main Headline Wrapper */}
         <div className="text-center w-full flex flex-col items-center">
-          <motion.span
-            className="block text-slate-600 opacity-65 font-normal tracking-tight mb-[12px] text-[clamp(1.6rem,3.5vw,2.6rem)]"
+          <motion.p
+            className="mb-6 text-[clamp(2rem,4vw,3.5rem)] font-medium leading-none tracking-[-0.035em] text-[#4d5d74]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
           >
             Scale Smarter.
-          </motion.span>
+          </motion.p>
 
           <div className="relative w-full flex flex-col items-center">
             <motion.h1
-              className="font-[800] tracking-tighter text-gradient relative z-10 md:whitespace-nowrap text-[clamp(3rem,7vw,6rem)] leading-[1.05]"
+              className="relative z-10 bg-gradient-to-r from-[#6D28D9] via-[#4B1480] to-[#2E0B50] bg-clip-text text-[clamp(3.1rem,6.25vw,6.35rem)] font-[780] leading-[0.94] tracking-[-0.045em] text-transparent md:whitespace-nowrap"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
@@ -40,7 +40,7 @@ export function HeroContent({ heroScale, heroY }: HeroContentProps) {
 
             {/* Animated Underline */}
             <motion.div
-              className="h-[1.5px] w-full max-w-[80%] md:max-w-full bg-gradient-to-r from-transparent via-[#7c3aed] to-transparent -mt-[8px] mb-[32px]"
+              className="h-[1.5px] w-full max-w-[72%] md:max-w-[760px] bg-gradient-to-r from-transparent via-[#7c3aed] to-transparent mt-4 mb-8"
               initial={{ opacity: 0, scaleX: 0 }}
               animate={{ opacity: 0.4, scaleX: 1 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: 0.5 }}
@@ -51,7 +51,7 @@ export function HeroContent({ heroScale, heroY }: HeroContentProps) {
 
         {/* Subtext */}
         <motion.p
-          className="text-slate-500 font-normal mx-auto mb-[48px] w-full px-5 md:px-0 max-w-[580px] text-[clamp(1rem,1.8vw,1.2rem)] leading-[1.75]"
+          className="adibuz-subheading mx-auto mb-10 w-full max-w-[650px]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
@@ -73,7 +73,7 @@ export function HeroContent({ heroScale, heroY }: HeroContentProps) {
                 whileHover={{ scale: 1.03 }}
                 transition={{ type: 'spring', stiffness: 300 }}
                 data-cursor-text="Book"
-                className="w-full md:w-auto bg-[#3A0F63] text-white px-[36px] py-[16px] rounded-[50px] font-semibold text-[clamp(0.85rem,1.2vw,1rem)] flex items-center justify-center gap-3 shadow-lg hover:shadow-xl"
+                className="adibuz-button-primary w-full md:w-auto px-9 py-4 text-[15px]"
               >
                 Book a Strategy Call <ArrowRight className="w-5 h-5" />
               </motion.button>
@@ -85,7 +85,7 @@ export function HeroContent({ heroScale, heroY }: HeroContentProps) {
               href="/insights"
               whileHover={{ x: 4 }}
               data-cursor-text="Read"
-              className="w-full md:w-auto px-[32px] py-[16px] rounded-[50px] font-semibold text-[clamp(0.85rem,1.2vw,1rem)] text-slate-600 border border-slate-200 hover:bg-slate-50 transition-colors flex items-center justify-center gap-2"
+              className="adibuz-button-secondary w-full md:w-auto px-8 py-4 text-[15px]"
             >
               <Sparkles className="w-5 h-5 text-primary" /> View Insights
             </motion.a>

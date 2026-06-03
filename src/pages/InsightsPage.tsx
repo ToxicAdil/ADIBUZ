@@ -1,154 +1,115 @@
 import React, { Suspense } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import {
-  ArrowRight, Clock, Sparkles, Zap, Search,
-  TrendingUp, Target, Globe, BarChart3, Cpu, Megaphone, Layers, Rocket
-} from 'lucide-react';
+import { ArrowRight, BarChart3, Clock, Cpu, Globe, Layers, Rocket, Search, Target, TrendingUp, Zap } from 'lucide-react';
 import { useInsights } from '../hooks/useInsights';
+import { Insight } from '../services/insightService';
 import { InsightCard } from '../components/insights/InsightCard';
 import { NewsletterCTA } from '../components/insights/NewsletterCTA';
 import { SimpleHeader } from '@/components/ui/simple-header';
 import { Footer } from '@/components/ui/footer-section';
-import CustomCursor from '../components/CustomCursor';
-import { Insight } from '../services/insightService';
 import { SEO } from '@/components/SEO';
 
-import { FadeInUp, StaggerContainer, StaggerItem } from '@/lib/animations';
-
-// ─── Topic categories ─────────────────────────────────────────────────────────
 const TOPICS = [
-  { label: 'AI Marketing',    icon: Cpu,       color: 'from-violet-500 to-purple-700' },
-  { label: 'SEO',             icon: TrendingUp, color: 'from-purple-500 to-fuchsia-700' },
-  { label: 'Automation',      icon: Zap,        color: 'from-fuchsia-500 to-purple-700' },
-  { label: 'Branding',        icon: Layers,     color: 'from-purple-600 to-violet-700' },
-  { label: 'Web Development', icon: Globe,      color: 'from-violet-600 to-purple-800' },
-  { label: 'Growth Systems',  icon: Rocket,     color: 'from-purple-500 to-violet-700' },
-  { label: 'Paid Ads',        icon: Target,     color: 'from-fuchsia-600 to-purple-700' },
-  { label: 'Analytics',       icon: BarChart3,  color: 'from-violet-500 to-fuchsia-600' },
+  { label: 'AI Marketing', icon: Cpu },
+  { label: 'SEO', icon: TrendingUp },
+  { label: 'Automation', icon: Zap },
+  { label: 'Branding', icon: Layers },
+  { label: 'Web Development', icon: Globe },
+  { label: 'Growth Systems', icon: Rocket },
+  { label: 'Paid Ads', icon: Target },
+  { label: 'Analytics', icon: BarChart3 },
 ];
 
-// ─── Premium Featured Card ────────────────────────────────────────────────────
-function PremiumFeatured({ insight }: { insight: Insight }) {
-  const date = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-    .format(new Date(insight.created_at));
+function formatDate(date: string, mode: 'short' | 'long' = 'short') {
+  return new Intl.DateTimeFormat('en-US', {
+    month: mode === 'long' ? 'long' : 'short',
+    day: 'numeric',
+    year: mode === 'long' ? 'numeric' : undefined,
+  }).format(new Date(date));
+}
 
+function FeaturedInsight({ insight }: { insight: Insight }) {
   return (
-    <FadeInUp className="relative rounded-[36px] overflow-hidden group cursor-pointer bg-white border border-slate-200/60 shadow-2xl hover:shadow-[0_32px_80px_rgba(58,15,99,0.18)] transition-all duration-700">
-      <Link to={`/insights/${insight.slug}`} className="absolute inset-0 z-30" aria-label={insight.title} />
+    <Link
+      to={`/insights/${insight.slug}`}
+      className="group block overflow-hidden rounded-[32px] border border-[rgba(58,15,99,0.12)] bg-white/88 shadow-[0_24px_80px_rgba(22,8,43,0.09)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-[0_34px_95px_rgba(58,15,99,0.16)] lg:grid lg:grid-cols-[1.08fr_0.92fr]"
+    >
+      <div className="relative aspect-[16/11] overflow-hidden bg-slate-100 lg:aspect-auto lg:min-h-[520px]">
+        <img
+          src={insight.featured_image}
+          alt={insight.title}
+          width={1000}
+          height={650}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#12091f]/58 via-[#12091f]/10 to-transparent" />
+        <div className="absolute left-5 top-5 flex flex-wrap gap-2">
+          <span className="rounded-full bg-white/92 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-primary shadow-sm">
+            {insight.category?.name ?? 'Featured'}
+          </span>
+          <span className="rounded-full border border-white/20 bg-[#12091f]/36 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-white backdrop-blur-md">
+            Editor pick
+          </span>
+        </div>
+      </div>
 
-      <div className="grid lg:grid-cols-[1.4fr_1fr] min-h-[520px]">
-        {/* Image */}
-        <div className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-slate-100 animate-pulse" />
-          <img
-            src={insight.featured_image}
-            alt={insight.title}
-            width={860}
-            height={520}
-            loading="lazy"
-            decoding="async"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-[1.04]"
-          />
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#3A0F63]/30 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent lg:hidden" />
-          {/* Top labels */}
-          <div className="absolute top-6 left-6 z-10 flex items-center gap-3">
-            <span className="px-3 py-1.5 bg-white/90 backdrop-blur-md text-[#3A0F63] text-[11px] font-bold tracking-widest uppercase rounded-full shadow">
-              {insight.category?.name ?? 'Insight'}
-            </span>
-            <span className="px-3 py-1.5 bg-[#3A0F63]/80 backdrop-blur-md text-white text-[11px] font-bold tracking-widest uppercase rounded-full">
-              ★ Featured
-            </span>
-          </div>
+      <div className="flex min-h-full flex-col p-7 sm:p-9 lg:p-12">
+        <div className="flex flex-wrap items-center gap-3 text-[12px] font-black uppercase tracking-[0.16em] text-[#827891]">
+          <span>{formatDate(insight.created_at, 'long')}</span>
+          <span className="h-1 w-1 rounded-full bg-[#c9bfd3]" />
+          <span className="inline-flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> {insight.read_time} min read</span>
         </div>
 
-        {/* Content */}
-        <div className="flex flex-col justify-center p-10 sm:p-14 lg:p-16 bg-white/95 backdrop-blur-xl relative z-10">
-          <div className="flex items-center gap-3 text-[12px] font-semibold text-slate-400 uppercase tracking-widest mb-6">
-            <span>{date}</span>
-            <span className="w-1 h-1 rounded-full bg-slate-300" />
-            <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {insight.read_time} min read</span>
-          </div>
+        <h2 className="adibuz-gradient-text mt-7 text-3xl font-black leading-[1.02] tracking-tight md:text-5xl">
+          {insight.title}
+        </h2>
+        <p className="mt-5 line-clamp-4 text-base font-medium leading-relaxed text-[#6f667d] md:text-lg">
+          {insight.excerpt}
+        </p>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-[900] text-slate-900 mb-6 leading-[1.12] tracking-tight group-hover:text-[#3A0F63] transition-colors duration-500">
-            {insight.title}
-          </h2>
-
-          <p className="text-slate-500 text-[16px] leading-[1.75] mb-10 line-clamp-4">
-            {insight.excerpt}
-          </p>
-
-          <div className="mt-auto flex items-center justify-between gap-4">
+        <div className="mt-8 rounded-2xl border border-[rgba(58,15,99,0.10)] bg-[#f8f3ff]/70 p-5">
+          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#827891]">Written by</p>
+          <div className="mt-3 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#3A0F63] to-purple-400 flex items-center justify-center text-white text-sm font-bold shadow-md">
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#3A0F63] to-[#8B5CF6] text-sm font-black text-white shadow-md">
                 {insight.author_name.charAt(0)}
               </div>
               <div>
-                <p className="text-[14px] font-bold text-slate-900">{insight.author_name}</p>
-                <p className="text-[12px] text-slate-400">Adibuz Team</p>
+                <p className="font-black text-[#12091f]">{insight.author_name}</p>
+                <p className="text-sm font-semibold text-[#827891]">Adibuz Team</p>
               </div>
             </div>
-            <span className="relative z-40 flex items-center gap-2 bg-[#3A0F63] text-white px-6 py-3 rounded-full text-[13px] font-bold shadow-lg shadow-[#3A0F63]/30 group-hover:bg-[#4d1482] transition-all duration-300 group-hover:scale-105">
-              Read Article <ArrowRight className="w-4 h-4" />
-            </span>
+            <ArrowRight className="h-5 w-5 text-primary transition-transform group-hover:translate-x-1" />
           </div>
         </div>
       </div>
-    </FadeInUp>
+    </Link>
   );
 }
 
-// ─── Trending horizontal card ─────────────────────────────────────────────────
 function TrendingCard({ insight, rank }: { insight: Insight; rank: number }) {
-  const date = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' })
-    .format(new Date(insight.created_at));
-
   return (
-    <div className="group relative">
-      <Link to={`/insights/${insight.slug}`} className="flex items-center gap-5 p-5 rounded-2xl bg-white/70 border border-slate-200/50 backdrop-blur-md hover:border-[#3A0F63]/30 hover:shadow-xl hover:shadow-[#3A0F63]/5 transition-all duration-500 hover:-translate-y-0.5">
-        {/* Rank */}
-        <span className="text-[32px] font-[900] text-slate-100 select-none leading-none w-10 shrink-0 group-hover:text-[#3A0F63]/20 transition-colors duration-300">
-          {String(rank + 1).padStart(2, '0')}
-        </span>
-
-        {/* Thumb */}
-        <div className="relative w-20 h-16 rounded-xl overflow-hidden shrink-0">
-          <div className="absolute inset-0 bg-slate-100 animate-pulse" />
-          <img
-            src={insight.featured_image}
-            alt={insight.title}
-            width={80}
-            height={64}
-            loading="lazy"
-            decoding="async"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          />
-        </div>
-
-        {/* Text */}
-        <div className="flex-1 min-w-0">
-          {insight.category && (
-            <span className="text-[10px] font-bold text-[#3A0F63] uppercase tracking-widest">{insight.category.name}</span>
-          )}
-          <h4 className="text-[15px] font-bold text-slate-900 leading-snug line-clamp-2 mt-1 group-hover:text-[#3A0F63] transition-colors duration-300">
-            {insight.title}
-          </h4>
-          <div className="flex items-center gap-3 mt-2 text-[12px] text-slate-400 font-medium">
-            <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {insight.read_time} min</span>
-            <span>{date}</span>
-          </div>
-        </div>
-
-        <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#3A0F63] group-hover:translate-x-1 transition-all duration-300 shrink-0" />
-      </Link>
-    </div>
+    <Link
+      to={`/insights/${insight.slug}`}
+      className="group grid grid-cols-[auto_1fr_auto] items-center gap-4 rounded-[22px] border border-[rgba(58,15,99,0.10)] bg-white/78 p-4 shadow-[0_12px_35px_rgba(22,8,43,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:bg-white"
+    >
+      <span className="w-9 text-2xl font-black tabular-nums text-[#ded5e8] transition-colors group-hover:text-primary/30">
+        {String(rank + 1).padStart(2, '0')}
+      </span>
+      <div className="min-w-0">
+        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-primary">{insight.category?.name ?? 'Insight'}</p>
+        <h3 className="mt-1 line-clamp-2 text-sm font-black leading-snug text-[#12091f] transition-colors group-hover:text-primary">
+          {insight.title}
+        </h3>
+        <p className="mt-2 text-xs font-semibold text-[#827891]">{formatDate(insight.created_at)} · {insight.read_time} min read</p>
+      </div>
+      <ArrowRight className="h-4 w-4 text-[#b8adc5] transition-transform group-hover:translate-x-1 group-hover:text-primary" />
+    </Link>
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function InsightsPage() {
   const {
     insights,
@@ -162,241 +123,201 @@ export default function InsightsPage() {
   } = useInsights();
 
   const isDefaultView = !activeCategory && !searchQuery;
-  const featuredPost  = isDefaultView && insights.length > 0 ? insights[0] : null;
-  const gridPosts     = featuredPost ? insights.slice(1) : insights;
+  const featuredPost = isDefaultView && insights.length > 0 ? insights[0] : null;
+  const gridPosts = featuredPost ? insights.slice(1) : insights;
   const trendingPosts = insights.slice(0, 4);
 
   return (
-    <div className="min-h-screen bg-[#fdfaff] selection:bg-primary selection:text-white relative">
-
-      {/* ── Background gradients ─────────────────────────── */}
-      <div className="fixed inset-0 z-0 pointer-events-none" style={{
-        backgroundImage: `radial-gradient(circle at 15% 40%, rgba(167,139,250,0.13) 0%, transparent 50%),
-                          radial-gradient(circle at 85% 20%, rgba(109,40,217,0.09) 0%, transparent 50%),
-                          radial-gradient(circle at 50% 90%, rgba(167,139,250,0.07) 0%, transparent 45%)`,
-      }} />
-
-      <CustomCursor />
+    <div className="min-h-screen bg-[#fbf8ff] text-[#12091f] selection:bg-primary selection:text-white">
+      <SEO
+        title="Insights & Strategies | Adibuz"
+        description="Premium insights on AI marketing, SEO, web development, automation, and digital growth systems from the Adibuz team."
+      />
       <SimpleHeader dark={false} />
 
-      <SEO 
-        title="Insights & Strategies | Adibuz" 
-        description="Premium insights on AI marketing, SEO, web development, and digital growth systems from the Adibuz team." 
-      />
+      <main className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[760px] bg-[radial-gradient(circle_at_50%_0%,rgba(124,58,237,0.16),transparent_40%),linear-gradient(180deg,#fffdf8_0%,#f8f3ff_58%,rgba(248,243,255,0)_100%)]" aria-hidden="true" />
 
-      {/* ══════════════════════════════════════════════════
-          SECTION 1 — HERO
-      ══════════════════════════════════════════════════ */}
-      <section className="relative z-10 pt-32 pb-12 container-custom">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="max-w-3xl mx-auto text-center mb-10"
-        >
-
-
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-[900] tracking-tight text-slate-900 mb-6 leading-[1.06]">
-            AI Marketing Insights &{' '}
-            <span className="text-gradient">Digital Growth Strategies</span>
-          </h1>
-          <p className="text-lg sm:text-xl text-slate-500 leading-relaxed max-w-xl mx-auto">
-            Expert perspectives on building, scaling, and automating modern digital brands.
-          </p>
-        </motion.div>
-
-        {/* Search bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="relative max-w-xl mx-auto mb-8"
-        >
-          <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
-          <input
-            type="text"
-            placeholder="Search articles, topics, strategies…"
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            className="w-full pl-14 pr-6 py-4 rounded-full bg-white border border-slate-200 shadow-lg focus:outline-none focus:border-[#3A0F63]/40 focus:ring-4 focus:ring-[#3A0F63]/10 text-slate-900 placeholder-slate-400 transition-all text-[15px] font-medium"
-          />
-        </motion.div>
-
-        {/* Category pills */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.35 }}
-          className="flex flex-wrap justify-center gap-2"
-        >
-          <button
-            onClick={() => setActiveCategory(null)}
-            className={`px-4 py-2 rounded-full text-[13px] font-bold transition-all duration-300 border ${!activeCategory
-              ? 'bg-[#3A0F63] text-white border-[#3A0F63] shadow-lg shadow-[#3A0F63]/25'
-              : 'bg-white text-slate-600 border-slate-200 hover:border-[#3A0F63]/30 hover:text-[#3A0F63]'}`}
-          >
-            All
-          </button>
-          {categories.map(cat => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(activeCategory === cat.id ? null : cat.id)}
-              className={`px-4 py-2 rounded-full text-[13px] font-bold transition-all duration-300 border ${activeCategory === cat.id
-                ? 'bg-[#3A0F63] text-white border-[#3A0F63] shadow-lg shadow-[#3A0F63]/25'
-                : 'bg-white text-slate-600 border-slate-200 hover:border-[#3A0F63]/30 hover:text-[#3A0F63]'}`}
-            >
-              {cat.name}
-            </button>
-          ))}
-        </motion.div>
-      </section>
-
-      {/* Loading / Error / Empty states */}
-      {loading ? (
-        <div className="relative z-10 flex justify-center items-center py-32">
-          <div className="w-10 h-10 border-4 border-[#3A0F63]/20 border-t-[#3A0F63] rounded-full animate-spin" />
-        </div>
-      ) : error ? (
-        <div className="relative z-10 text-center py-20 text-red-500 container-custom">
-          <p>Failed to load insights. Please try again later.</p>
-        </div>
-      ) : insights.length === 0 ? (
-        <div className="relative z-10 text-center py-32 text-slate-500 container-custom">
-          <h3 className="text-2xl font-bold text-slate-900 mb-4">No insights found</h3>
-          <p>We couldn't find any articles matching your current filters.</p>
-        </div>
-      ) : (
-        <>
-          {/* ══════════════════════════════════════════════════
-              SECTION 2 — FEATURED INSIGHT
-          ══════════════════════════════════════════════════ */}
-          {featuredPost && (
-            <section className="relative z-10 container-custom pb-16">
-              <FadeInUp className="mb-6">
-                <div className="flex items-center gap-3">
-                  <span className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 to-transparent max-w-[80px]" />
-                  <span className="text-[11px] font-bold text-[#3A0F63] uppercase tracking-[0.25em]">Featured Article</span>
-                  <span className="h-px flex-1 bg-slate-200" />
+        <section className="relative z-10 pt-32 pb-10 md:pt-40 md:pb-14">
+          <div className="container-custom">
+            <div className="grid items-end gap-10 lg:grid-cols-[1.04fr_0.96fr]">
+              <div>
+                <h1 className="adibuz-gradient-text mt-6 max-w-5xl text-[clamp(2.8rem,7.5vw,7rem)] font-black leading-[0.94] tracking-[-0.055em]">
+                  Growth thinking for modern operators.
+                </h1>
+              </div>
+              <div className="w-full max-w-[520px] lg:ml-auto">
+                <div className="relative w-full overflow-hidden rounded-[34px] border border-[rgba(58,15,99,0.14)] bg-white/70 p-3 shadow-[0_24px_80px_rgba(22,8,43,0.08)] backdrop-blur-xl md:p-4">
+                  <div className="absolute inset-0 rounded-[34px] bg-gradient-to-br from-white/80 via-purple-100/32 to-white/72" aria-hidden="true" />
+                  <div className="relative aspect-[4/3] min-h-[280px] overflow-hidden rounded-[26px] border border-white/80 bg-[#12091f] md:min-h-[360px]">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_18%,rgba(168,85,247,0.45),transparent_34%),radial-gradient(circle_at_78%_72%,rgba(109,40,217,0.34),transparent_36%)]" aria-hidden="true" />
+                    <div className="absolute inset-0 opacity-[0.16] [background-image:linear-gradient(rgba(255,255,255,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.18)_1px,transparent_1px)] [background-size:42px_42px]" aria-hidden="true" />
+                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#12091f] to-transparent" aria-hidden="true" />
+                    <div className="relative flex h-full flex-col justify-between p-6 text-white md:p-8">
+                      <span className="w-fit rounded-full border border-white/14 bg-white/10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.22em] text-white/70">
+                        Image Placeholder
+                      </span>
+                      <div>
+                        <p className="text-5xl font-black leading-none tracking-[-0.045em] md:text-6xl">Insights</p>
+                        <p className="mt-2 text-5xl font-black leading-none tracking-[-0.045em] text-white/56 md:text-6xl">Library</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </FadeInUp>
-              <PremiumFeatured insight={featuredPost} />
-            </section>
-          )}
-
-          {/* ══════════════════════════════════════════════════
-              SECTION 3 — EXPLORE BY TOPICS
-          ══════════════════════════════════════════════════ */}
-          <section className="relative z-10 py-16 bg-white/50 backdrop-blur-sm border-y border-slate-200/60">
-            <div className="container-custom">
-              <FadeInUp className="mb-10 flex items-end justify-between gap-4 flex-wrap">
-                <div>
-                  <p className="text-[11px] font-bold text-[#3A0F63] uppercase tracking-[0.25em] mb-2">Browse by</p>
-                  <h2 className="text-3xl sm:text-4xl font-[900] text-slate-900 tracking-tight">Explore Topics</h2>
-                </div>
-                <p className="text-slate-500 text-[15px] max-w-sm leading-relaxed">
-                  Deep-dive into the disciplines shaping modern digital growth.
-                </p>
-              </FadeInUp>
-
-              <StaggerContainer className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {TOPICS.map((topic, i) => {
-                  const Icon = topic.icon;
-                  return (
-                    <StaggerItem key={topic.label}>
-                      <button
-                        onClick={() => {
-                          const cat = categories.find(c =>
-                            c.name.toLowerCase().includes(topic.label.toLowerCase().split(' ')[0])
-                          );
-                          if (cat) setActiveCategory(cat.id);
-                        }}
-                        className="w-full group relative flex flex-col items-center gap-3 p-6 rounded-2xl bg-white border border-slate-200 hover:border-[#3A0F63]/30 hover:shadow-[0_16px_40px_rgba(58,15,99,0.12)] transition-all duration-500 cursor-pointer text-center overflow-hidden hover:-translate-y-1"
-                      >
-                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${topic.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500`}>
-                          <Icon className="w-5 h-5 text-white" />
-                        </div>
-                        <span className="text-[14px] font-bold text-slate-700 group-hover:text-[#3A0F63] transition-colors duration-300 leading-tight">
-                          {topic.label}
-                        </span>
-                        {/* Glow */}
-                        <div className={`absolute inset-0 bg-gradient-to-br ${topic.color} opacity-0 group-hover:opacity-[0.04] transition-opacity duration-500 rounded-2xl`} />
-                      </button>
-                    </StaggerItem>
-                  );
-                })}
-              </StaggerContainer>
+              </div>
             </div>
-          </section>
 
-          {/* ══════════════════════════════════════════════════
-              SECTION 4 — LATEST INSIGHTS GRID
-          ══════════════════════════════════════════════════ */}
-          {gridPosts.length > 0 && (
-            <section className="relative z-10 py-20 container-custom">
-              <FadeInUp className="mb-12 flex items-end justify-between gap-4 flex-wrap">
-                <div>
-                  <p className="text-[11px] font-bold text-[#3A0F63] uppercase tracking-[0.25em] mb-2">From the team</p>
-                  <h2 className="text-3xl sm:text-4xl font-[900] text-slate-900 tracking-tight">Latest Insights</h2>
+            <div className="mt-12 rounded-[28px] border border-[rgba(58,15,99,0.12)] bg-white/82 p-4 shadow-[0_18px_55px_rgba(22,8,43,0.07)] md:p-5">
+              <div className="flex flex-col items-center gap-4">
+                <div className="relative w-full max-w-xl">
+                  <Search className="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-[#9a8fa8]" />
+                  <input
+                    type="text"
+                    placeholder="Search insights, topics, strategies..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="h-13 w-full rounded-full border border-[rgba(58,15,99,0.12)] bg-[#fbf8ff] pl-13 pr-5 text-sm font-semibold text-[#12091f] outline-none transition-all placeholder:text-[#9a8fa8] focus:border-primary/40 focus:bg-white focus:ring-4 focus:ring-primary/10"
+                  />
                 </div>
-                {activeCategory && (
+                <div className="flex w-full max-w-5xl flex-wrap items-center justify-center gap-2">
                   <button
                     onClick={() => setActiveCategory(null)}
-                    className="text-[13px] font-bold text-[#3A0F63] underline underline-offset-4 hover:opacity-70 transition-opacity"
+                    className={`min-h-10 rounded-full border px-4 py-2 text-[12px] font-black uppercase tracking-[0.12em] transition-all ${!activeCategory ? 'border-primary bg-primary text-white shadow-lg shadow-primary/20' : 'border-[rgba(58,15,99,0.12)] bg-white text-[#6f667d] hover:text-primary'}`}
                   >
-                    Clear filter
+                    All
                   </button>
-                )}
-              </FadeInUp>
-
-              <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                {gridPosts.map((insight, index) => (
-                  <StaggerItem key={insight.id}>
-                    <InsightCard insight={insight} index={index} />
-                  </StaggerItem>
-                ))}
-              </StaggerContainer>
-            </section>
-          )}
-
-          {/* ══════════════════════════════════════════════════
-              SECTION 5 — TRENDING / POPULAR INSIGHTS
-          ══════════════════════════════════════════════════ */}
-          {isDefaultView && trendingPosts.length > 0 && (
-            <section className="relative z-10 py-16 bg-gradient-to-b from-[#fdfaff] to-white border-t border-slate-200/60">
-              <div className="container-custom">
-                <FadeInUp className="mb-10 flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3A0F63] to-purple-400 flex items-center justify-center shadow-md shrink-0">
-                    <TrendingUp className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-bold text-[#3A0F63] uppercase tracking-[0.25em]">Most read</p>
-                    <h2 className="text-2xl sm:text-3xl font-[900] text-slate-900 tracking-tight">Trending This Week</h2>
-                  </div>
-                </FadeInUp>
-
-                <StaggerContainer className="grid sm:grid-cols-2 gap-3">
-                  {trendingPosts.map((insight, i) => (
-                    <StaggerItem key={insight.id}>
-                      <TrendingCard insight={insight} rank={i} />
-                    </StaggerItem>
+                  {categories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setActiveCategory(activeCategory === cat.id ? null : cat.id)}
+                      className={`min-h-10 rounded-full border px-4 py-2 text-[12px] font-black uppercase tracking-[0.12em] transition-all ${activeCategory === cat.id ? 'border-primary bg-primary text-white shadow-lg shadow-primary/20' : 'border-[rgba(58,15,99,0.12)] bg-white text-[#6f667d] hover:text-primary'}`}
+                    >
+                      {cat.name}
+                    </button>
                   ))}
-                </StaggerContainer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {loading ? (
+          <section className="relative z-10 py-28">
+            <div className="mx-auto h-11 w-11 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
+          </section>
+        ) : error ? (
+          <section className="relative z-10 container-custom py-24 text-center">
+            <div className="rounded-[28px] border border-red-200 bg-red-50 p-8 text-red-600">
+              Failed to load insights. Please try again later.
+            </div>
+          </section>
+        ) : insights.length === 0 ? (
+          <section className="relative z-10 container-custom py-24 text-center">
+            <div className="rounded-[28px] border border-[rgba(58,15,99,0.10)] bg-white/80 p-10">
+              <h2 className="adibuz-gradient-text text-2xl font-black tracking-tight">No insights found</h2>
+              <p className="mt-3 font-semibold text-[#6f667d]">Try a different keyword or clear the current filter.</p>
+            </div>
+          </section>
+        ) : (
+          <>
+            {featuredPost && (
+              <section className="relative z-10 py-10 md:py-16">
+                <div className="container-custom">
+                  <div className="mb-7 flex items-center justify-between gap-4">
+                    <div>
+                      <p className="adibuz-kicker">Featured Article</p>
+                      <h2 className="adibuz-gradient-text mt-5 text-3xl font-black tracking-tight md:text-5xl">Start here</h2>
+                    </div>
+                  </div>
+                  <FeaturedInsight insight={featuredPost} />
+                </div>
+              </section>
+            )}
+
+            <section className="relative z-10 border-y border-[rgba(58,15,99,0.10)] bg-white/50 py-14 md:py-18">
+              <div className="container-custom">
+                <div className="mb-9 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+                  <div>
+                    <h2 className="adibuz-gradient-text mt-5 text-3xl font-black tracking-tight md:text-5xl">Growth topics</h2>
+                  </div>
+                  <p className="max-w-md text-sm font-semibold leading-relaxed text-[#6f667d] md:text-base">
+                    Jump into the strategic areas that shape acquisition, authority, conversion, and retention.
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                  {TOPICS.map((topic) => {
+                    const Icon = topic.icon;
+                    return (
+                      <button
+                        key={topic.label}
+                        onClick={() => {
+                          const cat = categories.find((c) => c.name.toLowerCase().includes(topic.label.toLowerCase().split(' ')[0]));
+                          if (cat) setActiveCategory(cat.id);
+                        }}
+                        className="group flex min-h-[142px] flex-col justify-between rounded-[24px] border border-[rgba(58,15,99,0.10)] bg-white/82 p-5 text-left shadow-[0_12px_35px_rgba(22,8,43,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:bg-white"
+                      >
+                        <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#f3eaff] text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                          <Icon className="h-5 w-5" />
+                        </span>
+                        <span className="text-base font-black leading-tight text-[#12091f]">{topic.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </section>
-          )}
-        </>
-      )}
 
-      {/* ══════════════════════════════════════════════════
-          SECTION 6 — NEWSLETTER CTA
-      ══════════════════════════════════════════════════ */}
-      <div className="relative z-10">
+            {gridPosts.length > 0 && (
+              <section className="relative z-10 py-14 md:py-20">
+                <div className="container-custom">
+                  <div className="mb-9 flex flex-col justify-between gap-4 md:mb-12 md:flex-row md:items-end">
+                    <div>
+                      <h2 className="adibuz-gradient-text mt-5 text-3xl font-black tracking-tight md:text-5xl">Latest insights</h2>
+                    </div>
+                    {activeCategory && (
+                      <button
+                        onClick={() => setActiveCategory(null)}
+                        className="w-fit rounded-full border border-primary/20 bg-white px-5 py-2 text-sm font-black text-primary transition-colors hover:bg-primary hover:text-white"
+                      >
+                        Clear filter
+                      </button>
+                    )}
+                  </div>
+                  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {gridPosts.map((insight, index) => (
+                      <InsightCard key={insight.id} insight={insight} index={index} />
+                    ))}
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {isDefaultView && trendingPosts.length > 0 && (
+              <section className="relative z-10 border-t border-[rgba(58,15,99,0.10)] bg-gradient-to-b from-white/40 to-transparent py-14 md:py-18">
+                <div className="container-custom">
+                  <div className="mb-8 flex items-center gap-4">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/20">
+                      <TrendingUp className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-black uppercase tracking-[0.22em] text-primary">Most read</p>
+                      <h2 className="adibuz-gradient-text text-2xl font-black tracking-tight md:text-3xl">Trending this week</h2>
+                    </div>
+                  </div>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {trendingPosts.map((insight, index) => (
+                      <TrendingCard key={insight.id} insight={insight} rank={index} />
+                    ))}
+                  </div>
+                </div>
+              </section>
+            )}
+          </>
+        )}
+
         <NewsletterCTA />
-      </div>
+      </main>
 
-      {/* ══════════════════════════════════════════════════
-          SECTION 7 — FOOTER
-      ══════════════════════════════════════════════════ */}
       <Suspense fallback={<div style={{ minHeight: '300px' }} />}>
         <Footer />
       </Suspense>

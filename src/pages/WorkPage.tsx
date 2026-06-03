@@ -1,265 +1,299 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FadeInUp, StaggerContainer, StaggerItem } from '@/lib/animations';
+import { Helmet } from 'react-helmet-async';
+import { ArrowRight, BarChart3, CheckCircle2, ChevronRight, ExternalLink, Play, Sparkles, Target, TrendingUp } from 'lucide-react';
 import { SimpleHeader } from '@/components/ui/simple-header';
 import { Footer } from '@/components/ui/footer-section';
-import { CASE_STUDIES } from '@/data/case-studies';
-import { ArrowRight, CheckCircle2, ChevronRight, Play } from 'lucide-react';
-import MagneticButton from '@/components/MagneticButton';
-import { FloatingPurpleShapes } from '@/components/ui/floating-purple-shapes';
-import { GradientBackground } from '@/components/ui/gradient-backgrounds';
 import { SEO } from '@/components/SEO';
-import { Helmet } from 'react-helmet-async';
+import { CASE_STUDIES } from '@/data/case-studies';
 import { FreeAuditModal } from '@/components/funnels/FreeAuditModal';
 import { BookStrategyCallModal } from '@/components/funnels/BookStrategyCallModal';
 
-/* ─── Static data ─────────────────────────────────────────────────────────── */
-
 const STATS = [
-  { label: '25+ Clients Served', icon: CheckCircle2 },
-  { label: '₹35L+ Ad Spend Managed', icon: CheckCircle2 },
-  { label: '6 Countries Served', icon: CheckCircle2 },
+  { label: 'Clients served', value: '25+', icon: CheckCircle2 },
+  { label: 'Ad spend managed', value: 'Rs.35L+', icon: TrendingUp },
+  { label: 'Countries reached', value: '6', icon: Target },
 ];
 
 const SAMPLE_WEBSITES = [
-  { title: 'Cafe Website', tag: 'Sample Build', desc: 'An elegant, high-converting website designed to attract more customers and increase orders for your cafe.', img: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&q=75&fm=webp', link: 'https://adibuz-point.vercel.app/' },
-  { title: 'Real Estate Website', tag: 'Sample Build', desc: 'A modern property listing website built to generate leads and showcase listings professionally.', img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=75&fm=webp', link: 'https://adibuz-creative-houses.vercel.app/' },
-  { title: 'Healthcare Website', tag: 'Sample Build', desc: 'A clean, trust-focused website designed to build credibility and increase patient bookings.', img: 'https://images.unsplash.com/photo-1505751172107-5732bb72cc53?w=800&q=75&fm=webp' },
-  { title: 'E-commerce Website', tag: 'Sample Build', desc: 'A conversion-optimized online store designed to drive sales and maximize revenue.', img: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&q=75&fm=webp', link: 'https://adibuz-store.vercel.app/' },
-  { title: 'Personal Brand Website', tag: 'Sample Build', desc: 'A powerful personal brand website to showcase your expertise and attract high-value clients.', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=75&fm=webp' },
-  { title: 'Gaming Website', tag: 'Sample Build', desc: 'An immersive, high-performance website designed to captivate players and build an engaged gaming community.', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=75&fm=webp', link: 'https://adibuz-ga-ming.vercel.app/' },
+  { title: 'Cafe Website', tag: 'Hospitality', desc: 'A warm, conversion-led local website for orders, visits, and discovery.', img: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=900&q=75&fm=webp', link: 'https://adibuz-point.vercel.app/' },
+  { title: 'Real Estate Website', tag: 'Property', desc: 'A polished listing experience built to capture high-intent buyer leads.', img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&q=75&fm=webp', link: 'https://adibuz-creative-houses.vercel.app/' },
+  { title: 'Healthcare Website', tag: 'Trust', desc: 'A clean healthcare presence structured for credibility and bookings.', img: 'https://images.unsplash.com/photo-1505751172107-5732bb72cc53?w=900&q=75&fm=webp' },
+  { title: 'E-commerce Website', tag: 'Commerce', desc: 'A fast online store designed around product clarity and sales flow.', img: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=900&q=75&fm=webp', link: 'https://adibuz-store.vercel.app/' },
+  { title: 'Personal Brand Website', tag: 'Authority', desc: 'A premium expert platform for trust, positioning, and inbound leads.', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=75&fm=webp' },
+  { title: 'Gaming Website', tag: 'Community', desc: 'A high-energy destination for audience engagement and campaign launches.', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=900&q=75&fm=webp', link: 'https://adibuz-ga-ming.vercel.app/' },
 ];
 
-/* ─── Sub-components ──────────────────────────────────────────────────────── */
+function responsiveSrcSet(src: string) {
+  const base = src.replace(/[?&]w=\d+/, '').replace('fm=webp', '').split('&q=')[0];
+  return `${base}?w=480&q=75&fm=webp 480w, ${base}?w=768&q=75&fm=webp 768w, ${src} 1200w`;
+}
 
-const CaseStudyCard: React.FC<{ study: any; index: number }> = ({ study }) => (
-  <div className="group h-full">
-    <Link to={`/work/${study.id}`} className="block h-full">
-      <div className="bg-white rounded-[32px] overflow-hidden shadow-sm border border-slate-100 h-full flex flex-col transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-purple-900/10 group-hover:border-primary/20">
-        {/* Media Hook */}
-        <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-          {study.videoUrl ? (
-            <div className="w-full h-full relative">
-              <video src={study.videoUrl} autoPlay muted loop playsInline preload="none"
-                className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-primary/10 mix-blend-overlay opacity-50 group-hover:opacity-0 transition-opacity" />
-              <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                <Play className="w-4 h-4 fill-white text-white" />
-              </div>
-            </div>
-          ) : (
-            <img
-              src={study.image}
-              srcSet={`${study.image.replace(/[?&]w=\d+/, '').replace('fm=webp', '').split('&q=')[0]}?w=480&q=75&fm=webp 480w, ${study.image.replace(/[?&]w=\d+/, '').replace('fm=webp', '').split('&q=')[0]}?w=768&q=75&fm=webp 768w, ${study.image} 1200w`}
-              sizes="(max-width: 639px) 100vw, (max-width: 1023px) calc(50vw - 32px), calc(33vw - 40px)"
-              alt={`${study.client} ${study.industry} marketing case study results`}
-              width={800}
-              height={500}
-              loading="lazy"
-              decoding="async"
-              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105" />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        </div>
-
-        {/* Card Content */}
-        <div className="p-5 md:p-8 flex flex-col flex-1 space-y-4 md:space-y-6">
-          <div className="space-y-4 flex-1">
-            <span className="text-[11px] font-black uppercase tracking-[0.2em] text-primary bg-primary/10 px-3 py-1 rounded-full">{study.industry}</span>
-            <h3 className="text-xl md:text-3xl font-bold text-slate-900 tracking-tight group-hover:text-primary transition-colors">{study.client}</h3>
-            <div className="space-y-1">
-              <p className="text-slate-400 text-xs font-bold uppercase tracking-widest">Challenge</p>
-              <p className="text-slate-600 font-medium line-clamp-1">{study.challenge}</p>
-            </div>
-            <div className="space-y-1 pt-2">
-              <p className="text-slate-400 text-xs font-bold uppercase tracking-widest">Result</p>
-              <p className="text-xl md:text-3xl font-black text-slate-900 tracking-tight">
-                {study.result.split(' ')[0]} <span className="text-primary">{study.result.split(' ').slice(1).join(' ')}</span>
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-widest pt-4 border-t border-slate-50 group-hover:gap-4 transition-all">
-            View Case Study <ChevronRight className="w-5 h-5" />
-          </div>
-        </div>
+const CaseStudyCard: React.FC<{ study: (typeof CASE_STUDIES)[number]; featured?: boolean }> = ({ study, featured = false }) => (
+  <Link
+    to={`/work/${study.id}`}
+    className={`group block overflow-hidden rounded-[28px] border border-[rgba(58,15,99,0.12)] bg-white/86 shadow-[0_18px_55px_rgba(22,8,43,0.07)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-[0_28px_80px_rgba(58,15,99,0.14)] ${featured ? 'lg:grid lg:grid-cols-[1.08fr_0.92fr]' : ''}`}
+  >
+    <div className={`relative overflow-hidden bg-slate-100 ${featured ? 'aspect-[16/11] lg:aspect-auto lg:min-h-[520px]' : 'aspect-[16/10]'}`}>
+      {study.videoUrl ? (
+        <video
+          src={study.videoUrl}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+        />
+      ) : (
+        <img
+          src={study.image}
+          srcSet={responsiveSrcSet(study.image)}
+          sizes={featured ? '(max-width: 1023px) 100vw, 52vw' : '(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw'}
+          alt={`${study.client} ${study.industry} case study`}
+          width={1000}
+          height={650}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+        />
+      )}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#12091f]/58 via-[#12091f]/12 to-transparent" />
+      <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full border border-white/20 bg-white/18 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-white backdrop-blur-md">
+        {study.industry}
       </div>
-    </Link>
-  </div>
-);
-
-const SampleWebsiteCard: React.FC<{ industry: typeof SAMPLE_WEBSITES[0] }> = ({ industry }) => (
-  <StaggerItem className="group relative bg-white/70 backdrop-blur-md rounded-2xl md:rounded-[32px] p-4 md:p-5 border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:border-primary/20">
-    <div className="relative aspect-[16/10] rounded-xl md:rounded-[24px] overflow-hidden mb-4 md:mb-8 shadow-inner">
-      <img
-        src={industry.img}
-        srcSet={`${industry.img.replace(/[?&]w=\d+/, '')}&w=480&fm=webp 480w, ${industry.img.replace(/[?&]w=\d+/, '')}&w=768&fm=webp 768w, ${industry.img} 1200w`}
-        sizes="(max-width: 639px) 100vw, (max-width: 1023px) calc(50vw - 32px), calc(33vw - 40px)"
-        alt={`${industry.title} web development and design portfolio example`}
-        width={800}
-        height={500}
-        loading="lazy"
-        decoding="async"
-        className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110" />
-      <div className="absolute top-4 right-4 z-20">
-        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm">
-          {industry.tag}
-        </span>
-      </div>
+      {study.videoUrl && (
+        <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/18 text-white backdrop-blur-md">
+          <Play className="h-4 w-4 fill-current" />
+        </div>
+      )}
     </div>
 
-    <div className="px-1 md:px-2 pb-2 space-y-2 md:space-y-4">
-      <h3 className="text-lg md:text-2xl font-bold text-slate-900 tracking-tight group-hover:text-primary transition-colors">{industry.title}</h3>
-      <p className="text-slate-500 font-medium text-sm leading-relaxed">{industry.desc}</p>
-      <div className="pt-4">
-        {industry.link ? (
-          <a href={industry.link} target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-[0.2em] hover:gap-4 transition-all pb-2">
-            View Demo <ChevronRight className="w-4 h-4" />
-          </a>
-        ) : (
-          <button className="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-[0.2em] hover:gap-4 transition-all pb-2">
-            View Demo <ChevronRight className="w-4 h-4" />
-          </button>
-        )}
-        <div className="h-0.5 w-12 bg-primary/20 group-hover:w-20 transition-all rounded-full" />
+    <div className={`${featured ? 'p-7 sm:p-9 lg:p-12' : 'p-6 md:p-7'} flex min-h-full flex-col`}>
+      <div className="flex items-center justify-between gap-4">
+        <p className="text-[11px] font-black uppercase tracking-[0.22em] text-primary">Case Study</p>
+        <p className="text-[12px] font-bold text-[#827891]">{study.timeline}</p>
+      </div>
+
+      <div className="mt-6 space-y-4">
+        <h3 className={`${featured ? 'text-3xl md:text-5xl' : 'text-2xl md:text-3xl'} font-black leading-[1.04] tracking-tight text-[#12091f]`}>
+          {study.client}
+        </h3>
+        <p className="text-sm font-semibold leading-relaxed text-[#6f667d] md:text-base">
+          {study.challenge}
+        </p>
+      </div>
+
+      <div className="mt-7 rounded-2xl border border-[rgba(58,15,99,0.10)] bg-[#f8f3ff]/70 p-5">
+        <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#827891]">Outcome</p>
+        <p className={`${featured ? 'text-3xl md:text-4xl' : 'text-2xl'} mt-2 font-black tracking-tight text-primary`}>
+          {study.result}
+        </p>
+      </div>
+
+      <div className="mt-6 grid grid-cols-2 gap-3">
+        {study.metrics.slice(0, featured ? 4 : 2).map((metric) => (
+          <div key={metric.label} className="rounded-2xl bg-white/70 p-4 ring-1 ring-[rgba(58,15,99,0.08)]">
+            <p className="text-lg font-black tracking-tight text-[#12091f]">{metric.value}</p>
+            <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#827891]">{metric.label}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-auto flex items-center gap-2 pt-7 text-sm font-black uppercase tracking-[0.16em] text-primary">
+        Read case study <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
       </div>
     </div>
-
-    {/* Subtle Hover Glow */}
-    <div className="absolute -inset-1 bg-primary/5 rounded-[36px] opacity-0 group-hover:opacity-100 blur-xl -z-10 transition-opacity duration-500" />
-  </StaggerItem>
+  </Link>
 );
+
+const SampleWebsiteCard: React.FC<{ item: (typeof SAMPLE_WEBSITES)[number] }> = ({ item }) => {
+  const content = (
+    <div className="group h-full overflow-hidden rounded-[24px] border border-[rgba(58,15,99,0.10)] bg-white/82 shadow-[0_16px_45px_rgba(22,8,43,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(58,15,99,0.12)]">
+      <div className="relative aspect-[16/10] overflow-hidden">
+        <img
+          src={item.img}
+          srcSet={responsiveSrcSet(item.img)}
+          sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+          alt={`${item.title} website sample`}
+          width={900}
+          height={560}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+        />
+        <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-primary shadow-sm">
+          {item.tag}
+        </div>
+      </div>
+      <div className="p-5 md:p-6">
+        <h3 className="text-xl font-black tracking-tight text-[#12091f]">{item.title}</h3>
+        <p className="mt-3 text-sm font-medium leading-relaxed text-[#6f667d]">{item.desc}</p>
+        <div className="mt-5 flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-primary">
+          View sample <ExternalLink className="h-3.5 w-3.5" />
+        </div>
+      </div>
+    </div>
+  );
+
+  return item.link ? (
+    <a href={item.link} target="_blank" rel="noopener noreferrer" className="block h-full">
+      {content}
+    </a>
+  ) : content;
+};
 
 const BottomCTA: React.FC = () => (
-  <section className="py-12 md:py-24 relative z-10">
-    <div className="container-custom px-5 md:px-[37px]">
-      <FadeInUp className="premium-card rounded-2xl md:rounded-[40px] p-8 md:p-12 lg:p-20 text-center space-y-6 md:space-y-8 bg-white/60 relative overflow-hidden">
-        <StaggerContainer className="relative z-10 space-y-4">
-          <StaggerItem>
-            <h2 className="text-2xl sm:text-4xl md:text-6xl font-black text-slate-900 tracking-tight">Want results like this?</h2>
-          </StaggerItem>
-          <StaggerItem>
-            <p className="text-sm sm:text-lg md:text-xl text-slate-500 font-medium max-w-2xl mx-auto">
-              Ready to take your brand to the next level? Join hundreds of satisfied clients and start scaling today.
-            </p>
-          </StaggerItem>
-          <StaggerItem className="pt-4 md:pt-8 flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
-            <MagneticButton>
-              <BookStrategyCallModal sourcePage="work_page">
-                <button className="bg-slate-900 text-white px-8 md:px-10 py-4 md:py-5 rounded-full font-bold text-base md:text-lg btn-premium flex items-center justify-center gap-3 primary-button w-full sm:w-auto">
-                  Book a Strategy Call <ArrowRight className="w-6 h-6" />
-                </button>
-              </BookStrategyCallModal>
-            </MagneticButton>
-            <MagneticButton>
-              <FreeAuditModal>
-                <button className="px-8 md:px-10 py-4 md:py-5 rounded-full font-bold text-base md:text-lg text-slate-600 border border-slate-200 hover:bg-white transition-all flex items-center justify-center gap-2 group w-full sm:w-auto">
-                  Free Audit
-                </button>
-              </FreeAuditModal>
-            </MagneticButton>
-          </StaggerItem>
-        </StaggerContainer>
-        <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-primary/10 blur-[100px] rounded-full" />
-      </FadeInUp>
+  <section className="relative z-10 py-14 md:py-24">
+    <div className="container-custom">
+      <div className="relative overflow-hidden rounded-[32px] border border-[#6D28D9]/20 bg-[linear-gradient(135deg,#4A1278_0%,#3A0F63_48%,#2E1065_100%)] px-6 py-12 text-center shadow-[0_28px_90px_rgba(58,15,99,0.24)] md:px-12 md:py-16">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.24),transparent_46%)]" aria-hidden="true" />
+        <div className="relative mx-auto max-w-3xl">
+          <span className="inline-flex rounded-full border border-white/10 bg-white/8 px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-white/70">
+            Build the next result
+          </span>
+          <h2 className="mt-6 text-3xl font-black tracking-tight text-white md:text-6xl">Ready for work that performs?</h2>
+          <p className="mx-auto mt-5 max-w-2xl text-base font-medium leading-relaxed text-white/66 md:text-lg">
+            Get a focused growth audit and a clear execution roadmap for your website, ads, SEO, and automation systems.
+          </p>
+          <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <BookStrategyCallModal sourcePage="work_page">
+              <button className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-white px-8 font-black text-[#12091f] shadow-xl transition-transform hover:-translate-y-0.5 sm:w-auto">
+                Book a Strategy Call <ArrowRight className="h-5 w-5" />
+              </button>
+            </BookStrategyCallModal>
+            <FreeAuditModal>
+              <button className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/18 px-8 font-black text-white transition-colors hover:bg-white/10 sm:w-auto">
+                Free Audit
+              </button>
+            </FreeAuditModal>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 );
 
-/* ─── Page ────────────────────────────────────────────────────────────────── */
+const WorkPage: React.FC = () => {
+  const [featuredStudy, ...otherStudies] = CASE_STUDIES;
 
-const WorkPage: React.FC = () => (
-  <div className="min-h-screen bg-[#fdfaff] selection:bg-primary selection:text-white relative overflow-hidden">
-    <SEO
-      title="Our Work & Case Studies | Adibuz"
-      description="Explore our portfolio of successful digital transformations. See how Adibuz has helped businesses scale through strategic marketing and AI automation."
-    />
-    <Helmet>
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.adibuz.com/" },
-            { "@type": "ListItem", "position": 2, "name": "Work", "item": "https://www.adibuz.com/work" }
-          ]
-        })}
-      </script>
-    </Helmet>
-    <SimpleHeader />
-    <FloatingPurpleShapes />
+  return (
+    <div className="min-h-screen bg-[#fbf8ff] text-[#12091f] selection:bg-primary selection:text-white">
+      <SEO
+        title="Our Work & Case Studies | Adibuz"
+        description="Explore performance-focused case studies, website samples, and digital growth systems built by Adibuz."
+      />
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.adibuz.com/' },
+              { '@type': 'ListItem', position: 2, name: 'Work', item: 'https://www.adibuz.com/work' },
+            ],
+          })}
+        </script>
+      </Helmet>
+      <SimpleHeader />
 
-    {/* Hero Section */}
-    <section className="pt-28 md:pt-40 pb-12 md:pb-20 relative z-10">
-      <GradientBackground variant="bottom" className="opacity-40" />
-      <div className="container-custom px-5 md:px-[37px]">
-        <StaggerContainer className="max-w-4xl mx-auto text-center space-y-6">
-          <StaggerItem>
-            <h1 className="text-3xl sm:text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-[1.1]">
-              Real Results. <br />
-              <span className="text-gradient">Real Growth.</span>
-            </h1>
-          </StaggerItem>
-          <StaggerItem>
-            <p className="text-base sm:text-xl md:text-2xl text-slate-500 font-medium leading-relaxed max-w-3xl mx-auto">
-              Explore how we've helped brands scale revenue, optimize performance, and build systems that drive consistent growth.
-            </p>
-          </StaggerItem>
-        </StaggerContainer>
-      </div>
-    </section>
+      <main className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[760px] bg-[radial-gradient(circle_at_50%_0%,rgba(124,58,237,0.16),transparent_40%),linear-gradient(180deg,#fffdf8_0%,#f8f3ff_58%,rgba(248,243,255,0)_100%)]" aria-hidden="true" />
 
-    {/* Trust / Stats */}
-    <section className="py-12 border-y border-slate-100 bg-white/30 backdrop-blur-sm relative z-10">
-      <div className="container-custom px-5 md:px-[37px]">
-        <StaggerContainer className="flex flex-col md:flex-row justify-around gap-8 md:gap-4 items-center">
-          {STATS.map((stat, i) => (
-            <StaggerItem key={i}>
-              <div className="flex items-center gap-3">
-                <stat.icon className="w-6 h-6 text-emerald-500" />
-                <span className="text-slate-800 font-bold text-sm sm:text-lg md:text-xl tracking-tight">{stat.label}</span>
+        <section className="relative z-10 pt-32 pb-12 md:pt-40 md:pb-18">
+          <div className="container-custom">
+            <div className="grid items-end gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+              <div className="max-w-4xl">
+                <h1 className="adibuz-gradient-text mt-6 max-w-5xl text-[clamp(3rem,8vw,7.8rem)] font-black leading-[0.92] tracking-[-0.055em]">
+                  Proof-led growth systems.
+                </h1>
               </div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
-      </div>
-    </section>
+              <div className="w-full max-w-[520px] lg:ml-auto">
+                <div className="relative overflow-hidden rounded-[34px] border border-[rgba(58,15,99,0.14)] bg-white/70 p-3 shadow-[0_24px_80px_rgba(22,8,43,0.08)] backdrop-blur-xl md:p-4">
+                  <div className="absolute inset-0 rounded-[34px] bg-gradient-to-br from-white/80 via-purple-100/30 to-white/72" aria-hidden="true" />
+                  <div className="relative aspect-[4/3] min-h-[300px] overflow-hidden rounded-[26px] border border-white/80 bg-[#12091f] md:min-h-[370px]">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_18%,rgba(168,85,247,0.46),transparent_34%),radial-gradient(circle_at_78%_74%,rgba(109,40,217,0.34),transparent_36%)]" aria-hidden="true" />
+                    <div className="absolute inset-0 opacity-[0.16] [background-image:linear-gradient(rgba(255,255,255,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.18)_1px,transparent_1px)] [background-size:44px_44px]" aria-hidden="true" />
+                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#12091f] to-transparent" aria-hidden="true" />
+                    <div className="relative flex h-full flex-col justify-between p-6 text-white md:p-8">
+                      <span aria-hidden="true" />
+                      <div>
+                        <p className="text-5xl font-black leading-none tracking-[-0.045em] md:text-6xl">Case</p>
+                        <p className="mt-2 text-5xl font-black leading-none tracking-[-0.045em] text-white/58 md:text-6xl">Systems</p>
+                        <p className="mt-5 max-w-sm text-sm font-semibold leading-relaxed text-white/58">
+                          Campaigns, websites, and automation built to turn attention into measurable revenue.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-    {/* Case Study Grid */}
-    <section className="py-12 md:py-24 relative z-10">
-      <div className="container-custom px-5 md:px-[37px]">
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-          {CASE_STUDIES.map((study, index) => (
-            <StaggerItem key={study.id}>
-              <CaseStudyCard study={study} index={index} />
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
-      </div>
-    </section>
+            <div className="mt-12 grid gap-4 sm:grid-cols-3">
+              {STATS.map((stat) => {
+                const Icon = stat.icon;
+                return (
+                  <div key={stat.label} className="rounded-[24px] border border-[rgba(58,15,99,0.10)] bg-white/76 p-5 shadow-[0_14px_45px_rgba(22,8,43,0.06)]">
+                    <Icon className="h-5 w-5 text-primary" />
+                    <p className="mt-5 text-3xl font-black tracking-tight text-[#12091f] md:text-4xl">{stat.value}</p>
+                    <p className="mt-1 text-xs font-black uppercase tracking-[0.18em] text-[#827891]">{stat.label}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
 
-    {/* Sample Website Section */}
-    <section className="py-12 md:py-24 relative z-10 bg-white/30 backdrop-blur-sm border-y border-slate-100">
-      <div className="container-custom px-5 md:px-[37px]">
-        <div className="text-center space-y-4 mb-10 md:mb-20">
-          <h2 className="text-2xl sm:text-4xl md:text-6xl font-black text-slate-900 tracking-tight">
-            What We Can <span className="text-gradient">Build For You</span>
-          </h2>
-          <p className="text-sm sm:text-lg md:text-xl text-slate-500 font-medium max-w-2xl mx-auto">
-            Explore sample websites designed for different industries — giving you a clear idea of what your brand could look like.
-          </p>
-        </div>
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-          {SAMPLE_WEBSITES.map((industry, i) => (
-            <SampleWebsiteCard key={i} industry={industry} />
-          ))}
-        </StaggerContainer>
-      </div>
-    </section>
+        <section className="relative z-10 py-10 md:py-16">
+          <div className="container-custom">
+            {featuredStudy && <CaseStudyCard study={featuredStudy} featured />}
+          </div>
+        </section>
 
-    <BottomCTA />
-    <Footer />
-  </div>
-);
+        <section className="relative z-10 py-10 md:py-18">
+          <div className="container-custom">
+            <div className="mb-8 flex flex-col justify-between gap-4 md:mb-12 md:flex-row md:items-end">
+              <div>
+                <h2 className="adibuz-gradient-text mt-5 text-3xl font-black tracking-tight md:text-5xl">More growth stories</h2>
+              </div>
+              <p className="max-w-md text-sm font-semibold leading-relaxed text-[#6f667d] md:text-base">
+                Each project pairs strategy, creative, tracking, and conversion systems around one measurable business target.
+              </p>
+            </div>
+            <div className="grid gap-6 md:grid-cols-2">
+              {otherStudies.map((study) => (
+                <CaseStudyCard key={study.id} study={study} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="relative z-10 border-y border-[rgba(58,15,99,0.10)] bg-white/50 py-14 md:py-22">
+          <div className="container-custom">
+            <div className="mb-9 text-center md:mb-14">
+              <span className="adibuz-kicker mx-auto">Website Systems</span>
+              <h2 className="adibuz-gradient-text mx-auto mt-5 max-w-3xl text-3xl font-black tracking-tight md:text-5xl">
+                Premium web foundations for different markets.
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-base font-semibold leading-relaxed text-[#6f667d]">
+                Sample builds showing how Adibuz can shape fast, credible, conversion-ready websites across industries.
+              </p>
+            </div>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {SAMPLE_WEBSITES.map((item) => (
+                <SampleWebsiteCard key={item.title} item={item} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <BottomCTA />
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
 
 export default WorkPage;

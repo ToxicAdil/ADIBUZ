@@ -154,37 +154,73 @@ const LazyVideo = memo(
     style?: React.CSSProperties;
     ariaLabel?: string;
   }) => {
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
+      const videoRef = useRef<HTMLVideoElement>(null);
+      const [shouldLoad, setShouldLoad] = useState(false);
+
+      useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        if (!('IntersectionObserver' in window)) {
+          setShouldLoad(true);
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setShouldLoad(true);
+              observer.disconnect();
+            }
+          },
+          { rootMargin: '360px 0px' }
+        );
+
+        observer.observe(video);
+        return () => observer.disconnect();
+      }, []);
 
     useEffect(() => {
-      const el = containerRef.current;
-      if (!el) return;
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          const video = videoRef.current;
-          if (!video) return;
-          if (entry.isIntersecting) {
-            if (!video.src) video.src = src;
-            video.play().catch(() => {});
-          } else {
-            video.pause();
-          }
-        },
-        { rootMargin: '200px 0px', threshold: 0.01 }
-      );
-      observer.observe(el);
-      return () => observer.disconnect();
-    }, [src]);
+      const video = videoRef.current;
+      if (!video || !shouldLoad) return;
+
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      if (video.src !== src) video.src = src;
+
+      const play = () => {
+        if (document.visibilityState === 'visible') {
+          video.play().catch(() => {});
+        }
+      };
+
+      play();
+      video.addEventListener('loadedmetadata', play);
+      video.addEventListener('canplay', play);
+      window.addEventListener('resize', play);
+      window.addEventListener('orientationchange', play);
+      document.addEventListener('visibilitychange', play);
+
+      return () => {
+        video.removeEventListener('loadedmetadata', play);
+        video.removeEventListener('canplay', play);
+        window.removeEventListener('resize', play);
+        window.removeEventListener('orientationchange', play);
+        document.removeEventListener('visibilitychange', play);
+      };
+    }, [src, shouldLoad]);
 
     return (
-      <div ref={containerRef} className="w-full h-full">
+      <div className="w-full h-full">
         <video
           ref={videoRef}
+          src={shouldLoad ? src : undefined}
+          autoPlay
           muted
           loop
           playsInline
-          preload="none"
+          preload={shouldLoad ? 'metadata' : 'none'}
           className={className}
           style={style}
           aria-label={ariaLabel}
@@ -200,7 +236,9 @@ LazyVideo.displayName = 'LazyVideo';
 
 const SectionFallback = () => <div style={{ minHeight: '400px' }} />;
 
-import { Preloader } from '@/components/ui/preloader';
+const Preloader = !isMobile
+  ? lazy(() => import('@/components/ui/preloader').then((m) => ({ default: m.Preloader })))
+  : null;
 
 // --- Main App ---
 
@@ -213,10 +251,14 @@ export default function App() {
   const heroFilter = useTransform(scrollY, [0, 800], ['blur(0px)', 'blur(6px)']);
 
   return (
-    <div className="min-h-screen selection:bg-primary selection:text-white relative">
+    <div className="min-h-screen selection:bg-primary selection:text-white relative adibuz-page">
       <SEO />
-      <Preloader onComplete={() => setPreloaderDone(true)} />
-      <div id="main-app-content" className="opacity-0">
+      {!isMobile && Preloader && (
+        <Suspense fallback={null}>
+          <Preloader onComplete={() => setPreloaderDone(true)} />
+        </Suspense>
+      )}
+      <div id="main-app-content" className={isMobile ? 'opacity-100' : 'opacity-0'}>
         {!isMobile && (
           <Suspense fallback={null}>
             <CustomCursor />
@@ -232,7 +274,7 @@ export default function App() {
           <motion.div
             style={{
               opacity: heroOpacity,
-              filter: heroFilter,
+              filter: isMobile ? 'none' : heroFilter,
               height: '100%',
               width: '100%',
               display: 'flex',
@@ -248,12 +290,18 @@ export default function App() {
                   <div className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center pt-20" />
                 }
               >
-                <DotGlobeHero
-                  className="w-full h-full flex flex-col items-center justify-center"
-                  globeRadius={isMobile ? 0.8 : 1.3}
-                >
-                  <HeroContent heroScale={heroScale} heroY={heroY} />
-                </DotGlobeHero>
+                {isMobile ? (
+                  <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-[16px]">
+                    <HeroContent heroScale={heroScale} heroY={heroY} />
+                  </div>
+                ) : (
+                  <DotGlobeHero
+                    className="w-full h-full flex flex-col items-center justify-center"
+                    globeRadius={1.3}
+                  >
+                    <HeroContent heroScale={heroScale} heroY={heroY} />
+                  </DotGlobeHero>
+                )}
               </Suspense>
             </BackgroundGradientGlow>
           </motion.div>
@@ -267,7 +315,7 @@ export default function App() {
             className="absolute inset-0 z-0 pointer-events-none rounded-t-[48px]"
             style={{
               backgroundImage: `radial-gradient(circle at 15% 50%, rgba(167, 139, 250, 0.12) 0%, transparent 50%), radial-gradient(circle at 85% 30%, rgba(109, 40, 217, 0.08) 0%, transparent 50%)`,
-              backgroundAttachment: 'fixed',
+              backgroundAttachment: isMobile ? 'scroll' : 'fixed',
             }}
             aria-hidden="true"
           />
@@ -310,7 +358,7 @@ export default function App() {
               posterUrl={cloudinaryPoster(VIDEOS.marketing)}
               videoSlot={
                 <LazyVideo
-                  src={cloudinaryVideo(VIDEOS.marketing)}
+                  src={cloudinaryVideo(VIDEOS.marketing, isMobile)}
                   className="w-full h-full object-cover block"
                   style={{ borderRadius: 'inherit' }}
                   ariaLabel="Strategic marketing showcase video"
@@ -334,7 +382,7 @@ export default function App() {
                     aria-hidden="true"
                   />
                   <LazyVideo
-                    src={cloudinaryVideo(VIDEOS.social)}
+                    src={cloudinaryVideo(VIDEOS.social, isMobile)}
                     className="relative w-full h-full object-contain z-10 block"
                     style={{ borderRadius: 'inherit' }}
                     ariaLabel="Social media management showcase video"
@@ -352,7 +400,7 @@ export default function App() {
               posterUrl={cloudinaryPoster(VIDEOS.automation)}
               videoSlot={
                 <LazyVideo
-                  src={cloudinaryVideo(VIDEOS.automation)}
+                  src={cloudinaryVideo(VIDEOS.automation, isMobile)}
                   className="w-full h-full object-cover block"
                   style={{ borderRadius: 'inherit' }}
                   ariaLabel="AI automation showcase video"
@@ -371,7 +419,7 @@ export default function App() {
               posterUrl={cloudinaryPoster(VIDEOS.webdev)}
               videoSlot={
                 <LazyVideo
-                  src={cloudinaryVideo(VIDEOS.webdev)}
+                  src={cloudinaryVideo(VIDEOS.webdev, isMobile)}
                   className="w-full h-full object-cover block"
                   style={{ borderRadius: 'inherit' }}
                   ariaLabel="Web development showcase video"
@@ -389,7 +437,7 @@ export default function App() {
               posterUrl={cloudinaryPoster(VIDEOS.seo)}
               videoSlot={
                 <LazyVideo
-                  src={cloudinaryVideo(VIDEOS.seo)}
+                  src={cloudinaryVideo(VIDEOS.seo, isMobile)}
                   className="w-full h-full object-cover block"
                   style={{ borderRadius: 'inherit' }}
                   ariaLabel="SEO optimization showcase video"
@@ -408,7 +456,7 @@ export default function App() {
               posterUrl={cloudinaryPoster(VIDEOS.branding)}
               videoSlot={
                 <LazyVideo
-                  src={cloudinaryVideo(VIDEOS.branding)}
+                  src={cloudinaryVideo(VIDEOS.branding, isMobile)}
                   className="w-full h-full object-cover block"
                   style={{ borderRadius: 'inherit' }}
                   ariaLabel="Visual branding showcase video"
@@ -426,10 +474,11 @@ export default function App() {
                 <div className="container-custom">
                   <FadeInUp className="premium-card rounded-3xl md:rounded-[32px] p-6 md:p-12 lg:py-[40px] lg:px-[60px] overflow-hidden">
                     <div className="text-left mb-16 space-y-4 relative z-10">
-                      <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight leading-[1.1]">
-                        Client <span className="text-gradient">Success Stories</span>
+                      <span className="adibuz-kicker mb-4">Proof of Growth</span>
+                      <h2 className="adibuz-heading">
+                        Client <span className="adibuz-gradient-text">Success Stories</span>
                       </h2>
-                      <p className="text-slate-500 text-lg font-medium max-w-2xl">
+                      <p className="adibuz-subheading max-w-2xl">
                         Real results from brands that scaled with Adibuz's AI-driven growth engine.
                       </p>
                     </div>

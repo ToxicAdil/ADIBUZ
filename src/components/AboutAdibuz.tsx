@@ -27,8 +27,8 @@ const AboutAdibuz: React.FC = () => {
            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
            className="premium-card rounded-3xl md:rounded-[32px] mt-8 overflow-hidden relative min-h-[400px] lg:min-h-[600px] p-6 md:p-12 flex flex-col bg-white/40 backdrop-blur-sm"
         >
-          <h2 className="text-6xl md:text-[56px] font-bold leading-[1.2] tracking-tight text-slate-900 border-b border-slate-100 pb-4 w-full text-center mb-2">
-            <span className="text-gradient">WORK</span>
+          <h2 className="adibuz-heading border-b border-[rgba(58,15,99,0.10)] pb-4 w-full text-center mb-2">
+            <span className="adibuz-gradient-text">WORK</span>
           </h2>
 
           <div className="flex-1 flex flex-col lg:flex-row items-start justify-center lg:justify-between gap-4 lg:gap-24 relative z-10 pt-4">
@@ -36,10 +36,11 @@ const AboutAdibuz: React.FC = () => {
             <div className="flex-1 w-full lg:max-w-[500px] space-y-8 text-center lg:text-left">
               <div className="space-y-6">
                 <div className="space-y-4">
-                  <h2 className="text-4xl md:text-[42px] font-bold leading-[1.2] tracking-tight text-slate-900">
-                    Real Results. <span className="text-gradient">Real Growth.</span>
+                  <span className="adibuz-kicker mx-auto lg:mx-0">Case Study Systems</span>
+                  <h2 className="adibuz-heading !text-3xl md:!text-[42px]">
+                    Real Results. <span className="adibuz-gradient-text">Real Growth.</span>
                   </h2>
-                  <p className="text-slate-500 text-[18px] font-medium leading-[1.6] max-lg:max-w-lg max-lg:mx-auto">
+                  <p className="adibuz-subheading max-lg:max-w-lg max-lg:mx-auto">
                     We don’t just build campaigns — we build systems that generate consistent growth. From high-converting funnels to performance-driven ads, every project is designed to deliver real business results.
                   </p>
                 </div>
@@ -69,7 +70,7 @@ const AboutAdibuz: React.FC = () => {
           {/* Centered CTA Button */}
           <div className="mt-6 md:mt-8 flex justify-center w-full relative z-20">
             <MagneticButton>
-              <button className="bg-slate-900 text-white px-10 py-4 rounded-full font-bold text-[15px] btn-premium flex items-center justify-center gap-3 primary-button hover:scale-105 transition-transform shadow-xl">
+              <button className="adibuz-button-primary px-10 py-4 text-[15px]">
                 View Case Studies <ArrowRight className="w-5 h-5" />
               </button>
             </MagneticButton>

@@ -109,10 +109,11 @@ export const InteractiveServices: React.FC = () => {
             {/* Centered Header */}
             <div className="text-center mt-12 mb-8 relative z-10 px-6 flex justify-center">
               <StaggerItem className="space-y-4 flex flex-col items-center">
-                <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight leading-[1.1]">
-                  Our <span className="text-gradient">Services.</span>
+                <span className="adibuz-kicker">Growth Capabilities</span>
+                <h2 className="adibuz-heading">
+                  Our <span className="adibuz-gradient-text">Services.</span>
                 </h2>
-                <p className="text-slate-600 text-sm md:text-base font-medium max-w-2xl leading-relaxed">
+                <p className="adibuz-subheading max-w-2xl">
                   Transforming brands into industry leaders with data-driven creative and technical systems.
                 </p>
               </StaggerItem>

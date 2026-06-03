@@ -21,36 +21,48 @@ const LazyVideo = memo(
     ariaLabel?: string;
   }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-      const el = containerRef.current;
-      if (!el) return;
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          const video = videoRef.current;
-          if (!video) return;
-          if (entry.isIntersecting) {
-            if (!video.src) video.src = src;
-            video.play().catch(() => {});
-          } else {
-            video.pause();
-          }
-        },
-        { rootMargin: '200px 0px', threshold: 0.01 }
-      );
-      observer.observe(el);
-      return () => observer.disconnect();
+      const video = videoRef.current;
+      if (!video) return;
+
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      if (video.src !== src) video.src = src;
+
+      const play = () => {
+        if (document.visibilityState === 'visible') {
+          video.play().catch(() => {});
+        }
+      };
+
+      play();
+      video.addEventListener('loadedmetadata', play);
+      video.addEventListener('canplay', play);
+      window.addEventListener('resize', play);
+      window.addEventListener('orientationchange', play);
+      document.addEventListener('visibilitychange', play);
+
+      return () => {
+        video.removeEventListener('loadedmetadata', play);
+        video.removeEventListener('canplay', play);
+        window.removeEventListener('resize', play);
+        window.removeEventListener('orientationchange', play);
+        document.removeEventListener('visibilitychange', play);
+      };
     }, [src]);
 
     return (
-      <div ref={containerRef} className="w-full h-full">
+      <div className="w-full h-full">
         <video
           ref={videoRef}
+          src={src}
+          autoPlay
           muted
           loop
           playsInline
-          preload="none"
+          preload="metadata"
           className={className}
           style={style}
           aria-label={ariaLabel}
@@ -91,13 +103,13 @@ const SERVICES_MAP: Record<string, any> = {
     videoRight: false,
     content: (
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed mt-8 md:mt-12">
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Data-Driven Campaigns That Drive Real Revenue</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight">Data-Driven Campaigns That Drive Real Revenue</h2>
         <p>In today's highly competitive digital landscape, generic advertising simply doesn't cut it. As a leading <strong>AI marketing agency</strong>, Adibuz specializes in constructing multi-channel marketing campaigns engineered for maximum return on investment (ROI). Our strategic marketing services go far beyond simple media buying; we architect end-to-end customer acquisition systems designed to scale your business sustainably.</p>
         
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mt-10">Advanced Audience Segmentation & Paid Advertising</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight mt-10">Advanced Audience Segmentation & Paid Advertising</h2>
         <p>We leverage advanced data analytics and machine learning algorithms to identify your ideal customer profiles. By utilizing robust audience segmentation, we ensure your ad spend is directed exclusively at high-intent users. Whether we are managing complex <strong>Google Ads</strong> search campaigns, high-converting <strong>Facebook & Instagram Ads</strong>, or B2B <strong>LinkedIn strategies</strong>, our focus remains strictly on performance metrics that impact your bottom line—such as Cost Per Acquisition (CPA) and Lifetime Value (LTV).</p>
         
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mt-10">Conversion Funnel Optimization</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight mt-10">Conversion Funnel Optimization</h2>
         <p>Driving traffic is only half the battle. Our marketing experts meticulously optimize every touchpoint in your conversion funnel. From crafting compelling ad creatives and persuasive copywriting to designing high-converting landing pages, we eliminate friction in the user journey. By integrating <strong>AI-driven insights</strong> and continuous A/B testing, we dynamically adjust strategies in real-time, ensuring your brand positioning remains dominant and your lead generation efforts are consistently scalable.</p>
       </div>
     )
@@ -111,13 +123,13 @@ const SERVICES_MAP: Record<string, any> = {
     videoRight: true,
     content: (
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed mt-8 md:mt-12">
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Building Culturally Relevant Digital Communities</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight">Building Culturally Relevant Digital Communities</h2>
         <p>Social media is no longer just a digital billboard; it is the heartbeat of modern brand identity. At Adibuz, our expert social media management services are designed to transform passive scrollers into active, loyal brand advocates. We craft bespoke <strong>content strategies</strong> that deeply resonate with your target demographic, ensuring your brand voice is authentic, authoritative, and perfectly aligned with current digital trends.</p>
         
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mt-10">Algorithmic Growth & Viral Content Creation</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight mt-10">Algorithmic Growth & Viral Content Creation</h2>
         <p>Navigating the complex algorithms of platforms like TikTok, Instagram Reels, and LinkedIn requires both creative brilliance and technical precision. Our team specializes in <strong>digital storytelling</strong> and viral content creation. By analyzing engagement metrics, watch times, and algorithmic behaviors, we produce highly shareable content—from short-form vertical videos to high-value thought leadership carousels. This relentless focus on organic engagement maximizes your brand awareness without relying solely on paid amplification.</p>
         
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mt-10">Social Listening & Audience Retention</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight mt-10">Social Listening & Audience Retention</h2>
         <p>We actively monitor brand sentiment through advanced <strong>social listening</strong> tools, allowing us to pivot strategies instantly based on real-time audience feedback. By fostering genuine community building and strategic influencer partnerships, we create a network effect that dramatically improves audience retention. When you partner with Adibuz, your social media presence becomes a powerful, revenue-generating engine that consistently builds trust and authority in your industry.</p>
       </div>
     )
@@ -131,13 +143,13 @@ const SERVICES_MAP: Record<string, any> = {
     videoRight: false,
     content: (
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed mt-8 md:mt-12">
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Scaling Operations Through Intelligent Systems</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight">Scaling Operations Through Intelligent Systems</h2>
         <p>In the modern business era, manual data entry and repetitive administrative tasks are the ultimate bottlenecks to growth. Adibuz delivers enterprise-grade <strong>AI workflow automation</strong> solutions that drastically reduce operational friction. We analyze your existing business logic and deploy intelligent systems that connect your disparate software stacks, transforming siloed data into synchronized, highly efficient automated pipelines.</p>
         
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mt-10">CRM Integrations & Automated Lead Nurturing</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight mt-10">CRM Integrations & Automated Lead Nurturing</h2>
         <p>A fast response time is critical for converting modern consumers. We specialize in deep <strong>CRM integrations</strong> (such as Salesforce, HubSpot, and GoHighLevel) combined with custom API webhooks. By deploying sophisticated Zapier and Make.com alternatives, we engineer automated lead nurturing sequences. From the moment a prospect submits a form, our systems can trigger personalized email campaigns, SMS follow-ups, and internal team notifications—guaranteeing zero lead leakage and maximizing your sales conversion rates.</p>
         
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mt-10">AI Chatbot Deployment & Operational Efficiency</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight mt-10">AI Chatbot Deployment & Operational Efficiency</h2>
         <p>Elevate your customer service and pre-sales qualification by integrating advanced generative AI. We build and deploy custom <strong>AI chatbots</strong> trained specifically on your company's knowledge base. These intelligent agents handle 24/7 customer inquiries, qualify inbound leads dynamically, and book appointments directly to your calendar. By reducing manual tasks and minimizing human error, our automation services empower your core team to focus entirely on high-impact, revenue-generating activities.</p>
       </div>
     )
@@ -151,13 +163,13 @@ const SERVICES_MAP: Record<string, any> = {
     videoRight: true,
     content: (
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed mt-8 md:mt-12">
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Scalable Architecture for Modern Brands</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight">Scalable Architecture for Modern Brands</h2>
         <p>Your website is the digital headquarters of your business, and its performance directly dictates your online success. Adibuz engineers blazing-fast, highly secure, and visually stunning web applications. Utilizing modern Javascript frameworks like <strong>React, Vite, and Next.js</strong>, we build scalable architectures that offer unparalleled speed and reliability. We don't just build websites; we develop enterprise-grade digital experiences that captivate users and crush the competition.</p>
         
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mt-10">Core Web Vitals & Technical SEO Excellence</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight mt-10">Core Web Vitals & Technical SEO Excellence</h2>
         <p>A beautiful design is useless if it takes too long to load. Our development team is obsessed with Google's <strong>Core Web Vitals</strong>. We implement rigorous performance budgets, lazy loading protocols, and dynamic asset optimization to ensure your site achieves near-perfect Lighthouse scores. This flawless technical foundation not only provides a frictionless user experience but also heavily boosts your rankings in search engine results through inherent technical SEO advantages.</p>
         
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mt-10">Conversion Rate Optimization (CRO) & Mobile Responsiveness</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight mt-10">Conversion Rate Optimization (CRO) & Mobile Responsiveness</h2>
         <p>Every pixel we push is designed to convert. Through meticulous <strong>Conversion Rate Optimization (CRO)</strong> and custom UI/UX design, we map out intuitive user journeys that guide visitors seamlessly toward purchasing decisions. Furthermore, our development is strictly mobile-first. We guarantee absolute mobile responsiveness across all devices and screen sizes, ensuring your landing pages, e-commerce solutions, and digital storefronts perform flawlessly wherever your audience chooses to browse.</p>
       </div>
     )
@@ -171,13 +183,13 @@ const SERVICES_MAP: Record<string, any> = {
     videoRight: false,
     content: (
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed mt-8 md:mt-12">
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Dominating Search Engine Results Pages (SERPs)</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight">Dominating Search Engine Results Pages (SERPs)</h2>
         <p>Organic traffic is the most scalable, high-margin acquisition channel available to modern businesses. However, achieving page-one rankings requires far more than basic keyword stuffing. As a premier SEO agency, Adibuz deploys advanced <strong>Search Engine Optimization</strong> frameworks designed to outrank your toughest competitors. We begin with comprehensive technical SEO audits to identify and repair crawlability issues, indexation errors, and site architecture flaws that are holding your rankings back.</p>
         
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mt-10">On-Page Optimization & LSI Keyword Strategies</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight mt-10">On-Page Optimization & LSI Keyword Strategies</h2>
         <p>Google's algorithm prioritizes deep, topical authority. Our content strategy team performs exhaustive keyword research to uncover high-intent, low-competition search queries. We then execute meticulous <strong>on-page optimization</strong> across your entire site structure. By naturally integrating Latent Semantic Indexing (LSI) keywords and structuring your content with perfectly nested heading tags (H1, H2, H3), we signal profound relevance to search engine crawlers, driving massive spikes in highly targeted organic traffic.</p>
         
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mt-10">High-Authority Link Building & Content Gap Analysis</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight mt-10">High-Authority Link Building & Content Gap Analysis</h2>
         <p>Off-page signals remain a critical ranking factor. We execute white-hat, high-authority link building campaigns that boost your domain's credibility and trust flow. Simultaneously, we perform continuous <strong>content gap analysis</strong> against your primary competitors to ensure your website answers every question your customers are searching for. From local SEO mastery to complex algorithmic recovery, Adibuz delivers long-term organic growth that compounds over time.</p>
       </div>
     )
@@ -191,13 +203,13 @@ const SERVICES_MAP: Record<string, any> = {
     videoRight: true,
     content: (
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed mt-8 md:mt-12">
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Crafting Compelling Brand Narratives</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight">Crafting Compelling Brand Narratives</h2>
         <p>In a saturated digital market, aesthetic mediocrity is invisible. Premium visual branding is the psychological anchor that separates industry leaders from commodities. At Adibuz, our creative directors specialize in forging compelling <strong>brand narratives</strong> that evoke trust, authority, and emotional resonance. We don't just design logos; we engineer comprehensive corporate identities that instantly communicate your unique value proposition to your target audience.</p>
         
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mt-10">Typography Systems & Modern UI Aesthetics</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight mt-10">Typography Systems & Modern UI Aesthetics</h2>
         <p>A cohesive brand identity requires rigorous consistency across every touchpoint. Our design team establishes strict visual guidelines, incorporating bespoke typography systems, precise color psychology, and <strong>modern UI aesthetics</strong>. Whether we are overhauling your website's interface, designing high-converting ad creatives, or producing striking social media templates, we ensure your brand's visual language remains unified, sophisticated, and instantly recognizable.</p>
         
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mt-10">Cross-Platform Consistency & Premium Assets</h2>
+        <h2 className="adibuz-gradient-text text-2xl md:text-3xl font-bold tracking-tight mt-10">Cross-Platform Consistency & Premium Assets</h2>
         <p>Your brand must perform flawlessly regardless of where a customer encounters it. We produce <strong>premium digital assets</strong> tailored for absolute cross-platform consistency. From high-fidelity video production and sleek 3D motion graphics to minimalist editorial layouts, our creative output is designed to elevate your perceived market value. By investing in top-tier visual branding, you empower your sales systems with an undeniable aura of professionalism that justifies premium pricing and accelerates conversions.</p>
       </div>
     )
@@ -249,7 +261,7 @@ export default function ServicePage() {
             <div className="inline-block px-4 py-1.5 rounded-full bg-[#3A0F63]/5 border border-[#3A0F63]/10 text-[#3A0F63] text-sm font-bold tracking-widest mb-4">
               SERVICE DETAILS
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-slate-900 tracking-tight leading-[1.1]">
+            <h1 className="adibuz-gradient-text text-4xl md:text-6xl font-bold tracking-tight leading-[1.1]">
               {service.title}
             </h1>
           </FadeInUp>
