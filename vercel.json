@@ -1,23 +1,23 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
   "redirects": [
     {
       "source": "/:path*",
       "has": [
         {
           "type": "host",
-          "value": "www.adibuz.com"
+          "value": "adibuz.com"
         }
       ],
-      "destination": "https://adibuz.com/:path*",
+      "destination": "https://www.adibuz.com/:path*",
       "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "/"
     }
   ],
   "headers": [

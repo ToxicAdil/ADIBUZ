@@ -8,7 +8,7 @@ import { FileText, Shield, AlertTriangle, Globe, Mail, CreditCard, Users, Zap, L
 
 const EFFECTIVE_DATE = 'May 15, 2026';
 const CONTACT_EMAIL = 'hello@adibuz.com';
-const SITE_URL = 'https://adibuz.com';
+const SITE_URL = 'https://www.adibuz.com';
 
 const Section = memo(({ id, icon: Icon, title, children }: {
   id: string; icon: React.ComponentType<{ className?: string }>; title: string; children: React.ReactNode;
@@ -79,7 +79,7 @@ const TermsOfUsePage = () => (
   <div className="min-h-screen bg-[#fdfaff] selection:bg-primary selection:text-white">
     <SEO
       title="Terms of Use | Adibuz"
-      description="Read the Terms of Use for Adibuz — an AI-powered digital marketing agency. Understand our service terms, client responsibilities, IP rights, and legal policies."
+      description="Read the Terms of Use for Adibuz â€” an AI-powered digital marketing agency. Understand our service terms, client responsibilities, IP rights, and legal policies."
       canonical={`${SITE_URL}/terms`}
     />
     <SimpleHeader />
@@ -99,11 +99,11 @@ const TermsOfUsePage = () => (
           Terms of Use
         </h1>
         <p className="text-slate-500 text-lg md:text-xl font-medium leading-relaxed max-w-xl mx-auto mb-6">
-          By using our website or services, you agree to these terms. Please read them carefully — we've kept them clear and honest.
+          By using our website or services, you agree to these terms. Please read them carefully â€” we've kept them clear and honest.
         </p>
         <p className="text-sm text-slate-400 font-medium">
           Effective Date: <strong className="text-slate-600">{EFFECTIVE_DATE}</strong>
-          {' · '}Last Updated: <strong className="text-slate-600">{EFFECTIVE_DATE}</strong>
+          {' Â· '}Last Updated: <strong className="text-slate-600">{EFFECTIVE_DATE}</strong>
         </p>
       </div>
     </header>
@@ -148,9 +148,9 @@ const TermsOfUsePage = () => (
             <P>Adibuz is an AI-powered digital marketing and branding agency based in India, providing services to clients globally. We operate under the brand name "Adibuz" and can be contacted at:</P>
             <div className="mt-4 rounded-xl bg-primary/5 border border-primary/10 p-5 space-y-2">
               <p className="font-bold text-slate-800 text-base">Adibuz Digital Agency</p>
-              <p className="text-slate-600 text-[15px]">📧 <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary font-medium hover:underline">{CONTACT_EMAIL}</a></p>
-              <p className="text-slate-600 text-[15px]">🌐 <a href={SITE_URL} className="text-primary font-medium hover:underline" target="_blank" rel="noopener noreferrer">{SITE_URL}</a></p>
-              <p className="text-slate-600 text-[15px]">📍 India (serving clients globally)</p>
+              <p className="text-slate-600 text-[15px]">ðŸ“§ <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary font-medium hover:underline">{CONTACT_EMAIL}</a></p>
+              <p className="text-slate-600 text-[15px]">ðŸŒ <a href={SITE_URL} className="text-primary font-medium hover:underline" target="_blank" rel="noopener noreferrer">{SITE_URL}</a></p>
+              <p className="text-slate-600 text-[15px]">ðŸ“ India (serving clients globally)</p>
             </div>
           </Section>
 
@@ -203,7 +203,7 @@ const TermsOfUsePage = () => (
           {/* IP Rights */}
           <Section id="ip-rights" icon={Lock} title="Intellectual Property Rights">
             <H3>Adibuz Owned Content</H3>
-            <P>All content on this website — including but not limited to text, graphics, logos, icons, images, audio, video, code, and software — is the intellectual property of Adibuz or its licensors and is protected by applicable copyright, trademark, and intellectual property laws.</P>
+            <P>All content on this website â€” including but not limited to text, graphics, logos, icons, images, audio, video, code, and software â€” is the intellectual property of Adibuz or its licensors and is protected by applicable copyright, trademark, and intellectual property laws.</P>
             <H3>Client Deliverables</H3>
             <P>Upon receipt of full payment for a project, Adibuz transfers ownership of the final agreed deliverables (such as website design files, ad creative, or written content) to the client. Ownership of proprietary tools, frameworks, templates, and methodologies used to create deliverables remains with Adibuz.</P>
             <H3>Prohibited Uses</H3>
@@ -273,7 +273,7 @@ const TermsOfUsePage = () => (
             <P>Adibuz uses artificial intelligence and automation tools to enhance its service delivery. Please note:</P>
             <Ul items={[
               'AI-generated content (copy, visuals, code, strategies) is reviewed by our team before delivery',
-              'AI outputs may occasionally contain errors, biases, or inaccuracies — clients should review all deliverables',
+              'AI outputs may occasionally contain errors, biases, or inaccuracies â€” clients should review all deliverables',
               'Automation workflows are tested but may be affected by third-party API changes',
               'Adibuz does not use client data to train external AI models without explicit written consent',
               'No fully automated decisions with significant legal effects are made without human oversight',
@@ -359,8 +359,8 @@ const TermsOfUsePage = () => (
             <P>If you have questions about these Terms of Use, please contact us:</P>
             <div className="mt-4 rounded-xl bg-primary/5 border border-primary/10 p-5 space-y-2">
               <p className="font-bold text-slate-800 text-base">Adibuz Digital Agency</p>
-              <p className="text-slate-600 text-[15px]">📧 <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary font-medium hover:underline">{CONTACT_EMAIL}</a></p>
-              <p className="text-slate-600 text-[15px]">🌐 <a href={SITE_URL} className="text-primary font-medium hover:underline" target="_blank" rel="noopener noreferrer">{SITE_URL}</a></p>
+              <p className="text-slate-600 text-[15px]">ðŸ“§ <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary font-medium hover:underline">{CONTACT_EMAIL}</a></p>
+              <p className="text-slate-600 text-[15px]">ðŸŒ <a href={SITE_URL} className="text-primary font-medium hover:underline" target="_blank" rel="noopener noreferrer">{SITE_URL}</a></p>
             </div>
             <P>Also see our <Link to="/privacy-policy" className="text-primary font-medium hover:underline">Privacy Policy</Link> for information on how we handle your personal data.</P>
           </Section>
@@ -368,7 +368,7 @@ const TermsOfUsePage = () => (
           {/* Footer nav */}
           <div className="text-center pt-4">
             <Link to="/" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:opacity-75 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded">
-              ← Back to Home
+              â† Back to Home
             </Link>
           </div>
 
@@ -381,3 +381,4 @@ const TermsOfUsePage = () => (
 );
 
 export default TermsOfUsePage;
+

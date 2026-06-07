@@ -26,8 +26,8 @@ const AboutPage = () => {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://adibuz.com/" },
-              { "@type": "ListItem", "position": 2, "name": "About", "item": "https://adibuz.com/about" }
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.adibuz.com/" },
+              { "@type": "ListItem", "position": 2, "name": "About", "item": "https://www.adibuz.com/about" }
             ]
           })}
         </script>
@@ -120,3 +120,4 @@ const AboutPage = () => {
 };
 
 export default AboutPage;
+

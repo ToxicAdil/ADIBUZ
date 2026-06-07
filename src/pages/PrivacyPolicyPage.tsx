@@ -8,9 +8,9 @@ import { Shield, Lock, Eye, Users, Mail, Globe, Bell, RefreshCw } from 'lucide-r
 
 const EFFECTIVE_DATE = 'May 15, 2026';
 const CONTACT_EMAIL = 'hello@adibuz.com';
-const SITE_URL = 'https://adibuz.com';
+const SITE_URL = 'https://www.adibuz.com';
 
-// ─── Section wrapper ──────────────────────────────────────────────────────────
+// â”€â”€â”€ Section wrapper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const Section = memo(({ id, icon: Icon, title, children }: {
   id: string;
   icon: React.ComponentType<{ className?: string }>;
@@ -54,7 +54,7 @@ const H3 = ({ children }: { children: React.ReactNode }) => (
   <h3 className="text-base md:text-lg font-semibold text-slate-800 mt-6 mb-2">{children}</h3>
 );
 
-// ─── Table of Contents ────────────────────────────────────────────────────────
+// â”€â”€â”€ Table of Contents â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const TOC_ITEMS = [
   { id: 'who-we-are', label: 'Who We Are' },
   { id: 'information-collected', label: 'Information We Collect' },
@@ -73,7 +73,7 @@ const TOC_ITEMS = [
   { id: 'contact', label: 'Contact Us' },
 ];
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Main Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const PrivacyPolicyPage = () => (
   <div className="min-h-screen bg-[#fdfaff] selection:bg-primary selection:text-white">
     <SEO
@@ -83,7 +83,7 @@ const PrivacyPolicyPage = () => (
     />
     <SimpleHeader />
 
-    {/* ── Hero ── */}
+    {/* â”€â”€ Hero â”€â”€ */}
     <header className="relative overflow-hidden pt-32 pb-16 md:pb-24 text-center px-4">
       <div
         className="absolute inset-0 pointer-events-none"
@@ -101,20 +101,20 @@ const PrivacyPolicyPage = () => (
           Privacy Policy
         </h1>
         <p className="text-slate-500 text-lg md:text-xl font-medium leading-relaxed max-w-xl mx-auto mb-6">
-          We believe privacy is a right, not a checkbox. Here's exactly how we handle your data — in plain English.
+          We believe privacy is a right, not a checkbox. Here's exactly how we handle your data â€” in plain English.
         </p>
         <p className="text-sm text-slate-400 font-medium">
           Effective Date: <strong className="text-slate-600">{EFFECTIVE_DATE}</strong>
-          {' · '}Last Updated: <strong className="text-slate-600">{EFFECTIVE_DATE}</strong>
+          {' Â· '}Last Updated: <strong className="text-slate-600">{EFFECTIVE_DATE}</strong>
         </p>
       </div>
     </header>
 
-    {/* ── Layout ── */}
+    {/* â”€â”€ Layout â”€â”€ */}
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
       <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
 
-        {/* ── Sticky TOC ── */}
+        {/* â”€â”€ Sticky TOC â”€â”€ */}
         <aside className="lg:w-64 flex-shrink-0" aria-label="Table of contents">
           <div className="lg:sticky lg:top-24 rounded-2xl border border-slate-100 bg-white/80 backdrop-blur-sm p-5 shadow-sm">
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">On This Page</p>
@@ -135,7 +135,7 @@ const PrivacyPolicyPage = () => (
           </div>
         </aside>
 
-        {/* ── Content ── */}
+        {/* â”€â”€ Content â”€â”€ */}
         <main className="flex-1 min-w-0 space-y-6" id="privacy-content" aria-label="Privacy policy content">
 
           {/* Who We Are */}
@@ -203,15 +203,15 @@ const PrivacyPolicyPage = () => (
           <Section id="third-party" icon={Globe} title="Analytics & Third-Party Services">
             <P>We use the following third-party services that may collect or process data on our behalf:</P>
             <Ul items={[
-              'Google Analytics — website traffic analysis',
-              'Google Search Console — SEO and search performance monitoring',
-              'Meta Pixel — ad conversion tracking (if applicable)',
-              'LinkedIn Insight Tag — professional audience analytics',
-              'Cloudinary — media hosting and delivery',
-              'Supabase — secure backend database for blog content',
-              'Vercel — website hosting and CDN delivery',
-              'Email service providers — for transactional and marketing emails',
-              'CRM tools — for managing client relationships and projects',
+              'Google Analytics â€” website traffic analysis',
+              'Google Search Console â€” SEO and search performance monitoring',
+              'Meta Pixel â€” ad conversion tracking (if applicable)',
+              'LinkedIn Insight Tag â€” professional audience analytics',
+              'Cloudinary â€” media hosting and delivery',
+              'Supabase â€” secure backend database for blog content',
+              'Vercel â€” website hosting and CDN delivery',
+              'Email service providers â€” for transactional and marketing emails',
+              'CRM tools â€” for managing client relationships and projects',
             ]} />
             <P>These third parties have their own privacy policies and we encourage you to review them. We do not sell your data to any third party.</P>
           </Section>
@@ -222,7 +222,7 @@ const PrivacyPolicyPage = () => (
             <Ul items={[
               'HTTPS encryption across our entire website',
               'Secure, access-controlled database storage via Supabase with Row Level Security (RLS)',
-              'Limited data access — only authorised team members can access client data',
+              'Limited data access â€” only authorised team members can access client data',
               'Regular security audits and best-practice code reviews',
               'No storage of sensitive payment details on our servers',
             ]} />
@@ -233,13 +233,13 @@ const PrivacyPolicyPage = () => (
           <Section id="your-rights" icon={Shield} title="Your Rights">
             <P>You have the following rights regarding your personal data:</P>
             <Ul items={[
-              'Right to Access — request a copy of the data we hold about you',
-              'Right to Rectification — correct inaccurate or incomplete data',
-              'Right to Erasure — request deletion of your data ("right to be forgotten")',
-              'Right to Restriction — limit how we process your data',
-              'Right to Portability — receive your data in a portable format',
-              'Right to Object — object to processing based on legitimate interests',
-              'Right to Withdraw Consent — at any time, for marketing communications',
+              'Right to Access â€” request a copy of the data we hold about you',
+              'Right to Rectification â€” correct inaccurate or incomplete data',
+              'Right to Erasure â€” request deletion of your data ("right to be forgotten")',
+              'Right to Restriction â€” limit how we process your data',
+              'Right to Portability â€” receive your data in a portable format',
+              'Right to Object â€” object to processing based on legitimate interests',
+              'Right to Withdraw Consent â€” at any time, for marketing communications',
             ]} />
             <P>To exercise any of these rights, contact us at <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary font-medium hover:underline">{CONTACT_EMAIL}</a>. We will respond within 30 days.</P>
           </Section>
@@ -248,11 +248,11 @@ const PrivacyPolicyPage = () => (
           <Section id="data-retention" icon={RefreshCw} title="Data Retention">
             <P>We retain personal data only for as long as necessary to fulfil the purposes described in this policy:</P>
             <Ul items={[
-              'Contact form submissions — retained for up to 12 months or until resolved',
-              'Client project data — retained for the duration of the engagement plus 3 years',
-              'Newsletter subscribers — until you unsubscribe',
-              'Analytics data — typically 26 months (Google Analytics default)',
-              'Legal and financial records — as required by applicable law (typically 7 years)',
+              'Contact form submissions â€” retained for up to 12 months or until resolved',
+              'Client project data â€” retained for the duration of the engagement plus 3 years',
+              'Newsletter subscribers â€” until you unsubscribe',
+              'Analytics data â€” typically 26 months (Google Analytics default)',
+              'Legal and financial records â€” as required by applicable law (typically 7 years)',
             ]} />
             <P>When data is no longer needed, we securely delete or anonymise it.</P>
           </Section>
@@ -325,11 +325,11 @@ const PrivacyPolicyPage = () => (
             <P>If you have any questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us:</P>
             <div className="mt-4 rounded-xl bg-primary/5 border border-primary/10 p-5 space-y-2">
               <p className="font-bold text-slate-800 text-base">Adibuz Digital Agency</p>
-              <p className="text-slate-600 text-[15px]">📧 <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary font-medium hover:underline">{CONTACT_EMAIL}</a></p>
-              <p className="text-slate-600 text-[15px]">🌐 <a href={SITE_URL} className="text-primary font-medium hover:underline" target="_blank" rel="noopener noreferrer">{SITE_URL}</a></p>
-              <p className="text-slate-600 text-[15px]">📍 India (serving clients globally)</p>
+              <p className="text-slate-600 text-[15px]">ðŸ“§ <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary font-medium hover:underline">{CONTACT_EMAIL}</a></p>
+              <p className="text-slate-600 text-[15px]">ðŸŒ <a href={SITE_URL} className="text-primary font-medium hover:underline" target="_blank" rel="noopener noreferrer">{SITE_URL}</a></p>
+              <p className="text-slate-600 text-[15px]">ðŸ“ India (serving clients globally)</p>
             </div>
-            <P>We aim to respond to all privacy-related enquiries within <strong>5–10 business days</strong>.</P>
+            <P>We aim to respond to all privacy-related enquiries within <strong>5â€“10 business days</strong>.</P>
           </Section>
 
           {/* Back to home */}
@@ -338,7 +338,7 @@ const PrivacyPolicyPage = () => (
               to="/"
               className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:opacity-75 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
             >
-              ← Back to Home
+              â† Back to Home
             </Link>
             <p className="text-xs text-slate-400 mt-3">
               Also see our <Link to="/terms" className="text-primary hover:underline font-medium">Terms of Use</Link>
@@ -363,3 +363,4 @@ function Zap(props: React.SVGProps<SVGSVGElement>) {
 }
 
 export default PrivacyPolicyPage;
+

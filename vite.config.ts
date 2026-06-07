@@ -6,7 +6,7 @@ import { defineConfig, loadEnv } from 'vite';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   return {
-    base: './',
+    base: '/',
     plugins: [
       react(),
       tailwindcss(),
@@ -20,40 +20,34 @@ export default defineConfig(({ mode }) => {
         },
       },
     ],
-    // ⚠️  SECURITY: Do NOT expose secret API keys via `define`. Vite bakes
-    //    `define` values directly into the JS output where anyone can read
-    //    them in DevTools. Server-side keys (Gemini, etc.) must be called
-    //    through a Supabase Edge Function or Vercel API Route instead.
+    // SECURITY: Do NOT expose secret API keys via `define`. Vite bakes
+    // `define` values directly into the JS output where anyone can read
+    // them in DevTools. Server-side keys (Gemini, etc.) must be called
+    // through a Supabase Edge Function or Vercel API Route instead.
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
       },
     },
     build: {
-      // CSS loads via <link> in HTML — parallel with JS, not chained behind it
+      // CSS loads via <link> in HTML, parallel with JS, not chained behind it.
       cssCodeSplit: true,
       modulePreload: {
         resolveDependencies(_filename, deps) {
-          return deps.filter(
-            (dep) => !/vendor-(three|supabase|gsap)/.test(dep)
-          );
+          return deps.filter((dep) => !/vendor-(three|supabase|gsap)/.test(dep));
         },
       },
-      // Terser removes dead code and minifies more aggressively than esbuild
       minify: 'esbuild',
       target: 'es2020',
       sourcemap: false,
-      // Reduce asset inlining threshold (default 4096)
       assetsInlineLimit: 2048,
       cssMinify: true,
-      // Faster build reporting
       reportCompressedSize: false,
-      // vendor-three is 884KB but loaded ONLY via requestIdleCallback after page is interactive
+      // vendor-three is large but loaded only through the deferred globe path.
       chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {
           manualChunks(id) {
-            // Three.js — heaviest chunk, deferred via requestIdleCallback
             if (
               id.includes('node_modules/three') ||
               id.includes('@react-three/fiber') ||
@@ -61,15 +55,12 @@ export default defineConfig(({ mode }) => {
             ) {
               return 'vendor-three';
             }
-            // GSAP — used only by Preloader (isolated from critical path)
             if (id.includes('node_modules/gsap') || id.includes('@gsap/react')) {
               return 'vendor-gsap';
             }
-            // Framer Motion / motion — lazy-loaded components only
             if (id.includes('node_modules/motion') || id.includes('node_modules/framer-motion')) {
               return 'vendor-motion';
             }
-            // React core — stable, long-lived cache
             if (
               id.includes('node_modules/react/') ||
               id.includes('node_modules/react-dom/') ||
@@ -77,11 +68,9 @@ export default defineConfig(({ mode }) => {
             ) {
               return 'vendor-react';
             }
-            // Supabase — only used in data fetching pages
             if (id.includes('@supabase/supabase-js') || id.includes('node_modules/@supabase')) {
               return 'vendor-supabase';
             }
-            // React icons — used by testimonials (lazy-loaded)
             if (id.includes('node_modules/react-icons')) {
               return 'vendor-icons';
             }

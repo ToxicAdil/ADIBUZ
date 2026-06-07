@@ -2,25 +2,25 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 
-// Canonical base — always www-prefixed to avoid duplicate content signals
-const CANONICAL_BASE = 'https://adibuz.com';
-const OG_IMAGE_DEFAULT = 'https://adibuz.com/og-image.png';
+// Canonical base â€” always www-prefixed to avoid duplicate content signals
+const CANONICAL_BASE = 'https://www.adibuz.com';
+const OG_IMAGE_DEFAULT = 'https://www.adibuz.com/og-image.png';
 
 interface SEOProps {
   title?: string;
   description?: string;
   /**
    * Override the auto-generated canonical URL.
-   * Pass a full URL (https://adibuz.com/page).
+   * Pass a full URL (https://www.adibuz.com/page).
    * If omitted, the canonical is derived from the current pathname.
    */
   canonical?: string;
   ogImage?: string;
   /** Set to 'article' for blog post pages */
   ogType?: 'website' | 'article';
-  /** ISO 8601 date string — for article published_time */
+  /** ISO 8601 date string â€” for article published_time */
   articlePublishedTime?: string;
-  /** ISO 8601 date string — for article modified_time */
+  /** ISO 8601 date string â€” for article modified_time */
   articleModifiedTime?: string;
 }
 
@@ -45,14 +45,14 @@ export function SEO({
 
   return (
     <Helmet>
-      {/* ── Basic Metadata ─────────────────────────────── */}
+      {/* â”€â”€ Basic Metadata â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <title>{siteTitle}</title>
       <meta name="description" content={description} />
 
-      {/* ── Canonical Link ─────────────────────────────── */}
+      {/* â”€â”€ Canonical Link â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <link rel="canonical" href={resolvedCanonical} />
 
-      {/* ── Open Graph ─────────────────────────────────── */}
+      {/* â”€â”€ Open Graph â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <meta property="og:type"        content={ogType} />
       <meta property="og:url"         content={resolvedCanonical} />
       <meta property="og:title"       content={siteTitle} />
@@ -63,7 +63,7 @@ export function SEO({
       <meta property="og:site_name"   content="Adibuz" />
       <meta property="og:locale"      content="en_US" />
 
-      {/* ── Article metadata (blog posts only) ─────────── */}
+      {/* â”€â”€ Article metadata (blog posts only) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       {ogType === 'article' && articlePublishedTime && (
         <meta property="article:published_time" content={articlePublishedTime} />
       )}
@@ -71,7 +71,7 @@ export function SEO({
         <meta property="article:modified_time" content={articleModifiedTime} />
       )}
 
-      {/* ── Twitter Card ───────────────────────────────── */}
+      {/* â”€â”€ Twitter Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <meta name="twitter:card"        content="summary_large_image" />
       <meta name="twitter:site"        content="@Adibuz_agency" />
       <meta name="twitter:creator"     content="@Adibuz_agency" />
@@ -79,14 +79,14 @@ export function SEO({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image"       content={ogImage} />
 
-      {/* ── JSON-LD Structured Data ────────────────────── */}
+      {/* â”€â”€ JSON-LD Structured Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
           "name": "Adibuz",
           "url": CANONICAL_BASE,
-          "logo": "https://adibuz.com/adibuz-logo.png",
+          "logo": "https://www.adibuz.com/adibuz-logo.png",
           "contactPoint": {
             "@type": "ContactPoint",
             "telephone": "+91-93415-86751",
@@ -148,3 +148,4 @@ export function SEO({
     </Helmet>
   );
 }
+

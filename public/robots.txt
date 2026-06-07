@@ -1,5 +1,5 @@
 # ===========================================================================
-# robots.txt — Adibuz (https://adibuz.com)
+# robots.txt â€” Adibuz (https://www.adibuz.com)
 # Strategic AI & Digital Marketing Agency
 #
 # Last updated: 2026-05-16
@@ -9,7 +9,7 @@
 #   - All public SEO-indexable pages are explicitly allowed.
 #   - Non-content routes are disallowed to protect crawl budget.
 #   - Sitemap is declared for both Google and Bing discovery.
-#   - Canonical domain is adibuz.com — all rules apply here.
+#   - Canonical domain is www.adibuz.com â€” all rules apply here.
 # ===========================================================================
 
 
@@ -19,7 +19,7 @@
 # ---------------------------------------------------------------------------
 User-agent: *
 
-# ── Public pages (explicit allows for crawl clarity) ──────────────────────
+# â”€â”€ Public pages (explicit allows for crawl clarity) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 Allow: /
 Allow: /about
 Allow: /work
@@ -28,11 +28,11 @@ Allow: /insights/
 Allow: /privacy-policy
 Allow: /terms
 
-# Note: /assistant (Chat AI tool) is intentionally excluded from indexing —
+# Note: /assistant (Chat AI tool) is intentionally excluded from indexing â€”
 # it is an interactive UI tool, not a content page, and has no SEO value.
 # Preventing its indexing avoids thin-content signals.
 
-# ── Internal / utility routes (block to preserve crawl budget) ────────────
+# â”€â”€ Internal / utility routes (block to preserve crawl budget) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 Disallow: /assistant
 
 # Common sensitive path patterns (future-proofing)
@@ -72,7 +72,7 @@ Disallow: /*?*token=
 
 
 # ---------------------------------------------------------------------------
-# Rule Group 2: Googlebot — explicit optimisation
+# Rule Group 2: Googlebot â€” explicit optimisation
 # Googlebot follows Group 1 rules above. No separate overrides needed.
 # Google's crawl is self-throttled via GSC; no Crawl-delay needed.
 # ---------------------------------------------------------------------------
@@ -90,7 +90,7 @@ Allow: /
 
 
 # ---------------------------------------------------------------------------
-# Rule Group 4: Bingbot — explicit compatibility
+# Rule Group 4: Bingbot â€” explicit compatibility
 # Bingbot respects Crawl-delay. Set conservatively for shared hosting.
 # ---------------------------------------------------------------------------
 User-agent: Bingbot
@@ -100,7 +100,7 @@ Crawl-delay: 5
 
 
 # ---------------------------------------------------------------------------
-# Rule Group 5: AI training crawlers — opt-out
+# Rule Group 5: AI training crawlers â€” opt-out
 # These bots scrape content for LLM training datasets, not for search ranking.
 # Blocking them protects content without affecting SEO.
 # ---------------------------------------------------------------------------
@@ -149,6 +149,7 @@ Disallow: /
 # ---------------------------------------------------------------------------
 # Sitemap Declaration
 # Both Google and Bing discover the sitemap from here.
-# www-canonical URL used — must match canonical in <head>.
+# www-canonical URL used â€” must match canonical in <head>.
 # ---------------------------------------------------------------------------
-Sitemap: https://adibuz.com/sitemap.xml
+Sitemap: https://www.adibuz.com/sitemap.xml
+
