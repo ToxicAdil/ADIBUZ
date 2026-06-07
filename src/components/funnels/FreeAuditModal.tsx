@@ -52,6 +52,10 @@ export function FreeAuditModal({ children }: { children: React.ReactNode }) {
     };
 
     try {
+      if (!supabase) {
+        throw new Error('Audit backend is not configured');
+      }
+
       const { error } = await supabase.from('audit_requests').insert([payload]);
 
       if (error) throw error;

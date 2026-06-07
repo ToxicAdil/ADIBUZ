@@ -83,6 +83,10 @@ export function GetStartedModal({
     };
 
     try {
+      if (!supabase) {
+        throw new Error('Lead backend is not configured');
+      }
+
       const { error } = await supabase.from('cta_leads').insert([payload]);
 
       if (error) throw error;

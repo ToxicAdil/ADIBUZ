@@ -30,11 +30,6 @@ export function InsightCard({ insight }: InsightCardProps) {
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#12091f]/36 via-transparent to-transparent opacity-80" />
-        {insight.category && (
-          <span className="absolute left-4 top-4 rounded-full bg-white/92 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-primary shadow-sm">
-            {insight.category.name}
-          </span>
-        )}
       </div>
 
       <div className="flex flex-1 flex-col p-6">

@@ -35,19 +35,19 @@ const ServiceDetailSection = memo(
         aria-label={typeof title === 'string' ? title : label}
       >
         <div className="container-custom">
-          <FadeInUp className="premium-card rounded-3xl md:rounded-[28px] p-6 md:p-10 lg:py-12 lg:px-14 overflow-hidden">
-            <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 items-center justify-center relative z-10">
+          <FadeInUp className="premium-card mx-auto max-w-[1060px] rounded-3xl md:rounded-[28px] p-6 md:p-10 lg:py-12 lg:px-14 overflow-hidden">
+            <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center justify-center relative z-10">
               {!videoRight && (
                 <ScaleInView
                   delay={0.2}
-                  className="relative w-full aspect-[4/3] lg:w-[380px] lg:min-w-[380px] mx-auto rounded-[24px] overflow-hidden group shadow-xl ring-1 ring-black/5"
+                  className="relative w-full aspect-[4/3] lg:w-[340px] lg:min-w-[340px] mx-auto rounded-[24px] overflow-hidden group shadow-xl ring-1 ring-black/5"
                 >
                   {videoSlot}
                 </ScaleInView>
               )}
 
               <div
-                className={`flex-1 w-full lg:max-w-[500px] space-y-8 text-center lg:text-left${
+                className={`flex-1 w-full lg:max-w-[440px] space-y-8 text-center lg:text-left${
                   videoRight ? ' order-2 lg:order-1' : ''
                 }`}
               >
@@ -81,7 +81,7 @@ const ServiceDetailSection = memo(
               {videoRight && (
                 <ScaleInView
                   delay={0.2}
-                  className="relative w-full aspect-[4/3] lg:w-[380px] lg:min-w-[380px] mx-auto rounded-[24px] overflow-hidden group shadow-xl ring-1 ring-black/5 order-1 lg:order-2"
+                  className="relative w-full aspect-[4/3] lg:w-[340px] lg:min-w-[340px] mx-auto rounded-[24px] overflow-hidden group shadow-xl ring-1 ring-black/5 order-1 lg:order-2"
                 >
                   {videoSlot}
                 </ScaleInView>

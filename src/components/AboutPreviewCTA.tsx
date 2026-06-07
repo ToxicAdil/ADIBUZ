@@ -222,7 +222,7 @@ export const AboutPreviewCTA: React.FC = () => {
                                     <MagneticButton>
                                         <Link
                                             to="/about"
-                                            className="w-full sm:w-auto bg-slate-900 text-white px-9 py-[14px] rounded-full font-bold text-sm btn-premium flex items-center justify-center gap-2 shadow-xl shadow-slate-900/20 hover:shadow-2xl hover:shadow-slate-900/30 hover:scale-[1.03] transition-all duration-300"
+                                            className="adibuz-button-primary w-full sm:w-auto px-9 py-[14px] text-sm btn-premium"
                                         >
                                             Explore About Adibuz <ArrowRight size={17} />
                                         </Link>

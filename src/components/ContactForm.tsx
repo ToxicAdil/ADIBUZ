@@ -28,6 +28,10 @@ export function ContactForm() {
     }
 
     try {
+      if (!supabase) {
+        throw new Error('Contact backend is not configured');
+      }
+
       const { error } = await supabase
         .from('contact_submissions')
         .insert([{ name, email, company: company || null, message }]);

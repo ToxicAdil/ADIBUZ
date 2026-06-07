@@ -93,7 +93,7 @@ export default function InsightDetailPage() {
             "headline": insight.seo_title || insight.title,
             "description": insight.seo_description || insight.excerpt,
             "image": insight.featured_image,
-            "url": `https://www.adibuz.com/insights/${insight.slug}`,
+            "url": `https://adibuz.com/insights/${insight.slug}`,
             "datePublished": insight.created_at,
             "dateModified": insight.updated_at,
             "author": {
@@ -105,12 +105,12 @@ export default function InsightDetailPage() {
               "name": "Adibuz",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://www.adibuz.com/adibuz-logo.png"
+                "url": "https://adibuz.com/adibuz-logo.png"
               }
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": `https://www.adibuz.com/insights/${insight.slug}`
+              "@id": `https://adibuz.com/insights/${insight.slug}`
             },
             "articleSection": insight.category?.name,
             "keywords": insight.tags?.join(', ')

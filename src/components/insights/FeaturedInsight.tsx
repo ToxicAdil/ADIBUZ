@@ -31,13 +31,6 @@ export function FeaturedInsight({ insight }: { insight: Insight }) {
           />
           <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-900/60 lg:from-slate-900/30 to-transparent pointer-events-none" />
           
-          {insight.category && (
-            <div className="absolute top-6 left-6 z-30">
-              <span className="px-4 py-1.5 bg-white/90 backdrop-blur-md text-[#3A0F63] text-[12px] font-bold tracking-widest uppercase rounded-full shadow-lg">
-                {insight.category.name}
-              </span>
-            </div>
-          )}
         </div>
 
         {/* Content section and many more !!!!!!!!! */}

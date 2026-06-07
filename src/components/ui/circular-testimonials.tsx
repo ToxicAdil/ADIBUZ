@@ -57,9 +57,7 @@ export const CircularTestimonials = ({
   const colorName = colors.name ?? "#000";
   const colorDesignation = colors.designation ?? "#6b7280";
   const colorTestimony = colors.testimony ?? "#4b5563";
-  const colorArrowBg = colors.arrowBackground ?? "#141414";
   const colorArrowFg = colors.arrowForeground ?? "#f1f1f7";
-  const colorArrowHoverBg = colors.arrowHoverBackground ?? "#00a6fb";
   const fontSizeName = fontSizes.name ?? "1.5rem";
   const fontSizeDesignation = fontSizes.designation ?? "0.925rem";
   const fontSizeQuote = fontSizes.quote ?? "1.125rem";
@@ -293,7 +291,7 @@ export const CircularTestimonials = ({
               className="arrow-button prev-button"
               onClick={handlePrev}
               style={{
-                backgroundColor: hoverPrev ? colorArrowHoverBg : colorArrowBg,
+                filter: hoverPrev ? "saturate(1.08)" : "none",
               }}
               onMouseEnter={() => setHoverPrev(true)}
               onMouseLeave={() => setHoverPrev(false)}
@@ -305,7 +303,7 @@ export const CircularTestimonials = ({
               className="arrow-button next-button"
               onClick={handleNext}
               style={{
-                backgroundColor: hoverNext ? colorArrowHoverBg : colorArrowBg,
+                filter: hoverNext ? "saturate(1.08)" : "none",
               }}
               onMouseEnter={() => setHoverNext(true)}
               onMouseLeave={() => setHoverNext(false)}
@@ -319,21 +317,22 @@ export const CircularTestimonials = ({
       <style>{`
         .testimonial-container {
           width: 100%;
-          max-width: 56rem;
-          padding: 1rem;
+          max-width: 52rem;
+          padding: 0.75rem;
         }
         @media (min-width: 768px) {
           .testimonial-container {
-            padding: 2rem;
+            padding: 1.25rem;
           }
         }
         .testimonial-grid {
           display: grid;
-          gap: 2rem;
+          gap: 1.75rem;
+          align-items: center;
         }
         @media (min-width: 768px) {
           .testimonial-grid {
-            gap: 5rem;
+            gap: 4rem;
           }
         }
         .image-container {
@@ -344,7 +343,7 @@ export const CircularTestimonials = ({
         }
         @media (min-width: 768px) {
           .image-container {
-            height: 24rem;
+            height: 21rem;
           }
         }
         .testimonial-image {
@@ -353,12 +352,13 @@ export const CircularTestimonials = ({
           height: 100%;
           object-fit: cover;
           border-radius: 1.5rem;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 10px 24px rgba(58, 15, 99, 0.10);
         }
         .testimonial-content {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          min-height: 18rem;
         }
         .name {
           font-weight: bold;
@@ -369,6 +369,7 @@ export const CircularTestimonials = ({
         }
         .quote {
           line-height: 1.75;
+          min-height: 9rem;
         }
         .arrow-buttons {
           display: flex;
@@ -385,8 +386,14 @@ export const CircularTestimonials = ({
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: background-color 0.3s;
+          background: linear-gradient(135deg, #2e0b50 0%, #3A0F63 45%, #6D28D9 100%);
+          box-shadow: 0 12px 28px rgba(58, 15, 99, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+          transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
           border: none;
+        }
+        .arrow-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 16px 34px rgba(58, 15, 99, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.22);
         }
         .word {
           display: inline-block;

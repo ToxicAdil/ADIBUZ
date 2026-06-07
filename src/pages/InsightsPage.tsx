@@ -45,14 +45,6 @@ function FeaturedInsight({ insight }: { insight: Insight }) {
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#12091f]/58 via-[#12091f]/10 to-transparent" />
-        <div className="absolute left-5 top-5 flex flex-wrap gap-2">
-          <span className="rounded-full bg-white/92 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-primary shadow-sm">
-            {insight.category?.name ?? 'Featured'}
-          </span>
-          <span className="rounded-full border border-white/20 bg-[#12091f]/36 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-white backdrop-blur-md">
-            Editor pick
-          </span>
-        </div>
       </div>
 
       <div className="flex min-h-full flex-col p-7 sm:p-9 lg:p-12">
@@ -150,18 +142,17 @@ export default function InsightsPage() {
                 <div className="relative w-full overflow-hidden rounded-[34px] border border-[rgba(58,15,99,0.14)] bg-white/70 p-3 shadow-[0_24px_80px_rgba(22,8,43,0.08)] backdrop-blur-xl md:p-4">
                   <div className="absolute inset-0 rounded-[34px] bg-gradient-to-br from-white/80 via-purple-100/32 to-white/72" aria-hidden="true" />
                   <div className="relative aspect-[4/3] min-h-[280px] overflow-hidden rounded-[26px] border border-white/80 bg-[#12091f] md:min-h-[360px]">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_18%,rgba(168,85,247,0.45),transparent_34%),radial-gradient(circle_at_78%_72%,rgba(109,40,217,0.34),transparent_36%)]" aria-hidden="true" />
-                    <div className="absolute inset-0 opacity-[0.16] [background-image:linear-gradient(rgba(255,255,255,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.18)_1px,transparent_1px)] [background-size:42px_42px]" aria-hidden="true" />
-                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#12091f] to-transparent" aria-hidden="true" />
-                    <div className="relative flex h-full flex-col justify-between p-6 text-white md:p-8">
-                      <span className="w-fit rounded-full border border-white/14 bg-white/10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.22em] text-white/70">
-                        Image Placeholder
-                      </span>
-                      <div>
-                        <p className="text-5xl font-black leading-none tracking-[-0.045em] md:text-6xl">Insights</p>
-                        <p className="mt-2 text-5xl font-black leading-none tracking-[-0.045em] text-white/56 md:text-6xl">Library</p>
-                      </div>
-                    </div>
+                    <img
+                      src="/images/insights-hero.jpg"
+                      alt="Premium purple abstract editorial insight visual"
+                      width={1200}
+                      height={675}
+                      loading="eager"
+                      decoding="async"
+                      fetchPriority="high"
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#12091f]/36 via-transparent to-[#12091f]/10" aria-hidden="true" />
                   </div>
                 </div>
               </div>

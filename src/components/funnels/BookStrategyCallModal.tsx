@@ -135,6 +135,10 @@ export function BookStrategyCallModal({
     const referralSource = document.referrer || 'direct';
 
     try {
+      if (!supabase) {
+        throw new Error('Booking backend is not configured');
+      }
+
       const { error: dbError } = await supabase.from('strategy_call_leads').insert([{
         ...lead,
         calendly_event_uri: calendlyData?.event?.uri ?? null,

@@ -21,11 +21,9 @@ export function Preloader({ onComplete }: { onComplete?: () => void }) {
       return;
     }
 
-    // Lock body scroll
+    // Lock body scroll while the overlay is visible. Keep the app content independent
+    // from the preloader so cleanup/reverts can never leave the page hidden.
     document.body.style.overflow = 'hidden';
-
-    const mainWrapper = document.getElementById('main-app-content');
-    if (mainWrapper) gsap.set(mainWrapper, { opacity: 0 });
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -60,17 +58,12 @@ export function Preloader({ onComplete }: { onComplete?: () => void }) {
         3.0
       );
 
-      // 5. Fade in main content simultaneously — no transform to avoid globe misalignment
-      if (mainWrapper) {
-        tl.to(
-          mainWrapper,
-          { opacity: 1, duration: 0.8, ease: 'power2.out' },
-          3.0
-        );
-      }
     }, containerRef);
 
-    return () => ctx.revert();
+    return () => {
+      document.body.style.overflow = '';
+      ctx.revert();
+    };
   }, []);
 
   if (isDone) return null;

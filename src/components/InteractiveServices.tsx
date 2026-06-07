@@ -104,11 +104,11 @@ export const InteractiveServices: React.FC = () => {
   return (
     <section id="services" className="py-8 relative overflow-hidden">
       <div className="container-custom">
-        <FadeInUp className="premium-card rounded-3xl md:rounded-[32px] relative">
+        <FadeInUp className="premium-card mx-auto max-w-[1060px] rounded-3xl md:rounded-[32px] relative">
           <StaggerContainer className="flex flex-col">
             {/* Centered Header */}
-            <div className="text-center mt-12 mb-8 relative z-10 px-6 flex justify-center">
-              <StaggerItem className="space-y-4 flex flex-col items-center">
+            <div className="text-center mt-10 mb-6 relative z-10 px-6 flex justify-center">
+              <StaggerItem className="space-y-3 flex flex-col items-center">
                 <span className="adibuz-kicker">Growth Capabilities</span>
                 <h2 className="adibuz-heading">
                   Our <span className="adibuz-gradient-text">Services.</span>
@@ -119,14 +119,14 @@ export const InteractiveServices: React.FC = () => {
               </StaggerItem>
             </div>
 
-            <div className="flex flex-col lg:flex-row items-start justify-between min-h-[400px] md:min-h-[500px] relative z-10 px-6 md:px-12 pb-8 md:pb-12">
+            <div className="flex flex-col lg:flex-row items-start justify-between min-h-[360px] md:min-h-[440px] relative z-10 px-6 md:px-10 pb-7 md:pb-10">
               {/* Left Side: Interactive Accordion Content */}
-              <StaggerItem className="w-full lg:w-[45%] lg:pl-4">
+              <StaggerItem className="w-full lg:w-[46%] lg:pl-3">
                 <UniqueAccordion />
               </StaggerItem>
 
               {/* Right Side: Circular Animation */}
-              <ScaleInView delay={0.2} className="w-full lg:w-[55%] flex justify-center lg:justify-end mt-8 lg:-mt-6 relative">
+              <ScaleInView delay={0.2} className="w-full lg:w-[54%] flex justify-center lg:justify-end mt-7 lg:-mt-8 relative">
                 <OrbitingServices />
               </ScaleInView>
             </div>

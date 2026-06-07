@@ -54,7 +54,7 @@ export function UniqueAccordion() {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
 
   return (
-    <div className="w-full max-w-xl">
+    <div className="w-full max-w-[500px]">
       <div className="space-y-0">
         {items.map((item, index) => {
           const isActive = activeId === item.id
@@ -77,9 +77,9 @@ export function UniqueAccordion() {
                 className="w-full group relative text-left"
                 initial={false}
               >
-                <div className="flex items-center gap-4 py-4 px-1">
+                <div className="grid grid-cols-[44px_1fr_36px] items-center gap-3 py-3.5 px-0.5">
                   {/* Number with animated circle */}
-                  <div className="relative flex items-center justify-center w-7 h-7 shrink-0">
+                  <div className="relative flex h-8 w-8 items-center justify-center justify-self-start shrink-0">
                     <motion.div
                       className="absolute inset-0 rounded-full bg-[#3A0F63]"
                       initial={false}
@@ -94,7 +94,7 @@ export function UniqueAccordion() {
                       }}
                     />
                     <motion.span
-                      className="relative z-10 text-[10px] font-bold tracking-wide"
+                      className="relative z-10 text-[11px] font-black tabular-nums tracking-[0.04em]"
                       animate={{
                         color: isActive ? "#ffffff" : "#64748b",
                       }}
@@ -106,7 +106,7 @@ export function UniqueAccordion() {
 
                   {/* Title */}
                   <motion.h3
-                    className="text-base md:text-lg font-bold tracking-tight text-slate-900"
+                    className="min-w-0 text-base md:text-[17px] font-bold tracking-tight text-slate-900"
                     animate={{
                       x: isActive || isHovered ? 4 : 0,
                       color: isActive || isHovered ? "#0f172a" : "#64748b",
@@ -121,9 +121,9 @@ export function UniqueAccordion() {
                   </motion.h3>
 
                   {/* Animated indicator */}
-                  <div className="ml-auto flex items-center gap-3">
+                  <div className="flex items-center justify-end">
                     <motion.div
-                      className="flex items-center justify-center w-8 h-8"
+                      className="flex h-8 w-8 items-center justify-center"
                       animate={{ rotate: isActive ? 45 : 0 }}
                       transition={{
                         type: "spring",
@@ -193,7 +193,7 @@ export function UniqueAccordion() {
                     className="overflow-hidden"
                   >
                     <motion.p
-                      className="pl-14 pr-12 pb-5 text-slate-500 text-xs leading-relaxed font-medium"
+                      className="pl-[47px] pr-10 pb-4 text-slate-500 text-xs leading-relaxed font-medium"
                       initial={{ y: -10 }}
                       animate={{ y: 0 }}
                       exit={{ y: -10 }}

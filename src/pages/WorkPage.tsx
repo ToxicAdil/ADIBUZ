@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArrowRight, BarChart3, CheckCircle2, ChevronRight, ExternalLink, Play, Sparkles, Target, TrendingUp } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ExternalLink, Target, TrendingUp } from 'lucide-react';
 import { SimpleHeader } from '@/components/ui/simple-header';
 import { Footer } from '@/components/ui/footer-section';
 import { SEO } from '@/components/SEO';
@@ -16,57 +15,45 @@ const STATS = [
 ];
 
 const SAMPLE_WEBSITES = [
-  { title: 'Cafe Website', tag: 'Hospitality', desc: 'A warm, conversion-led local website for orders, visits, and discovery.', img: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=900&q=75&fm=webp', link: 'https://adibuz-point.vercel.app/' },
-  { title: 'Real Estate Website', tag: 'Property', desc: 'A polished listing experience built to capture high-intent buyer leads.', img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&q=75&fm=webp', link: 'https://adibuz-creative-houses.vercel.app/' },
+  { title: 'Cafe Website', tag: 'Hospitality', desc: 'A warm, conversion-led local website for orders, visits, and discovery.', img: '/images/work-cafe.jpg', link: 'https://adibuz-point.vercel.app/' },
+  { title: 'Real Estate Website', tag: 'Property', desc: 'A polished listing experience built to capture high-intent buyer leads.', img: '/images/work-real-estate.jpg', link: 'https://adibuz-creative-houses.vercel.app/' },
   { title: 'Healthcare Website', tag: 'Trust', desc: 'A clean healthcare presence structured for credibility and bookings.', img: 'https://images.unsplash.com/photo-1505751172107-5732bb72cc53?w=900&q=75&fm=webp' },
-  { title: 'E-commerce Website', tag: 'Commerce', desc: 'A fast online store designed around product clarity and sales flow.', img: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=900&q=75&fm=webp', link: 'https://adibuz-store.vercel.app/' },
-  { title: 'Personal Brand Website', tag: 'Authority', desc: 'A premium expert platform for trust, positioning, and inbound leads.', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=75&fm=webp' },
-  { title: 'Gaming Website', tag: 'Community', desc: 'A high-energy destination for audience engagement and campaign launches.', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=900&q=75&fm=webp', link: 'https://adibuz-ga-ming.vercel.app/' },
+  { title: 'E-commerce Website', tag: 'Commerce', desc: 'A fast online store designed around product clarity and sales flow.', img: '/images/work-ecommerce.jpg', link: 'https://adibuz-store.vercel.app/' },
+  { title: 'Personal Brand Website', tag: 'Authority', desc: 'A premium expert platform for trust, positioning, and inbound leads.', img: '/images/work-personal-brand.png', link: 'https://hirebuz.com/' },
+  { title: 'Gaming Website', tag: 'Community', desc: 'A high-energy destination for audience engagement and campaign launches.', img: '/images/work-gaming.png', link: 'https://adibuz-ga-ming.vercel.app/' },
 ];
 
 function responsiveSrcSet(src: string) {
+  if (src.startsWith('/images/') && src.endsWith('.jpg')) {
+    const base = src.slice(0, -4);
+    return `${base}-480.jpg 480w, ${base}-768.jpg 768w, ${src} 1100w`;
+  }
+
+  if (src.startsWith('/images/')) {
+    return undefined;
+  }
+
   const base = src.replace(/[?&]w=\d+/, '').replace('fm=webp', '').split('&q=')[0];
   return `${base}?w=480&q=75&fm=webp 480w, ${base}?w=768&q=75&fm=webp 768w, ${src} 1200w`;
 }
 
 const CaseStudyCard: React.FC<{ study: (typeof CASE_STUDIES)[number]; featured?: boolean }> = ({ study, featured = false }) => (
-  <Link
-    to={`/work/${study.id}`}
-    className={`group block overflow-hidden rounded-[28px] border border-[rgba(58,15,99,0.12)] bg-white/86 shadow-[0_18px_55px_rgba(22,8,43,0.07)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-[0_28px_80px_rgba(58,15,99,0.14)] ${featured ? 'lg:grid lg:grid-cols-[1.08fr_0.92fr]' : ''}`}
+  <article
+    className={`group overflow-hidden rounded-[28px] border border-[rgba(58,15,99,0.12)] bg-white/86 shadow-[0_18px_55px_rgba(22,8,43,0.07)] ${featured ? 'lg:grid lg:grid-cols-[1.08fr_0.92fr]' : ''}`}
   >
     <div className={`relative overflow-hidden bg-slate-100 ${featured ? 'aspect-[16/11] lg:aspect-auto lg:min-h-[520px]' : 'aspect-[16/10]'}`}>
-      {study.videoUrl ? (
-        <video
-          src={study.videoUrl}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
-        />
-      ) : (
-        <img
-          src={study.image}
-          srcSet={responsiveSrcSet(study.image)}
-          sizes={featured ? '(max-width: 1023px) 100vw, 52vw' : '(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw'}
-          alt={`${study.client} ${study.industry} case study`}
-          width={1000}
-          height={650}
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
-        />
-      )}
+      <img
+        src={study.image}
+        srcSet={responsiveSrcSet(study.image)}
+        sizes={featured ? '(max-width: 1023px) 100vw, 52vw' : '(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw'}
+        alt={`${study.client} ${study.industry} case study`}
+        width={1000}
+        height={650}
+        loading="lazy"
+        decoding="async"
+        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+      />
       <div className="absolute inset-0 bg-gradient-to-t from-[#12091f]/58 via-[#12091f]/12 to-transparent" />
-      <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full border border-white/20 bg-white/18 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-white backdrop-blur-md">
-        {study.industry}
-      </div>
-      {study.videoUrl && (
-        <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/18 text-white backdrop-blur-md">
-          <Play className="h-4 w-4 fill-current" />
-        </div>
-      )}
     </div>
 
     <div className={`${featured ? 'p-7 sm:p-9 lg:p-12' : 'p-6 md:p-7'} flex min-h-full flex-col`}>
@@ -100,11 +87,8 @@ const CaseStudyCard: React.FC<{ study: (typeof CASE_STUDIES)[number]; featured?:
         ))}
       </div>
 
-      <div className="mt-auto flex items-center gap-2 pt-7 text-sm font-black uppercase tracking-[0.16em] text-primary">
-        Read case study <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-      </div>
     </div>
-  </Link>
+  </article>
 );
 
 const SampleWebsiteCard: React.FC<{ item: (typeof SAMPLE_WEBSITES)[number] }> = ({ item }) => {
@@ -122,9 +106,6 @@ const SampleWebsiteCard: React.FC<{ item: (typeof SAMPLE_WEBSITES)[number] }> = 
           decoding="async"
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
         />
-        <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-primary shadow-sm">
-          {item.tag}
-        </div>
       </div>
       <div className="p-5 md:p-6">
         <h3 className="text-xl font-black tracking-tight text-[#12091f]">{item.title}</h3>
@@ -189,8 +170,8 @@ const WorkPage: React.FC = () => {
             '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
             itemListElement: [
-              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.adibuz.com/' },
-              { '@type': 'ListItem', position: 2, name: 'Work', item: 'https://www.adibuz.com/work' },
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://adibuz.com/' },
+              { '@type': 'ListItem', position: 2, name: 'Work', item: 'https://adibuz.com/work' },
             ],
           })}
         </script>
@@ -212,19 +193,18 @@ const WorkPage: React.FC = () => {
                 <div className="relative overflow-hidden rounded-[34px] border border-[rgba(58,15,99,0.14)] bg-white/70 p-3 shadow-[0_24px_80px_rgba(22,8,43,0.08)] backdrop-blur-xl md:p-4">
                   <div className="absolute inset-0 rounded-[34px] bg-gradient-to-br from-white/80 via-purple-100/30 to-white/72" aria-hidden="true" />
                   <div className="relative aspect-[4/3] min-h-[300px] overflow-hidden rounded-[26px] border border-white/80 bg-[#12091f] md:min-h-[370px]">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_18%,rgba(168,85,247,0.46),transparent_34%),radial-gradient(circle_at_78%_74%,rgba(109,40,217,0.34),transparent_36%)]" aria-hidden="true" />
-                    <div className="absolute inset-0 opacity-[0.16] [background-image:linear-gradient(rgba(255,255,255,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.18)_1px,transparent_1px)] [background-size:44px_44px]" aria-hidden="true" />
-                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#12091f] to-transparent" aria-hidden="true" />
-                    <div className="relative flex h-full flex-col justify-between p-6 text-white md:p-8">
-                      <span aria-hidden="true" />
-                      <div>
-                        <p className="text-5xl font-black leading-none tracking-[-0.045em] md:text-6xl">Case</p>
-                        <p className="mt-2 text-5xl font-black leading-none tracking-[-0.045em] text-white/58 md:text-6xl">Systems</p>
-                        <p className="mt-5 max-w-sm text-sm font-semibold leading-relaxed text-white/58">
-                          Campaigns, websites, and automation built to turn attention into measurable revenue.
-                        </p>
-                      </div>
-                    </div>
+                    <img
+                      src="/images/work-hero.jpg"
+                      alt="Purple abstract growth system visual"
+                      width={1200}
+                      height={675}
+                      loading="eager"
+                      decoding="async"
+                      fetchPriority="high"
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,transparent_0%,transparent_42%,rgba(18,9,31,0.24)_100%)]" aria-hidden="true" />
+                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#12091f]/50 to-transparent" aria-hidden="true" />
                   </div>
                 </div>
               </div>
@@ -263,7 +243,7 @@ const WorkPage: React.FC = () => {
             </div>
             <div className="grid gap-6 md:grid-cols-2">
               {otherStudies.map((study) => (
-                <CaseStudyCard key={study.id} study={study} />
+                <CaseStudyCard key={study.client} study={study} />
               ))}
             </div>
           </div>

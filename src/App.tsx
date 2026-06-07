@@ -7,7 +7,7 @@ import { FloatingPurpleShapes } from '@/components/ui/floating-purple-shapes';
 import { BackgroundGradientGlow } from '@/components/ui/background-gradient-glow';
 import { SimpleHeader } from '@/components/ui/simple-header';
 import { SEO } from '@/components/SEO';
-import { GlobalGrowthSection } from '@/components/sections/GlobalGrowthSection';
+import { DeferredRender } from '@/components/DeferredRender';
 
 // ====================================================================
 // PERFORMANCE: Lazy-load ALL components that use framer-motion / heavy deps
@@ -26,6 +26,11 @@ const InsightPreviewCard = lazy(() =>
 const CircularTestimonials = lazy(() =>
   import('./components/ui/circular-testimonials').then((m) => ({
     default: m.CircularTestimonials,
+  }))
+);
+const GlobalGrowthSection = lazy(() =>
+  import('@/components/sections/GlobalGrowthSection').then((m) => ({
+    default: m.GlobalGrowthSection,
   }))
 );
 
@@ -240,25 +245,48 @@ const Preloader = !isMobile
   ? lazy(() => import('@/components/ui/preloader').then((m) => ({ default: m.Preloader })))
   : null;
 
+const HOME_PRELOADER_KEY = 'adibuz:home-preloader-shown';
+
+function shouldShowHomePreloader() {
+  if (isMobile || typeof window === 'undefined' || window.location.pathname !== '/') return false;
+
+  const hadAppSessionStarted =
+    (window as Window & typeof globalThis & { __ADIBUZ_HAD_APP_SESSION_STARTED__?: boolean })
+      .__ADIBUZ_HAD_APP_SESSION_STARTED__ === true;
+  const hasShownInSession = sessionStorage.getItem(HOME_PRELOADER_KEY) === '1';
+
+  return !hadAppSessionStarted && !hasShownInSession;
+}
+
 // --- Main App ---
 
 export default function App() {
-  const [preloaderDone, setPreloaderDone] = useState(false);
+  const [showPreloader, setShowPreloader] = useState(shouldShowHomePreloader);
   const { scrollY } = useScroll();
   const heroScale = useTransform(scrollY, [0, 800], [1, 1.15]);
   const heroY = useTransform(scrollY, [0, 800], [0, -100]);
   const heroOpacity = useTransform(scrollY, [0, 800], [1, 0.2]);
   const heroFilter = useTransform(scrollY, [0, 800], ['blur(0px)', 'blur(6px)']);
 
+  useEffect(() => {
+    if (showPreloader) {
+      sessionStorage.setItem(HOME_PRELOADER_KEY, '1');
+    }
+  }, [showPreloader]);
+
   return (
     <div className="min-h-screen selection:bg-primary selection:text-white relative adibuz-page">
       <SEO />
-      {!isMobile && Preloader && (
+      {showPreloader && Preloader && (
         <Suspense fallback={null}>
-          <Preloader onComplete={() => setPreloaderDone(true)} />
+          <Preloader
+            onComplete={() => {
+              setShowPreloader(false);
+            }}
+          />
         </Suspense>
       )}
-      <div id="main-app-content" className={isMobile ? 'opacity-100' : 'opacity-0'}>
+      <div id="main-app-content" className="opacity-100">
         {!isMobile && (
           <Suspense fallback={null}>
             <CustomCursor />
@@ -335,17 +363,21 @@ export default function App() {
                       End-to-End Solutions
                     </span>
                   </h2>
-                  <Suspense fallback={<div style={{ minHeight: '80px' }} />}>
-                    <LogoCloud services={services} />
-                  </Suspense>
+                  <DeferredRender minHeight={80} rootMargin="1200px 0px">
+                    <Suspense fallback={<div style={{ minHeight: '80px' }} />}>
+                      <LogoCloud services={services} />
+                    </Suspense>
+                  </DeferredRender>
                 </div>
               </div>
             </section>
 
             <section id="services" aria-label="Our Services">
-              <Suspense fallback={<SectionFallback />}>
-                <InteractiveServices />
-              </Suspense>
+              <DeferredRender minHeight={640} rootMargin="1200px 0px">
+                <Suspense fallback={<SectionFallback />}>
+                  <InteractiveServices />
+                </Suspense>
+              </DeferredRender>
             </section>
 
             {/* Strategic Marketing */}
@@ -472,8 +504,8 @@ export default function App() {
                 aria-label="Client Success Stories"
               >
                 <div className="container-custom">
-                  <FadeInUp className="premium-card rounded-3xl md:rounded-[32px] p-6 md:p-12 lg:py-[40px] lg:px-[60px] overflow-hidden">
-                    <div className="text-left mb-16 space-y-4 relative z-10">
+                  <FadeInUp className="premium-card mx-auto max-w-[1060px] rounded-3xl md:rounded-[32px] p-6 md:p-10 lg:py-8 lg:px-12 overflow-hidden">
+                    <div className="text-left mb-10 space-y-4 relative z-10">
                       <span className="adibuz-kicker mb-4">Proof of Growth</span>
                       <h2 className="adibuz-heading">
                         Client <span className="adibuz-gradient-text">Success Stories</span>
@@ -483,21 +515,23 @@ export default function App() {
                       </p>
                     </div>
                     <div className="flex justify-start relative z-10">
-                      <Suspense fallback={<SectionFallback />}>
-                        <CircularTestimonials
-                          testimonials={testimonialData}
-                          autoplay={true}
-                          colors={{
-                            name: '#0a0a0a',
-                            designation: '#454545',
-                            testimony: '#171717',
-                            arrowBackground: '#141414',
-                            arrowForeground: '#f1f1f7',
-                            arrowHoverBackground: '#3A0F63',
-                          }}
-                          fontSizes={{ name: '28px', designation: '18px', quote: '18px' }}
-                        />
-                      </Suspense>
+                      <DeferredRender minHeight={420} rootMargin="900px 0px">
+                        <Suspense fallback={<SectionFallback />}>
+                          <CircularTestimonials
+                            testimonials={testimonialData}
+                            autoplay={true}
+                            colors={{
+                              name: '#0a0a0a',
+                              designation: '#454545',
+                              testimony: '#171717',
+                              arrowBackground: '#141414',
+                              arrowForeground: '#f1f1f7',
+                              arrowHoverBackground: '#3A0F63',
+                            }}
+                            fontSizes={{ name: '28px', designation: '18px', quote: '18px' }}
+                          />
+                        </Suspense>
+                      </DeferredRender>
                     </div>
                     <div
                       className="absolute -bottom-20 -right-20 w-64 h-64 bg-primary/5 blur-[100px] rounded-full"
@@ -507,30 +541,44 @@ export default function App() {
                 </div>
               </section>
 
-              <GlobalGrowthSection />
+              <DeferredRender minHeight={560} rootMargin="900px 0px">
+                <Suspense fallback={<SectionFallback />}>
+                  <GlobalGrowthSection />
+                </Suspense>
+              </DeferredRender>
 
-              <Suspense fallback={<SectionFallback />}>
-                <AboutAdibuz />
-              </Suspense>
+              <DeferredRender minHeight={1280} rootMargin="900px 0px">
+                <Suspense fallback={<SectionFallback />}>
+                  <AboutAdibuz />
+                </Suspense>
+              </DeferredRender>
 
               <div id="insights-preview">
-                <Suspense fallback={<SectionFallback />}>
-                  <InsightPreviewCard />
-                </Suspense>
+                <DeferredRender minHeight={620} rootMargin="900px 0px">
+                  <Suspense fallback={<SectionFallback />}>
+                    <InsightPreviewCard />
+                  </Suspense>
+                </DeferredRender>
               </div>
             </div>
 
             {/* About Preview Card */}
-            <Suspense fallback={<SectionFallback />}>
-              <AboutPreviewCard />
-            </Suspense>
+            <DeferredRender minHeight={520} rootMargin="900px 0px">
+              <Suspense fallback={<SectionFallback />}>
+                <AboutPreviewCard />
+              </Suspense>
+            </DeferredRender>
 
             {/* FAQs Section */}
-            <FAQSection />
+            <DeferredRender minHeight={560} rootMargin="900px 0px">
+              <FAQSection />
+            </DeferredRender>
 
-            <Suspense fallback={<div style={{ minHeight: '300px' }} />}>
-              <Footer />
-            </Suspense>
+            <DeferredRender minHeight={300} rootMargin="900px 0px">
+              <Suspense fallback={<div style={{ minHeight: '300px' }} />}>
+                <Footer />
+              </Suspense>
+            </DeferredRender>
           </div>
         </main>
       </div>

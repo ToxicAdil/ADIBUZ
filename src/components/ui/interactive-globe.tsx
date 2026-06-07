@@ -164,11 +164,7 @@ export function InteractiveGlobe({
     if (!w || !h) return;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    // Skip rendering when off-screen
-    if (!isVisibleRef.current) {
-      animRef.current = requestAnimationFrame(draw);
-      return;
-    }
+    if (!isVisibleRef.current) return;
 
     const cx = w / 2;
     const cy = h / 2;
@@ -328,7 +324,18 @@ export function InteractiveGlobe({
       resizeObserver.observe(canvas);
 
       observerRef.current = new IntersectionObserver(
-        ([entry]) => { isVisibleRef.current = entry.isIntersecting; },
+        ([entry]) => {
+          const wasVisible = isVisibleRef.current;
+          isVisibleRef.current = entry.isIntersecting;
+
+          if (entry.isIntersecting && !wasVisible) {
+            syncCanvasSize();
+            cancelAnimationFrame(animRef.current);
+            animRef.current = requestAnimationFrame(draw);
+          } else if (!entry.isIntersecting) {
+            cancelAnimationFrame(animRef.current);
+          }
+        },
         { threshold: 0.05 }
       );
       observerRef.current.observe(canvas);

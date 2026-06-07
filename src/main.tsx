@@ -18,7 +18,6 @@ const ChatFAB = lazy(() => import('./components/ChatFAB.tsx'));
 // are only downloaded when the user actually navigates to them.
 const AboutPage = lazy(() => import('./pages/AboutPage.tsx'));
 const WorkPage = lazy(() => import('./pages/WorkPage.tsx'));
-const CaseStudyDetailPage = lazy(() => import('./pages/CaseStudyDetailPage.tsx'));
 const ChatAssistantPage = lazy(() => import('./pages/ChatAssistantPage.tsx'));
 const InsightsPage = lazy(() => import('./pages/InsightsPage.tsx'));
 const InsightDetailPage = lazy(() => import('./pages/InsightDetailPage.tsx'));
@@ -34,6 +33,13 @@ const PageLoader = () => (
     <div className="w-8 h-8 border-2 border-[#3A0F63] border-t-transparent rounded-full animate-spin" />
   </div>
 );
+
+if (typeof window !== 'undefined') {
+  const hadAppSessionStarted = sessionStorage.getItem('adibuz:app-session-started') === '1';
+  (window as Window & typeof globalThis & { __ADIBUZ_HAD_APP_SESSION_STARTED__?: boolean }).__ADIBUZ_HAD_APP_SESSION_STARTED__ =
+    hadAppSessionStarted;
+  sessionStorage.setItem('adibuz:app-session-started', '1');
+}
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -54,7 +60,6 @@ createRoot(document.getElementById('root')!).render(
               <Route path="/" element={<App />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/work" element={<WorkPage />} />
-              <Route path="/work/:id" element={<CaseStudyDetailPage />} />
               <Route path="/insights" element={<InsightsPage />} />
               <Route path="/insights/:slug" element={<InsightDetailPage />} />
               <Route path="/assistant" element={<ChatAssistantPage />} />

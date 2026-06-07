@@ -28,6 +28,8 @@ export interface Insight {
 
 export const insightService = {
   async getCategories() {
+    if (!supabase) return [] as InsightCategory[];
+
     const { data, error } = await supabase
       .from('insight_categories')
       .select('*')
@@ -38,6 +40,8 @@ export const insightService = {
   },
 
   async getPublishedInsights(categoryId?: string, searchQuery?: string) {
+    if (!supabase) return [] as Insight[];
+
     let query = supabase
       .from('insights')
       .select(`
@@ -61,6 +65,10 @@ export const insightService = {
   },
 
   async getInsightBySlug(slug: string) {
+    if (!supabase) {
+      throw new Error('Insights backend is not configured');
+    }
+
     const { data, error } = await supabase
       .from('insights')
       .select(`
@@ -76,6 +84,8 @@ export const insightService = {
   },
   
   async getRelatedInsights(categoryId: string, excludeSlug: string, limit = 3) {
+    if (!supabase) return [] as Insight[];
+
     const { data, error } = await supabase
       .from('insights')
       .select(`
@@ -93,6 +103,10 @@ export const insightService = {
   },
 
   async subscribeNewsletter(email: string) {
+    if (!supabase) {
+      throw new Error('Newsletter backend is not configured');
+    }
+
     const { error } = await supabase
       .from('newsletter_subscribers')
       .insert([{ email }]);

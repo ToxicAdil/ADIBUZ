@@ -13,7 +13,7 @@ export const AboutPreviewCard: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative group max-w-6xl mx-auto"
+          className="relative group max-w-[1060px] mx-auto"
         >
           {/* Subtle background glow similar to screenshot */}
           <div className="absolute -inset-4 md:-inset-8 bg-primary/5 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 -z-10 pointer-events-none" />
@@ -57,7 +57,7 @@ export const AboutPreviewCard: React.FC = () => {
                 <MagneticButton>
                   <Link 
                     to="/about"
-                    className="w-full sm:w-auto bg-[#12091f] text-white px-8 py-4 rounded-full font-bold text-base btn-premium flex items-center justify-center gap-3 shadow-xl shadow-[#12091f]/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
+                    className="adibuz-button-primary w-full sm:w-auto px-8 py-4 text-base btn-premium"
                   >
                     About Adibuz <ArrowRight className="w-5 h-5" />
                   </Link>

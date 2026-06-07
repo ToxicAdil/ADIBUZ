@@ -29,19 +29,7 @@ interface DotGlobeHeroProps {
   children?: React.ReactNode;
 }
 
-/**
- * Pure-CSS animated background shown while Three.js loads (or permanently on mobile).
- * Zero JS cost — all GPU-composited CSS animations.
- */
-const CSSGlobe = () => (
-  <div
-    className="css-globe-container"
-    style={{ width: "100%", height: "100%", position: "relative" }}
-    aria-hidden="true"
-  >
-    <div className="css-globe" />
-  </div>
-);
+const EmptyGlobeFallback = () => <div className="h-full w-full" aria-hidden="true" />;
 
 const DotGlobeHero = React.forwardRef<HTMLDivElement, DotGlobeHeroProps>(
   ({ rotationSpeed = 0.005, globeRadius = 1.3, className, children, ...props }, ref) => {
@@ -96,14 +84,11 @@ const DotGlobeHero = React.forwardRef<HTMLDivElement, DotGlobeHeroProps>(
           style={{ willChange: "opacity" }}
           aria-hidden="true"
         >
-          {/* Mobile: always CSS globe. Desktop: Three.js after idle */}
           {!isMobileDevice && showThree && ThreeGlobe ? (
-            <Suspense fallback={<CSSGlobe />}>
+            <Suspense fallback={<EmptyGlobeFallback />}>
               <ThreeGlobe radius={globeRadius} speed={rotationSpeed} />
             </Suspense>
-          ) : (
-            <CSSGlobe />
-          )}
+          ) : null}
         </motion.div>
 
         {/* Content Container */}

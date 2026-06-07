@@ -6,7 +6,20 @@ import { defineConfig, loadEnv } from 'vite';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   return {
-    plugins: [react(), tailwindcss()],
+    base: './',
+    plugins: [
+      react(),
+      tailwindcss(),
+      {
+        name: 'adibuz-non-blocking-css',
+        transformIndexHtml(html) {
+          return html.replace(
+            /<link rel="stylesheet" crossorigin href="([^"]+\.css)">/g,
+            `<link rel="preload" as="style" crossorigin href="$1" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" crossorigin href="$1"></noscript>`
+          );
+        },
+      },
+    ],
     // ⚠️  SECURITY: Do NOT expose secret API keys via `define`. Vite bakes
     //    `define` values directly into the JS output where anyone can read
     //    them in DevTools. Server-side keys (Gemini, etc.) must be called
