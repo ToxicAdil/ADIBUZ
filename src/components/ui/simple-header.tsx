@@ -1,13 +1,39 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { lazy, Suspense, useState, useEffect } from 'react'; 
 import { Link } from 'react-router-dom';
-import { GetStartedModal } from '@/components/funnels/GetStartedModal';
 import { Sheet, SheetContent, SheetFooter } from '@/components/ui/sheet';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { MenuToggle } from '@/components/ui/menu-toggle';
 import AdibuzLogo from '../AdibuzLogo';
 import MagneticButton from '../MagneticButton';
 import { cn } from '@/lib/utils';
-import { motion } from 'motion/react';
+
+const GetStartedModal = lazy(() =>
+	import('@/components/funnels/GetStartedModal').then((m) => ({ default: m.GetStartedModal }))
+);
+
+function LazyGetStartedTrigger({ children }: { children: React.ReactNode }) {
+	const [shouldLoad, setShouldLoad] = useState(false);
+	const [openSignal, setOpenSignal] = useState(0);
+
+	const open = () => {
+		setShouldLoad(true);
+		setOpenSignal((value) => value + 1);
+	};
+
+	if (!shouldLoad) {
+		return (
+			<span onClick={open} style={{ display: 'contents' }}>
+				{children}
+			</span>
+		);
+	}
+
+	return (
+		<Suspense fallback={<span style={{ display: 'contents' }}>{children}</span>}>
+			<GetStartedModal openSignal={openSignal}>{children}</GetStartedModal>
+		</Suspense>
+	);
+}
 
 export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 	const [open, setOpen] = React.useState(false);
@@ -40,19 +66,14 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 	};
 
 	return (
-		<motion.header 
-			initial={{ y: -40, opacity: 0, filter: "blur(12px)" }}
-			animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-			transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+		<header 
 			className={cn(
-				"fixed top-0 left-0 right-0 z-[1000] transition-all duration-500",
+				"adibuz-header fixed top-0 left-0 right-0 z-[1000] transition-all duration-500",
 				isScrolled ? "py-4" : "py-6"
 			)}
 		>
 			<nav className="container-custom flex justify-center" role="navigation" aria-label="Main navigation">
-				<motion.div 
-					layout
-					transition={{ type: "spring", stiffness: 400, damping: 30 }}
+				<div 
 					className={cn(
 						"flex items-center justify-between transition-all duration-500 w-full",
 						isScrolled 
@@ -121,7 +142,7 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 								</a>
 							</MagneticButton>
 							<MagneticButton>
-								<GetStartedModal>
+								<LazyGetStartedTrigger>
 									<button 
 										data-cursor-text="Join"
 										aria-label="Get started with Adibuz"
@@ -134,7 +155,7 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 									>
 										Get Started
 									</button>
-								</GetStartedModal>
+								</LazyGetStartedTrigger>
 							</MagneticButton>
 						</div>
 
@@ -213,8 +234,8 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 							</SheetContent>
 						</Sheet>
 					</div>
-				</motion.div>
+				</div>
 			</nav>
-		</motion.header>
+		</header>
 	);
 }

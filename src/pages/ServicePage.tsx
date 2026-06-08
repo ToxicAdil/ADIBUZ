@@ -1,9 +1,8 @@
 import React, { lazy, Suspense, memo, useRef, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { SimpleHeader } from '@/components/ui/simple-header';
 import { Footer } from '@/components/ui/footer-section';
-import { SEO } from '@/components/SEO';
+import { JsonLd, SEO } from '@/components/SEO';
 import { ServiceDetailSection } from '@/components/ServiceDetailSection';
 import { BackgroundGradientGlow } from '@/components/ui/background-gradient-glow';
 import { FadeInUp } from '@/lib/animations';
@@ -232,24 +231,23 @@ export default function ServicePage() {
         description={service.description} 
       />
       
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org/",
-            "@type": "Service",
-            "serviceType": service.title,
-            "provider": {
-              "@type": "LocalBusiness",
-              "name": "Adibuz"
-            },
-            "description": service.description,
-            "areaServed": {
-              "@type": "Country",
-              "name": "Global"
-            }
-          })}
-        </script>
-      </Helmet>
+      <JsonLd
+        id={`service-${slug}`}
+        data={{
+          '@context': 'https://schema.org/',
+          '@type': 'Service',
+          serviceType: service.title,
+          provider: {
+            '@type': 'LocalBusiness',
+            name: 'Adibuz',
+          },
+          description: service.description,
+          areaServed: {
+            '@type': 'Country',
+            name: 'Global',
+          },
+        }}
+      />
 
       <SimpleHeader />
       

@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import CustomCursor from '../components/CustomCursor';
 import AboutProcess from '../components/AboutProcess';
 import AboutTeam from '../components/AboutTeam';
@@ -10,7 +9,7 @@ import WhoWeWorkWith from '../components/WhoWeWorkWith';
 import ImpactStatement from '../components/ImpactStatement';
 import { SimpleHeader } from '@/components/ui/simple-header';
 import { Footer } from '@/components/ui/footer-section';
-import { SEO } from '@/components/SEO';
+import { JsonLd, SEO } from '@/components/SEO';
 import { DeferredRender } from '@/components/DeferredRender';
 
 const AboutPage = () => {
@@ -20,18 +19,17 @@ const AboutPage = () => {
         title="About Adibuz | Our Mission & Team" 
         description="Learn about the team behind Adibuz. We are a premium digital marketing agency focused on strategic AI automation, creative design, and data-driven growth."
       />
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.adibuz.com/" },
-              { "@type": "ListItem", "position": 2, "name": "About", "item": "https://www.adibuz.com/about" }
-            ]
-          })}
-        </script>
-      </Helmet>
+      <JsonLd
+        id="breadcrumb-about"
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.adibuz.com/' },
+            { '@type': 'ListItem', position: 2, name: 'About', item: 'https://www.adibuz.com/about' },
+          ],
+        }}
+      />
       <CustomCursor />
       
       <SimpleHeader />

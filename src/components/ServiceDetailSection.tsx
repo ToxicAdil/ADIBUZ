@@ -1,5 +1,4 @@
-import React, { memo } from 'react';
-import { FadeInUp, ScaleInView } from '@/lib/animations';
+﻿import React, { memo, useEffect, useRef, useState } from 'react';
 import MagneticButton from './MagneticButton';
 
 interface ServiceDetailSectionProps {
@@ -16,6 +15,36 @@ interface ServiceDetailSectionProps {
   style?: React.CSSProperties;
 }
 
+function useRevealOnce<T extends HTMLElement>() {
+  const ref = useRef<T | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node || isVisible) return;
+
+    if (!('IntersectionObserver' in window)) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '-40px 0px', threshold: 0.08 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [isVisible]);
+
+  return [ref, isVisible] as const;
+}
+
 const ServiceDetailSection = memo(
   ({
     id,
@@ -27,6 +56,11 @@ const ServiceDetailSection = memo(
     videoRight = false,
     style,
   }: ServiceDetailSectionProps) => {
+    const [cardRef, cardVisible] = useRevealOnce<HTMLDivElement>();
+    const [mediaRef, mediaVisible] = useRevealOnce<HTMLDivElement>();
+
+    const mediaClassName = `adibuz-scale-reveal${mediaVisible ? ' is-visible' : ''} relative w-full aspect-[4/3] lg:w-[340px] lg:min-w-[340px] mx-auto rounded-[24px] overflow-hidden group shadow-xl ring-1 ring-black/5`;
+
     return (
       <section
         id={id}
@@ -35,15 +69,15 @@ const ServiceDetailSection = memo(
         aria-label={typeof title === 'string' ? title : label}
       >
         <div className="container-custom">
-          <FadeInUp className="premium-card mx-auto max-w-[1060px] rounded-3xl md:rounded-[28px] p-6 md:p-10 lg:py-12 lg:px-14 overflow-hidden">
+          <div
+            ref={cardRef}
+            className={`adibuz-reveal${cardVisible ? ' is-visible' : ''} premium-card mx-auto max-w-[1060px] rounded-3xl md:rounded-[28px] p-6 md:p-10 lg:py-12 lg:px-14 overflow-hidden`}
+          >
             <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center justify-center relative z-10">
               {!videoRight && (
-                <ScaleInView
-                  delay={0.2}
-                  className="relative w-full aspect-[4/3] lg:w-[340px] lg:min-w-[340px] mx-auto rounded-[24px] overflow-hidden group shadow-xl ring-1 ring-black/5"
-                >
+                <div ref={mediaRef} className={mediaClassName}>
                   {videoSlot}
-                </ScaleInView>
+                </div>
               )}
 
               <div
@@ -79,19 +113,16 @@ const ServiceDetailSection = memo(
               </div>
 
               {videoRight && (
-                <ScaleInView
-                  delay={0.2}
-                  className="relative w-full aspect-[4/3] lg:w-[340px] lg:min-w-[340px] mx-auto rounded-[24px] overflow-hidden group shadow-xl ring-1 ring-black/5 order-1 lg:order-2"
-                >
+                <div ref={mediaRef} className={`${mediaClassName} order-1 lg:order-2`}>
                   {videoSlot}
-                </ScaleInView>
+                </div>
               )}
             </div>
             <div
               className="absolute -bottom-20 -right-20 w-64 h-64 bg-primary/5 blur-[100px] rounded-full"
               aria-hidden="true"
             />
-          </FadeInUp>
+          </div>
         </div>
       </section>
     );

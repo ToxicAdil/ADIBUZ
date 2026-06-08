@@ -62,9 +62,11 @@ function useScrollLock(active: boolean) {
 export function BookStrategyCallModal({
   children,
   sourcePage = 'hero',
+  openSignal = 0,
 }: {
   children: React.ReactNode;
   sourcePage?: string;
+  openSignal?: number;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<Step>('calendly');
@@ -111,6 +113,10 @@ export function BookStrategyCallModal({
   }, [sourcePage]);
 
   const close = useCallback(() => setIsOpen(false), []);
+
+  useEffect(() => {
+    if (openSignal > 0) open();
+  }, [openSignal, open]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -25,10 +25,12 @@ const SERVICES = [
 
 export function GetStartedModal({ 
   children, 
-  sourceCta = 'nav_get_started' 
+  sourceCta = 'nav_get_started',
+  openSignal = 0,
 }: { 
   children: React.ReactNode, 
-  sourceCta?: string 
+  sourceCta?: string,
+  openSignal?: number,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -52,6 +54,10 @@ export function GetStartedModal({
       }
     }
   };
+
+  React.useEffect(() => {
+    if (openSignal > 0) handleOpenChange(true);
+  }, [openSignal]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

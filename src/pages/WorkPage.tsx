@@ -1,9 +1,8 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { ArrowRight, CheckCircle2, ExternalLink, Target, TrendingUp } from 'lucide-react';
 import { SimpleHeader } from '@/components/ui/simple-header';
 import { Footer } from '@/components/ui/footer-section';
-import { SEO } from '@/components/SEO';
+import { JsonLd, SEO } from '@/components/SEO';
 import { CASE_STUDIES } from '@/data/case-studies';
 import { FreeAuditModal } from '@/components/funnels/FreeAuditModal';
 import { BookStrategyCallModal } from '@/components/funnels/BookStrategyCallModal';
@@ -164,18 +163,17 @@ const WorkPage: React.FC = () => {
         title="Our Work & Case Studies | Adibuz"
         description="Explore performance-focused case studies, website samples, and digital growth systems built by Adibuz."
       />
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BreadcrumbList',
-            itemListElement: [
-              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.adibuz.com/' },
-              { '@type': 'ListItem', position: 2, name: 'Work', item: 'https://www.adibuz.com/work' },
-            ],
-          })}
-        </script>
-      </Helmet>
+      <JsonLd
+        id="breadcrumb-work"
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.adibuz.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Work', item: 'https://www.adibuz.com/work' },
+          ],
+        }}
+      />
       <SimpleHeader />
 
       <main className="relative overflow-hidden">

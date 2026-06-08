@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'motion/react';
 import { ArrowLeft, Clock, Calendar, Share2, Twitter, Linkedin } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
@@ -12,7 +11,7 @@ import { SimpleHeader } from '@/components/ui/simple-header';
 import { Footer } from '@/components/ui/footer-section';
 import CustomCursor from '../components/CustomCursor';
 import { ArrowRight } from 'lucide-react';
-import { SEO } from '@/components/SEO';
+import { JsonLd, SEO } from '@/components/SEO';
 
 const SERVICE_LINKS: Record<string, { slug: string, title: string, cta: string }> = {
   'marketing': { slug: 'strategic-marketing', title: 'Strategic Marketing', cta: 'Ready to launch data-driven marketing campaigns?' },
@@ -84,39 +83,37 @@ export default function InsightDetailPage() {
         articleModifiedTime={insight.updated_at}
       />
 
-      {/* BlogPosting JSON-LD for Google rich results */}
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": insight.seo_title || insight.title,
-            "description": insight.seo_description || insight.excerpt,
-            "image": insight.featured_image,
-            "url": `https://www.adibuz.com/insights/${insight.slug}`,
-            "datePublished": insight.created_at,
-            "dateModified": insight.updated_at,
-            "author": {
-              "@type": "Person",
-              "name": insight.author_name
+      <JsonLd
+        id={`blog-${insight.slug}`}
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: insight.seo_title || insight.title,
+          description: insight.seo_description || insight.excerpt,
+          image: insight.featured_image,
+          url: `https://www.adibuz.com/insights/${insight.slug}`,
+          datePublished: insight.created_at,
+          dateModified: insight.updated_at,
+          author: {
+            '@type': 'Person',
+            name: insight.author_name,
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: 'Adibuz',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://www.adibuz.com/adibuz-logo.png',
             },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Adibuz",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://www.adibuz.com/adibuz-logo.png"
-              }
-            },
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": `https://www.adibuz.com/insights/${insight.slug}`
-            },
-            "articleSection": insight.category?.name,
-            "keywords": insight.tags?.join(', ')
-          })}
-        </script>
-      </Helmet>
+          },
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `https://www.adibuz.com/insights/${insight.slug}`,
+          },
+          articleSection: insight.category?.name,
+          keywords: insight.tags?.join(', '),
+        }}
+      />
 
       <div className="relative z-10">
         <ReadingProgress />

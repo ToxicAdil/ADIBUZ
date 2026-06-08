@@ -2,8 +2,7 @@ import React from 'react';
 import { SimpleHeader } from '@/components/ui/simple-header';
 import { Footer } from '@/components/ui/footer-section';
 import { ContactForm } from '@/components/ContactForm';
-import { SEO } from '@/components/SEO';
-import { Helmet } from 'react-helmet-async';
+import { JsonLd, SEO } from '@/components/SEO';
 import { BackgroundGradientGlow } from '@/components/ui/background-gradient-glow';
 import { FadeInUp } from '@/lib/animations';
 
@@ -14,18 +13,17 @@ export default function ContactPage() {
         title="Contact Our Digital Marketing Agency | Adibuz" 
         description="Get in touch with Adibuz to scale your business with data-driven AI marketing, web development, and SEO. Response within 24 hours." 
       />
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.adibuz.com/" },
-              { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://www.adibuz.com/contact" }
-            ]
-          })}
-        </script>
-      </Helmet>
+      <JsonLd
+        id="breadcrumb-contact"
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.adibuz.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Contact', item: 'https://www.adibuz.com/contact' },
+          ],
+        }}
+      />
       <SimpleHeader />
       
       <main className="flex-1 relative pt-32 pb-24 overflow-hidden">

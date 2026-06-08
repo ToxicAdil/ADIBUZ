@@ -1,7 +1,6 @@
 import React, { lazy, Suspense, memo, useRef, useEffect, useState } from 'react';
 
 import ScrollIndicator from './components/ScrollIndicator';
-import { motion, useScroll, useTransform } from 'motion/react';
 
 import { FloatingPurpleShapes } from '@/components/ui/floating-purple-shapes';
 import { BackgroundGradientGlow } from '@/components/ui/background-gradient-glow';
@@ -40,10 +39,11 @@ const LogoCloud = lazy(() =>
 const Footer = lazy(() =>
   import('./components/ui/footer-section').then((m) => ({ default: m.Footer }))
 );
+const FAQSection = lazy(() =>
+  import('@/components/FAQSection').then((m) => ({ default: m.FAQSection }))
+);
 
-import { FadeInUp, ScaleInView } from '@/lib/animations';
 import { ServiceDetailSection } from '@/components/ServiceDetailSection';
-import { FAQSection } from '@/components/FAQSection';
 import { HeroContent } from '@/components/HeroContent';
 
 // Lazy-load Three.js globe — deferred via requestIdleCallback inside globe-hero
@@ -58,6 +58,13 @@ const isMobile =
   typeof window !== 'undefined' &&
   (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
     window.innerWidth < 768);
+
+const isLowPowerDevice =
+  typeof window !== 'undefined' &&
+  isMobile &&
+  (window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+    ((navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 4) <= 3 ||
+    (navigator.hardwareConcurrency ?? 4) <= 4);
 
 // ====================================================================
 // CLOUDINARY VIDEO HELPERS
@@ -147,43 +154,54 @@ const testimonialData = [
 // PERFORMANCE: LazyVideo — only loads/plays when visible via IO
 // Uses WebM source for 60-80% smaller file size vs MP4
 // ====================================================================
+// PERFORMANCE: LazyVideo - loads near viewport and pauses off-screen.
+// Uses WebM source for smaller files and avoids stacked video decoding on phones.
+// ====================================================================
 const LazyVideo = memo(
   ({
     src,
+    poster,
     className,
     style,
     ariaLabel,
   }: {
     src: string;
+    poster?: string;
     className?: string;
     style?: React.CSSProperties;
     ariaLabel?: string;
   }) => {
-      const videoRef = useRef<HTMLVideoElement>(null);
-      const [shouldLoad, setShouldLoad] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [shouldLoad, setShouldLoad] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
-      useEffect(() => {
-        const video = videoRef.current;
-        if (!video) return;
+    useEffect(() => {
+      const video = videoRef.current;
+      if (!video) return;
 
-        if (!('IntersectionObserver' in window)) {
-          setShouldLoad(true);
-          return;
-        }
+      if (!('IntersectionObserver' in window)) {
+        setShouldLoad(true);
+        setIsVisible(true);
+        return;
+      }
 
-        const observer = new IntersectionObserver(
-          ([entry]) => {
-            if (entry.isIntersecting) {
-              setShouldLoad(true);
-              observer.disconnect();
-            }
-          },
-          { rootMargin: '360px 0px' }
-        );
+      const rootMargin = isLowPowerDevice ? '80px 0px' : isMobile ? '160px 0px' : '360px 0px';
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          const visible = entry.isIntersecting;
+          setIsVisible(visible);
+          if (visible) {
+            setShouldLoad(true);
+          } else {
+            video.pause();
+          }
+        },
+        { rootMargin, threshold: 0.08 }
+      );
 
-        observer.observe(video);
-        return () => observer.disconnect();
-      }, []);
+      observer.observe(video);
+      return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
       const video = videoRef.current;
@@ -194,42 +212,39 @@ const LazyVideo = memo(
       video.playsInline = true;
       if (video.src !== src) video.src = src;
 
-      const play = () => {
-        if (document.visibilityState === 'visible') {
+      const syncPlayback = () => {
+        if (isVisible && document.visibilityState === 'visible') {
           video.play().catch(() => {});
+        } else {
+          video.pause();
         }
       };
 
-      play();
-      video.addEventListener('loadedmetadata', play);
-      video.addEventListener('canplay', play);
-      window.addEventListener('resize', play);
-      window.addEventListener('orientationchange', play);
-      document.addEventListener('visibilitychange', play);
+      syncPlayback();
+      video.addEventListener('loadedmetadata', syncPlayback);
+      video.addEventListener('canplay', syncPlayback);
+      document.addEventListener('visibilitychange', syncPlayback);
 
       return () => {
-        video.removeEventListener('loadedmetadata', play);
-        video.removeEventListener('canplay', play);
-        window.removeEventListener('resize', play);
-        window.removeEventListener('orientationchange', play);
-        document.removeEventListener('visibilitychange', play);
+        video.removeEventListener('loadedmetadata', syncPlayback);
+        video.removeEventListener('canplay', syncPlayback);
+        document.removeEventListener('visibilitychange', syncPlayback);
       };
-    }, [src, shouldLoad]);
+    }, [src, shouldLoad, isVisible]);
 
     return (
       <div className="w-full h-full">
         <video
           ref={videoRef}
           src={shouldLoad ? src : undefined}
-          autoPlay
+          poster={poster}
           muted
           loop
           playsInline
-          preload={shouldLoad ? 'metadata' : 'none'}
+          preload={shouldLoad && isVisible ? 'metadata' : 'none'}
           className={className}
           style={style}
           aria-label={ariaLabel}
-          // Accessibility: provide caption track stub
         >
           <track kind="captions" srcLang="en" label="English" default />
         </video>
@@ -262,17 +277,39 @@ function shouldShowHomePreloader() {
 
 export default function App() {
   const [showPreloader, setShowPreloader] = useState(shouldShowHomePreloader);
-  const { scrollY } = useScroll();
-  const heroScale = useTransform(scrollY, [0, 800], [1, 1.15]);
-  const heroY = useTransform(scrollY, [0, 800], [0, -100]);
-  const heroOpacity = useTransform(scrollY, [0, 800], [1, 0.2]);
-  const heroFilter = useTransform(scrollY, [0, 800], ['blur(0px)', 'blur(6px)']);
+  const heroMotionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (showPreloader) {
       sessionStorage.setItem(HOME_PRELOADER_KEY, '1');
     }
   }, [showPreloader]);
+
+  useEffect(() => {
+    const node = heroMotionRef.current;
+    if (!node) return;
+
+    let raf = 0;
+    const updateHero = () => {
+      raf = 0;
+      const progress = Math.min(Math.max(window.scrollY / 800, 0), 1);
+      node.style.setProperty('--hero-scale', String(1 + progress * 0.15));
+      node.style.setProperty('--hero-y', `${progress * -100}px`);
+      node.style.setProperty('--hero-opacity', String(1 - progress * 0.8));
+      node.style.setProperty('--hero-blur', isMobile ? '0px' : `${progress * 6}px`);
+    };
+
+    const onScroll = () => {
+      if (raf === 0) raf = requestAnimationFrame(updateHero);
+    };
+
+    updateHero();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (raf !== 0) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen selection:bg-primary selection:text-white relative adibuz-page">
@@ -292,27 +329,16 @@ export default function App() {
             <CustomCursor />
           </Suspense>
         )}
-        <ScrollIndicator />
+        {!isMobile && <ScrollIndicator />}
         <SimpleHeader />
 
         {/* ============================================================
             HERO SECTION
             ============================================================ */}
         <header id="home" className="sticky top-0 z-[1] h-screen min-h-[100vh] max-h-[100vh] overflow-hidden">
-          <motion.div
-            style={{
-              opacity: heroOpacity,
-              filter: isMobile ? 'none' : heroFilter,
-              height: '100%',
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
+          <div ref={heroMotionRef} className="adibuz-hero-motion">
             <BackgroundGradientGlow className="w-full h-full flex flex-col items-center justify-center">
-              <FloatingPurpleShapes />
+              <FloatingPurpleShapes mode={isLowPowerDevice ? 'low' : isMobile ? 'mobile' : 'full'} />
               <Suspense
                 fallback={
                   <div className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center pt-20" />
@@ -320,19 +346,19 @@ export default function App() {
               >
                 {isMobile ? (
                   <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-[16px]">
-                    <HeroContent heroScale={heroScale} heroY={heroY} />
+                    <HeroContent />
                   </div>
                 ) : (
                   <DotGlobeHero
                     className="w-full h-full flex flex-col items-center justify-center"
                     globeRadius={1.3}
                   >
-                    <HeroContent heroScale={heroScale} heroY={heroY} />
+                    <HeroContent />
                   </DotGlobeHero>
                 )}
               </Suspense>
             </BackgroundGradientGlow>
-          </motion.div>
+          </div>
         </header>
 
         {/* ============================================================
@@ -391,6 +417,7 @@ export default function App() {
               videoSlot={
                 <LazyVideo
                   src={cloudinaryVideo(VIDEOS.marketing, isMobile)}
+                  poster={cloudinaryPoster(VIDEOS.marketing)}
                   className="w-full h-full object-cover block"
                   style={{ borderRadius: 'inherit' }}
                   ariaLabel="Strategic marketing showcase video"
@@ -410,11 +437,12 @@ export default function App() {
                 <>
                   <div
                     className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-purple-900/30 to-slate-900/30"
-                    style={{ filter: 'blur(20px) brightness(0.7)' }}
+                    style={{ filter: isMobile ? 'none' : 'blur(20px) brightness(0.7)' }}
                     aria-hidden="true"
                   />
                   <LazyVideo
                     src={cloudinaryVideo(VIDEOS.social, isMobile)}
+                    poster={cloudinaryPoster(VIDEOS.social)}
                     className="relative w-full h-full object-contain z-10 block"
                     style={{ borderRadius: 'inherit' }}
                     ariaLabel="Social media management showcase video"
@@ -433,6 +461,7 @@ export default function App() {
               videoSlot={
                 <LazyVideo
                   src={cloudinaryVideo(VIDEOS.automation, isMobile)}
+                  poster={cloudinaryPoster(VIDEOS.automation)}
                   className="w-full h-full object-cover block"
                   style={{ borderRadius: 'inherit' }}
                   ariaLabel="AI automation showcase video"
@@ -452,6 +481,7 @@ export default function App() {
               videoSlot={
                 <LazyVideo
                   src={cloudinaryVideo(VIDEOS.webdev, isMobile)}
+                  poster={cloudinaryPoster(VIDEOS.webdev)}
                   className="w-full h-full object-cover block"
                   style={{ borderRadius: 'inherit' }}
                   ariaLabel="Web development showcase video"
@@ -470,6 +500,7 @@ export default function App() {
               videoSlot={
                 <LazyVideo
                   src={cloudinaryVideo(VIDEOS.seo, isMobile)}
+                  poster={cloudinaryPoster(VIDEOS.seo)}
                   className="w-full h-full object-cover block"
                   style={{ borderRadius: 'inherit' }}
                   ariaLabel="SEO optimization showcase video"
@@ -489,6 +520,7 @@ export default function App() {
               videoSlot={
                 <LazyVideo
                   src={cloudinaryVideo(VIDEOS.branding, isMobile)}
+                  poster={cloudinaryPoster(VIDEOS.branding)}
                   className="w-full h-full object-cover block"
                   style={{ borderRadius: 'inherit' }}
                   ariaLabel="Visual branding showcase video"
@@ -504,7 +536,7 @@ export default function App() {
                 aria-label="Client Success Stories"
               >
                 <div className="container-custom">
-                  <FadeInUp className="premium-card mx-auto max-w-[1060px] rounded-3xl md:rounded-[32px] p-6 md:p-10 lg:py-8 lg:px-12 overflow-hidden">
+                  <div className="adibuz-reveal adibuz-reveal-auto premium-card mx-auto max-w-[1060px] rounded-3xl md:rounded-[32px] p-6 md:p-10 lg:py-8 lg:px-12 overflow-hidden">
                     <div className="text-left mb-10 space-y-4 relative z-10">
                       <span className="adibuz-kicker mb-4">Proof of Growth</span>
                       <h2 className="adibuz-heading">
@@ -537,7 +569,7 @@ export default function App() {
                       className="absolute -bottom-20 -right-20 w-64 h-64 bg-primary/5 blur-[100px] rounded-full"
                       aria-hidden="true"
                     />
-                  </FadeInUp>
+                  </div>
                 </div>
               </section>
 
@@ -571,7 +603,9 @@ export default function App() {
 
             {/* FAQs Section */}
             <DeferredRender minHeight={560} rootMargin="900px 0px">
-              <FAQSection />
+              <Suspense fallback={<SectionFallback />}>
+                <FAQSection />
+              </Suspense>
             </DeferredRender>
 
             <DeferredRender minHeight={300} rootMargin="900px 0px">

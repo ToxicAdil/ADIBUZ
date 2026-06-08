@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { ChevronDown } from 'lucide-react';
 import { FadeInUp } from '@/lib/animations';
+import { JsonLd } from '@/components/SEO';
 
 const faqs = [
   {
@@ -31,22 +31,21 @@ export function FAQSection() {
 
   return (
     <section id="faqs" className="py-16 md:py-24">
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": faqs.map((faq) => ({
-              "@type": "Question",
-              "name": faq.q,
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": faq.a
-              }
-            }))
-          })}
-        </script>
-      </Helmet>
+      <JsonLd
+        id="faq"
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqs.map((faq) => ({
+            '@type': 'Question',
+            name: faq.q,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: faq.a,
+            },
+          })),
+        }}
+      />
       <div className="container-custom">
         <div className="grid lg:grid-cols-[1fr,2fr] gap-12 lg:gap-20">
           <div className="space-y-8">

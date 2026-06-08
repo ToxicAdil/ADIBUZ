@@ -1,7 +1,6 @@
-import {StrictMode, lazy, Suspense} from 'react';
+import { StrictMode, lazy, Suspense, useEffect, useState } from 'react';
 import {createRoot} from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
 import App from './App.tsx';
 import ScrollToTop from './components/ScrollToTop.tsx';
 import { ConsentManager } from './components/ConsentManager.tsx';
@@ -9,13 +8,11 @@ import './index.css';
 
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 
-// PERFORMANCE: Lazy-load ChatFAB — it's a floating button that doesn't need to
-// be in the initial bundle. This keeps framer-motion entirely out of the
-// critical path since App.tsx also lazy-loads all motion-dependent components.
+// PERFORMANCE: Lazy-load ChatFAB and mount it after first paint/idle time.
+// It is useful, but it should not compete with the initial mobile render.
 const ChatFAB = lazy(() => import('./components/ChatFAB.tsx'));
 
-// Lazy-load all sub-pages so their heavy dependencies (Spline, etc.) 
-// are only downloaded when the user actually navigates to them.
+// Lazy-load all sub-pages so their heavy dependencies are only downloaded when needed.
 const AboutPage = lazy(() => import('./pages/AboutPage.tsx'));
 const WorkPage = lazy(() => import('./pages/WorkPage.tsx'));
 const ChatAssistantPage = lazy(() => import('./pages/ChatAssistantPage.tsx'));
@@ -34,6 +31,57 @@ const PageLoader = () => (
   </div>
 );
 
+function getRuntimeHints() {
+  if (typeof window === 'undefined') {
+    return { isMobile: false, isLowPower: false, prefersReducedMotion: false };
+  }
+
+  const nav = navigator as Navigator & { deviceMemory?: number };
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  const isMobile =
+    isTouch ||
+    window.innerWidth < 768 ||
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const memory = nav.deviceMemory ?? 4;
+  const cores = navigator.hardwareConcurrency ?? 4;
+  const isLowPower = isMobile && (prefersReducedMotion || memory <= 3 || cores <= 4);
+
+  return { isMobile, isLowPower, prefersReducedMotion };
+}
+
+function applyRuntimeHints() {
+  if (typeof document === 'undefined') return getRuntimeHints();
+
+  const hints = getRuntimeHints();
+  const root = document.documentElement;
+  root.classList.toggle('adibuz-mobile', hints.isMobile);
+  root.classList.toggle('adibuz-low-power', hints.isLowPower);
+  root.classList.toggle('adibuz-reduced-motion', hints.prefersReducedMotion);
+  root.dataset.performanceTier = hints.isLowPower ? 'low' : hints.isMobile ? 'mobile' : 'desktop';
+  return hints;
+}
+
+const runtimeHints = applyRuntimeHints();
+
+function DeferredChatFAB() {
+  const [shouldMount, setShouldMount] = useState(false);
+
+  useEffect(() => {
+    const delay = runtimeHints.isLowPower ? 2600 : runtimeHints.isMobile ? 1600 : 500;
+    const timeout = window.setTimeout(() => setShouldMount(true), delay);
+    return () => window.clearTimeout(timeout);
+  }, []);
+
+  if (!shouldMount) return null;
+
+  return (
+    <Suspense fallback={null}>
+      <ChatFAB />
+    </Suspense>
+  );
+}
+
 if (typeof window !== 'undefined') {
   const hadAppSessionStarted = sessionStorage.getItem('adibuz:app-session-started') === '1';
   (window as Window & typeof globalThis & { __ADIBUZ_HAD_APP_SESSION_STARTED__?: boolean }).__ADIBUZ_HAD_APP_SESSION_STARTED__ =
@@ -44,37 +92,31 @@ if (typeof window !== 'undefined') {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>
-      <HelmetProvider>
-        <BrowserRouter>
-          {/*
-            ConsentManager is placed OUTSIDE <Routes> and <Suspense> so it:
-            - Mounts exactly once for the entire app lifetime
-            - Is never re-mounted or unmounted by route changes
-            - Renders null — all work is DOM side-effects
-          */}
-          <ConsentManager />
+      <BrowserRouter>
+        {/*
+          ConsentManager is placed outside Routes and Suspense so it mounts
+          exactly once for the app lifetime.
+        */}
+        <ConsentManager />
 
-          <Suspense fallback={<PageLoader />}>
-            <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<App />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/work" element={<WorkPage />} />
-              <Route path="/insights" element={<InsightsPage />} />
-              <Route path="/insights/:slug" element={<InsightDetailPage />} />
-              <Route path="/assistant" element={<ChatAssistantPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/services/:slug" element={<ServicePage />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-              <Route path="/terms" element={<TermsOfUsePage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Suspense>
-          <Suspense fallback={null}>
-            <ChatFAB />
-          </Suspense>
-        </BrowserRouter>
-      </HelmetProvider>
+        <Suspense fallback={<PageLoader />}>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/work" element={<WorkPage />} />
+            <Route path="/insights" element={<InsightsPage />} />
+            <Route path="/insights/:slug" element={<InsightDetailPage />} />
+            <Route path="/assistant" element={<ChatAssistantPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/services/:slug" element={<ServicePage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/terms" element={<TermsOfUsePage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
+        <DeferredChatFAB />
+      </BrowserRouter>
     </ErrorBoundary>
   </StrictMode>,
 );

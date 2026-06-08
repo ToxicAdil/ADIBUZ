@@ -1,27 +1,72 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-// Canonical base â€” always www-prefixed to avoid duplicate content signals
 const CANONICAL_BASE = 'https://www.adibuz.com';
 const OG_IMAGE_DEFAULT = 'https://www.adibuz.com/og-image.png';
 
 interface SEOProps {
   title?: string;
   description?: string;
-  /**
-   * Override the auto-generated canonical URL.
-   * Pass a full URL (https://www.adibuz.com/page).
-   * If omitted, the canonical is derived from the current pathname.
-   */
   canonical?: string;
   ogImage?: string;
-  /** Set to 'article' for blog post pages */
   ogType?: 'website' | 'article';
-  /** ISO 8601 date string â€” for article published_time */
   articlePublishedTime?: string;
-  /** ISO 8601 date string â€” for article modified_time */
   articleModifiedTime?: string;
+}
+
+interface JsonLdProps {
+  id: string;
+  data: Record<string, unknown>;
+}
+
+function upsertMeta(attribute: 'name' | 'property', key: string, content: string) {
+  const existing = Array.from(document.head.querySelectorAll('meta')).find(
+    (meta) => meta.getAttribute(attribute) === key,
+  );
+  const meta = existing ?? document.createElement('meta');
+  meta.setAttribute(attribute, key);
+  meta.setAttribute('content', content);
+
+  if (!existing) {
+    meta.setAttribute('data-adibuz-head', 'true');
+    document.head.appendChild(meta);
+  }
+}
+
+function upsertCanonical(href: string) {
+  const existing = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  const link = existing ?? document.createElement('link');
+  link.rel = 'canonical';
+  link.href = href;
+
+  if (!existing) {
+    link.setAttribute('data-adibuz-head', 'true');
+    document.head.appendChild(link);
+  }
+}
+
+function upsertJsonLd(id: string, json: string) {
+  const scriptId = `adibuz-jsonld-${id}`;
+  const existing = document.getElementById(scriptId) as HTMLScriptElement | null;
+  const script = existing ?? document.createElement('script');
+  script.id = scriptId;
+  script.type = 'application/ld+json';
+  script.textContent = json;
+
+  if (!existing) {
+    script.setAttribute('data-adibuz-head', 'true');
+    document.head.appendChild(script);
+  }
+}
+
+export function JsonLd({ id, data }: JsonLdProps) {
+  const json = useMemo(() => JSON.stringify(data), [data]);
+
+  useEffect(() => {
+    upsertJsonLd(id, json);
+  }, [id, json]);
+
+  return null;
 }
 
 export function SEO({
@@ -34,118 +79,101 @@ export function SEO({
   articleModifiedTime,
 }: SEOProps) {
   const { pathname } = useLocation();
-
-  // Auto-generate canonical from current path if not explicitly provided.
-  // Always strips trailing slash (except root) for consistency.
   const resolvedCanonical =
-    canonical ??
-    `${CANONICAL_BASE}${pathname === '/' ? '/' : pathname.replace(/\/$/, '')}`;
-
+    canonical ?? `${CANONICAL_BASE}${pathname === '/' ? '/' : pathname.replace(/\/$/, '')}`;
   const siteTitle = title.includes('Adibuz') ? title : `${title} | Adibuz`;
 
+  useEffect(() => {
+    document.title = siteTitle;
+    upsertMeta('name', 'description', description);
+    upsertCanonical(resolvedCanonical);
+
+    upsertMeta('property', 'og:type', ogType);
+    upsertMeta('property', 'og:url', resolvedCanonical);
+    upsertMeta('property', 'og:title', siteTitle);
+    upsertMeta('property', 'og:description', description);
+    upsertMeta('property', 'og:image', ogImage);
+    upsertMeta('property', 'og:image:width', '1200');
+    upsertMeta('property', 'og:image:height', '630');
+    upsertMeta('property', 'og:site_name', 'Adibuz');
+    upsertMeta('property', 'og:locale', 'en_US');
+
+    if (ogType === 'article' && articlePublishedTime) {
+      upsertMeta('property', 'article:published_time', articlePublishedTime);
+    }
+    if (ogType === 'article' && articleModifiedTime) {
+      upsertMeta('property', 'article:modified_time', articleModifiedTime);
+    }
+
+    upsertMeta('name', 'twitter:card', 'summary_large_image');
+    upsertMeta('name', 'twitter:site', '@Adibuz_agency');
+    upsertMeta('name', 'twitter:creator', '@Adibuz_agency');
+    upsertMeta('name', 'twitter:title', siteTitle);
+    upsertMeta('name', 'twitter:description', description);
+    upsertMeta('name', 'twitter:image', ogImage);
+  }, [articleModifiedTime, articlePublishedTime, description, ogImage, ogType, resolvedCanonical, siteTitle]);
+
   return (
-    <Helmet>
-      {/* â”€â”€ Basic Metadata â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <title>{siteTitle}</title>
-      <meta name="description" content={description} />
-
-      {/* â”€â”€ Canonical Link â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <link rel="canonical" href={resolvedCanonical} />
-
-      {/* â”€â”€ Open Graph â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <meta property="og:type"        content={ogType} />
-      <meta property="og:url"         content={resolvedCanonical} />
-      <meta property="og:title"       content={siteTitle} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image"       content={ogImage} />
-      <meta property="og:image:width"  content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:site_name"   content="Adibuz" />
-      <meta property="og:locale"      content="en_US" />
-
-      {/* â”€â”€ Article metadata (blog posts only) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      {ogType === 'article' && articlePublishedTime && (
-        <meta property="article:published_time" content={articlePublishedTime} />
-      )}
-      {ogType === 'article' && articleModifiedTime && (
-        <meta property="article:modified_time" content={articleModifiedTime} />
-      )}
-
-      {/* â”€â”€ Twitter Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <meta name="twitter:card"        content="summary_large_image" />
-      <meta name="twitter:site"        content="@Adibuz_agency" />
-      <meta name="twitter:creator"     content="@Adibuz_agency" />
-      <meta name="twitter:title"       content={siteTitle} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image"       content={ogImage} />
-
-      {/* â”€â”€ JSON-LD Structured Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "Adibuz",
-          "url": CANONICAL_BASE,
-          "logo": "https://www.adibuz.com/adibuz-logo.png",
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+91-93415-86751",
-            "contactType": "customer service",
-            "email": "hello@adibuz.com",
-            "availableLanguage": "en"
+    <>
+      <JsonLd
+        id="organization"
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'Adibuz',
+          url: CANONICAL_BASE,
+          logo: 'https://www.adibuz.com/adibuz-logo.png',
+          contactPoint: {
+            '@type': 'ContactPoint',
+            telephone: '+91-93415-86751',
+            contactType: 'customer service',
+            email: 'hello@adibuz.com',
+            availableLanguage: 'en',
           },
-          "sameAs": [
-            "https://www.instagram.com/adibuz_agency/",
-            "https://x.com/Adibuz_agency"
-          ]
-        })}
-      </script>
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ProfessionalService",
-          "name": "Adibuz",
-          "image": OG_IMAGE_DEFAULT,
-          "url": CANONICAL_BASE,
-          "telephone": "+91-93415-86751",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Bhopal",
-            "addressRegion": "Madhya Pradesh",
-            "addressCountry": "IN"
+          sameAs: ['https://www.instagram.com/adibuz_agency/', 'https://x.com/Adibuz_agency'],
+        }}
+      />
+      <JsonLd
+        id="professional-service"
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'ProfessionalService',
+          name: 'Adibuz',
+          image: OG_IMAGE_DEFAULT,
+          url: CANONICAL_BASE,
+          telephone: '+91-93415-86751',
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Bhopal',
+            addressRegion: 'Madhya Pradesh',
+            addressCountry: 'IN',
           },
-          "openingHoursSpecification": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "09:00",
-            "closes": "18:00"
-          }
-        })}
-      </script>
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "Adibuz",
-          "url": CANONICAL_BASE,
-          "description": "AI-powered digital marketing, SEO, automation, and growth agency based in India.",
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": {
-              "@type": "EntryPoint",
-              "urlTemplate": `${CANONICAL_BASE}/insights?q={search_term_string}`
+          openingHoursSpecification: {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            opens: '09:00',
+            closes: '18:00',
+          },
+        }}
+      />
+      <JsonLd
+        id="website"
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'Adibuz',
+          url: CANONICAL_BASE,
+          description: 'AI-powered digital marketing, SEO, automation, and growth agency based in India.',
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: {
+              '@type': 'EntryPoint',
+              urlTemplate: `${CANONICAL_BASE}/insights?q={search_term_string}`,
             },
-            "query-input": "required name=search_term_string"
-          }
-        })}
-      </script>
-    </Helmet>
+            'query-input': 'required name=search_term_string',
+          },
+        }}
+      />
+    </>
   );
 }
-

@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { Helmet } from "react-helmet-async";
+import { JsonLd } from '@/components/SEO';
 
 interface Testimonial {
   quote: string;
@@ -186,33 +186,32 @@ export const CircularTestimonials = ({
 
   return (
     <>
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "Adibuz",
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "5",
-              "reviewCount": testimonials.length
+      <JsonLd
+        id="testimonials"
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'Adibuz',
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '5',
+            reviewCount: testimonials.length,
+          },
+          review: testimonials.map((t) => ({
+            '@type': 'Review',
+            reviewRating: {
+              '@type': 'Rating',
+              ratingValue: '5',
+              bestRating: '5',
             },
-            "review": testimonials.map((t) => ({
-              "@type": "Review",
-              "reviewRating": {
-                "@type": "Rating",
-                "ratingValue": "5",
-                "bestRating": "5"
-              },
-              "author": {
-                "@type": "Person",
-                "name": t.name
-              },
-              "reviewBody": t.quote
-            }))
-          })}
-        </script>
-      </Helmet>
+            author: {
+              '@type': 'Person',
+              name: t.name,
+            },
+            reviewBody: t.quote,
+          })),
+        }}
+      />
       <div className="testimonial-container">
       <div className="testimonial-grid">
         {/* Images */}

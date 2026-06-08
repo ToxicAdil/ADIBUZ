@@ -1729,3 +1729,174 @@
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    END: RESPONSIVENESS 10/10 ADDITIONS
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+/* ============================
+   DEVICE-AWARE RUNTIME PERFORMANCE
+   Applied by main.tsx before React mounts.
+   ============================ */
+.adibuz-fab-eye {
+  animation: fabBlink 4.2s ease-in-out infinite;
+}
+
+.adibuz-fab-pulse {
+  animation: fabPulse 3s ease-in-out infinite;
+}
+
+html.adibuz-mobile .backdrop-blur-xl,
+html.adibuz-mobile .backdrop-blur-2xl,
+html.adibuz-mobile .backdrop-blur-3xl,
+html.adibuz-mobile .backdrop-blur-md,
+html.adibuz-mobile .backdrop-blur-sm {
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+}
+
+html.adibuz-mobile .adibuz-shape-surface {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.14) !important;
+}
+
+html.adibuz-low-power .adibuz-floating-shape,
+html.adibuz-low-power .adibuz-floating-shape *,
+html.adibuz-low-power .adibuz-fab-eye,
+html.adibuz-low-power .adibuz-fab-pulse,
+html.adibuz-reduced-motion .adibuz-floating-shape,
+html.adibuz-reduced-motion .adibuz-floating-shape *,
+html.adibuz-reduced-motion .adibuz-fab-eye,
+html.adibuz-reduced-motion .adibuz-fab-pulse {
+  animation: none !important;
+  will-change: auto !important;
+}
+
+html.adibuz-low-power .adibuz-fab-pulse,
+html.adibuz-reduced-motion .adibuz-fab-pulse {
+  opacity: 0 !important;
+}
+
+html.adibuz-low-power .backdrop-blur-xl,
+html.adibuz-low-power .backdrop-blur-2xl,
+html.adibuz-low-power .backdrop-blur-3xl,
+html.adibuz-low-power .backdrop-blur-md,
+html.adibuz-low-power .backdrop-blur-sm,
+html.adibuz-low-power .backdrop-blur,
+html.adibuz-low-power [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.adibuz-low-power [class*="blur-3xl"],
+html.adibuz-low-power [class*="blur-2xl"],
+html.adibuz-low-power [class*="blur-xl"],
+html.adibuz-low-power [class*="blur-[100px]"],
+html.adibuz-low-power [class*="blur-[120px]"] {
+  filter: blur(16px) !important;
+}
+
+html.adibuz-low-power .animate-pulse {
+  animation-duration: 8s !important;
+}
+
+/* ============================
+   CRITICAL-PATH CSS ANIMATIONS
+   Replaces initial motion runtime for hero, header, and service reveals.
+   ============================ */
+.adibuz-hero-motion {
+  --hero-scale: 1;
+  --hero-y: 0px;
+  --hero-opacity: 1;
+  --hero-blur: 0px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: var(--hero-opacity);
+  filter: blur(var(--hero-blur));
+  transform: translate3d(0, var(--hero-y), 0) scale(var(--hero-scale));
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.adibuz-header {
+  animation: adibuzHeaderEnter 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.adibuz-hero-sub {
+  animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+.adibuz-hero-title {
+  animation: heroFadeUpLarge 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+
+.adibuz-hero-underline {
+  animation: heroUnderline 0.6s ease-out 0.5s both;
+  transform-origin: center;
+}
+
+.adibuz-hero-copy {
+  animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+.adibuz-hero-actions {
+  animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+}
+
+.adibuz-reveal {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+}
+
+.adibuz-reveal.is-visible,
+.adibuz-reveal-auto {
+  animation: adibuzRevealUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.adibuz-scale-reveal {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+.adibuz-scale-reveal.is-visible {
+  animation: adibuzScaleReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+@keyframes adibuzHeaderEnter {
+  from { opacity: 0; transform: translate3d(0, -40px, 0); filter: blur(12px); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+
+@keyframes adibuzRevealUp {
+  from { opacity: 0; transform: translate3d(0, 24px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes adibuzScaleReveal {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+  .adibuz-hero-motion {
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .adibuz-hero-motion,
+  .adibuz-header,
+  .adibuz-hero-sub,
+  .adibuz-hero-title,
+  .adibuz-hero-underline,
+  .adibuz-hero-copy,
+  .adibuz-hero-actions,
+  .adibuz-reveal,
+  .adibuz-scale-reveal {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}

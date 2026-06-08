@@ -33,6 +33,7 @@ export default defineConfig(({ mode }) => {
       // CSS loads via <link> in HTML, parallel with JS, not chained behind it.
       cssCodeSplit: true,
       modulePreload: {
+        polyfill: false,
         resolveDependencies(_filename, deps) {
           return deps.filter((dep) => !/vendor-(three|supabase|gsap)/.test(dep));
         },
@@ -48,6 +49,14 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks(id) {
+            if (
+              id.includes('vite/preload-helper') ||
+              id.includes('\0vite/preload-helper') ||
+              id.includes('commonjsHelpers') ||
+              id.includes('node_modules/tslib')
+            ) {
+              return 'vendor-runtime';
+            }
             if (
               id.includes('node_modules/three') ||
               id.includes('@react-three/fiber') ||
@@ -67,9 +76,6 @@ export default defineConfig(({ mode }) => {
               id.includes('node_modules/react-router-dom/')
             ) {
               return 'vendor-react';
-            }
-            if (id.includes('@supabase/supabase-js') || id.includes('node_modules/@supabase')) {
-              return 'vendor-supabase';
             }
             if (id.includes('node_modules/react-icons')) {
               return 'vendor-icons';
