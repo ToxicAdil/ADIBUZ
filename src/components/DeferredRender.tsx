@@ -23,48 +23,18 @@ const DeferredRenderComponent = ({
       return;
     }
 
-    let observer: IntersectionObserver | null = null;
-    let timeout: number | null = null;
-    let activated = false;
-    const activationEvents = ['scroll', 'wheel', 'touchmove', 'pointerdown', 'keydown'];
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldRender(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: getAdaptiveRootMargin(rootMargin), threshold: 0 }
+    );
 
-    const cleanupActivation = () => {
-      activationEvents.forEach((eventName) => {
-        window.removeEventListener(eventName, activate);
-      });
-      if (timeout !== null) {
-        window.clearTimeout(timeout);
-        timeout = null;
-      }
-    };
-
-    const activate = () => {
-      if (activated) return;
-      activated = true;
-      cleanupActivation();
-
-      observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setShouldRender(true);
-            observer?.disconnect();
-          }
-        },
-        { rootMargin: getAdaptiveRootMargin(rootMargin), threshold: 0 }
-      );
-
-      observer.observe(node);
-    };
-
-    activationEvents.forEach((eventName) => {
-      window.addEventListener(eventName, activate, { passive: true, once: true });
-    });
-    timeout = window.setTimeout(activate, getDeferredActivationDelay());
-
-    return () => {
-      cleanupActivation();
-      observer?.disconnect();
-    };
+    observer.observe(node);
+    return () => observer.disconnect();
   }, [rootMargin, shouldRender]);
 
   return (
@@ -96,15 +66,6 @@ function getAdaptiveRootMargin(rootMargin: string) {
 
   if (!Number.isFinite(firstValue)) return `${maxAhead}px 0px`;
   return `${Math.min(firstValue, maxAhead)}px 0px`;
-}
-
-function getDeferredActivationDelay() {
-  if (typeof window === 'undefined') return 1800;
-
-  const hints = getRuntimeHints();
-  if (hints.lowPower) return 4200;
-  if (hints.isMobile) return 3200;
-  return 1800;
 }
 
 function getRuntimeHints() {

@@ -1797,6 +1797,14 @@ html.adibuz-low-power .animate-pulse {
   animation-duration: 8s !important;
 }
 
+@media (max-width: 768px) {
+  html.adibuz-mobile [aria-hidden="true"][class*="blur-"],
+  html.adibuz-mobile .decorative-blur {
+    filter: none !important;
+    opacity: 0.22 !important;
+  }
+}
+
 /* ============================
    CRITICAL-PATH CSS ANIMATIONS
    Replaces initial motion runtime for hero, header, and service reveals.
