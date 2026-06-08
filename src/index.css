@@ -1812,11 +1812,12 @@ html.adibuz-low-power [class*="backdrop-blur"] {
   -webkit-backdrop-filter: none !important;
 }
 
-html.adibuz-low-power [class*="blur-3xl"],
-html.adibuz-low-power [class*="blur-2xl"],
-html.adibuz-low-power [class*="blur-xl"],
-html.adibuz-low-power [class*="blur-[100px]"],
-html.adibuz-low-power [class*="blur-[120px]"] {
+html.adibuz-low-power [aria-hidden="true"][class*="blur-3xl"]:not([class*="backdrop-blur"]),
+html.adibuz-low-power [aria-hidden="true"][class*="blur-2xl"]:not([class*="backdrop-blur"]),
+html.adibuz-low-power [aria-hidden="true"][class*="blur-xl"]:not([class*="backdrop-blur"]),
+html.adibuz-low-power [aria-hidden="true"][class*="blur-[100px]"]:not([class*="backdrop-blur"]),
+html.adibuz-low-power [aria-hidden="true"][class*="blur-[120px]"]:not([class*="backdrop-blur"]),
+html.adibuz-low-power .decorative-blur {
   filter: blur(16px) !important;
 }
 
