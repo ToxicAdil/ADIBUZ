@@ -55,6 +55,84 @@ const SILKTIDE_JS_INTEGRITY  = 'sha384-j4NIMOecmtzMWe9GJADIIe5hTlHG63aiTQ/2XorW1
 // Unique IDs so we never double-inject
 const CSS_ID = 'silktide-consent-manager-css';
 const JS_ID  = 'silktide-consent-manager-js';
+const MOBILE_OVERRIDE_STYLE_ID = 'adibuz-silktide-mobile-overrides';
+
+function isMobileViewport() {
+  if (typeof window === 'undefined') return false;
+  return (
+    window.matchMedia('(max-width: 768px)').matches ||
+    window.matchMedia('(pointer: coarse)').matches ||
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  );
+}
+
+function injectMobileConsentOverrides() {
+  if (!isMobileViewport()) return null;
+
+  document.getElementById(MOBILE_OVERRIDE_STYLE_ID)?.remove();
+
+  const style = document.createElement('style');
+  style.id = MOBILE_OVERRIDE_STYLE_ID;
+  style.textContent = `
+    @media (max-width: 768px), (pointer: coarse) {
+      #stcm-backdrop {
+        display: none !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: transparent !important;
+      }
+
+      #stcm-banner,
+      #stcm-modal {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(255, 255, 255, 0.98) !important;
+      }
+
+      #silktide-consent-manager,
+      #stcm-wrapper {
+        --backdropBackgroundBlur: 0px !important;
+        --backdropBackgroundColor: transparent !important;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+  return style;
+}
+
+function setImportantStyle(element: HTMLElement, property: string, value: string) {
+  if (
+    element.style.getPropertyValue(property) === value &&
+    element.style.getPropertyPriority(property) === 'important'
+  ) {
+    return;
+  }
+  element.style.setProperty(property, value, 'important');
+}
+
+function sanitizeMobileConsentLayers() {
+  if (!isMobileViewport()) return;
+
+  const backdrop = document.getElementById('stcm-backdrop');
+  if (backdrop instanceof HTMLElement) {
+    setImportantStyle(backdrop, 'display', 'none');
+    setImportantStyle(backdrop, 'opacity', '0');
+    setImportantStyle(backdrop, 'pointer-events', 'none');
+    setImportantStyle(backdrop, 'backdrop-filter', 'none');
+    setImportantStyle(backdrop, '-webkit-backdrop-filter', 'none');
+    setImportantStyle(backdrop, 'background', 'transparent');
+  }
+
+  ['stcm-banner', 'stcm-modal'].forEach((id) => {
+    const panel = document.getElementById(id);
+    if (panel instanceof HTMLElement) {
+      setImportantStyle(panel, 'backdrop-filter', 'none');
+      setImportantStyle(panel, '-webkit-backdrop-filter', 'none');
+    }
+  });
+}
 
 // ---------------------------------------------------------------------------
 // gtag helper (window.gtag is initialised in index.html inline script)
@@ -70,7 +148,7 @@ function gtagUpdate(params: GtagConsentParams) {
 // ---------------------------------------------------------------------------
 function buildSilktideConfig() {
   return {
-    backdrop: { show: true },
+    backdrop: { show: !isMobileViewport() },
     icon: {
       // Bottom-left so it never overlaps the ChatFAB (bottom-right)
       position: 'bottomLeft',
@@ -163,7 +241,11 @@ function injectCSS(): HTMLLinkElement | null {
   link.crossOrigin = 'anonymous';
   // Non-blocking: start as "print" â†’ switch to "all" after load
   link.media = 'print';
-  link.onload = () => { link.media = 'all'; };
+  link.onload = () => {
+    link.media = 'all';
+    injectMobileConsentOverrides();
+    requestAnimationFrame(sanitizeMobileConsentLayers);
+  };
   document.head.appendChild(link);
   return link;
 }
@@ -208,8 +290,10 @@ function ConsentManagerInner() {
   useEffect(() => {
     let cssEl: HTMLLinkElement | null = null;
     let jsEl: HTMLScriptElement | null = null;
+    let overrideStyleEl: HTMLStyleElement | null = null;
     let timeoutHandle: ReturnType<typeof setTimeout> | null = null;
     let brandingObserver: MutationObserver | null = null;
+    let layerObserver: MutationObserver | null = null;
 
     function removeSilktideBranding() {
       const wrapper = document.getElementById('stcm-wrapper');
@@ -233,7 +317,12 @@ function ConsentManagerInner() {
       };
 
       window.silktideConsentManager.init(buildSilktideConfig());
-      requestAnimationFrame(removeSilktideBranding);
+      overrideStyleEl = injectMobileConsentOverrides();
+      requestAnimationFrame(() => {
+        removeSilktideBranding();
+        sanitizeMobileConsentLayers();
+      });
+      setTimeout(sanitizeMobileConsentLayers, 250);
 
       brandingObserver = new MutationObserver(removeSilktideBranding);
       const wrapper = document.getElementById('stcm-wrapper');
@@ -242,6 +331,16 @@ function ConsentManagerInner() {
       } else {
         brandingObserver.observe(document.body, { childList: true, subtree: false });
       }
+
+      layerObserver = new MutationObserver(() => {
+        sanitizeMobileConsentLayers();
+      });
+      layerObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style', 'class'],
+      });
     }
 
     const interactionEvents = ['pointerdown', 'keydown', 'scroll', 'touchstart'] as const;
@@ -272,11 +371,13 @@ function ConsentManagerInner() {
         window.removeEventListener(eventName, startConsentManager);
       });
       brandingObserver?.disconnect();
+      layerObserver?.disconnect();
       delete window.adibuzOpenCookiePrefs;
 
       if (import.meta.env.DEV) {
         cssEl?.remove();
         jsEl?.remove();
+        overrideStyleEl?.remove();
       }
     };
   }, []);
