@@ -78,8 +78,8 @@ export function SimpleHeader({ dark = false }: { dark?: boolean }) {
 						"flex items-center justify-between transition-all duration-500 w-full",
 						isScrolled 
 							? dark 
-								? "bg-black/90 backdrop-blur-md border border-white/10 rounded-[16px] px-6 sm:px-8 py-3 shadow-lg max-w-5xl"
-								: "bg-white/86 backdrop-blur-xl border border-[rgba(58,15,99,0.12)] rounded-[18px] px-5 sm:px-7 py-3 shadow-[0_18px_50px_rgba(22,8,43,0.08)] max-w-5xl"
+								? "bg-black/90 backdrop-blur-md border border-white/10 rounded-[16px] px-6 sm:px-8 py-3 shadow-lg max-w-[1060px]"
+								: "bg-white/86 backdrop-blur-xl border border-[rgba(58,15,99,0.12)] rounded-[18px] px-5 sm:px-7 py-3 shadow-[0_18px_50px_rgba(22,8,43,0.08)] max-w-[1060px]"
 							: "py-2 px-2 max-w-7xl"
 					)}
 				>
