@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils'; // Assuming this exists, typically from shadcn/ui
 
 const Modal = DialogPrimitive.Root;
@@ -11,19 +11,20 @@ const ModalPortal = DialogPrimitive.Portal;
 const ModalOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay> & { forceMount?: true }
->(({ className, ...props }, ref) => (
+>(({ className, forceMount, ...props }, ref) => (
   <DialogPrimitive.Overlay
     ref={ref}
     asChild
+    forceMount={forceMount}
     {...props}
   >
     <motion.div
-      initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
-      animate={{ opacity: 1, backdropFilter: 'blur(12px)' }}
-      exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        'fixed inset-0 z-[1100] bg-slate-900/40 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+        'fixed inset-0 z-[1100] bg-slate-900/25 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         className
       )}
     />
@@ -34,12 +35,13 @@ ModalOverlay.displayName = DialogPrimitive.Overlay.displayName;
 const ModalContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & { forceMount?: true }
->(({ className, children, ...props }, ref) => (
-  <ModalPortal forceMount>
-    <ModalOverlay forceMount />
+>(({ className, children, forceMount, ...props }, ref) => (
+  <ModalPortal forceMount={forceMount}>
+    <ModalOverlay forceMount={forceMount} />
     <DialogPrimitive.Content
       ref={ref}
       asChild
+      forceMount={forceMount}
       {...props}
     >
       <motion.div
