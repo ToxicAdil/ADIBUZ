@@ -1709,6 +1709,42 @@
   h2[class*="font-bold"][class*="tracking-tight"] { font-size: clamp(1.6rem, 7vw, 2.4rem) !important; }
 }
 
+/* Mobile-only tuning for the Work, Insights, and About page heroes. */
+@media (max-width: 767px) {
+  .adibuz-subpage-hero {
+    padding-top: clamp(6rem, 20vw, 7.5rem) !important;
+    padding-bottom: clamp(2rem, 8vw, 3rem) !important;
+  }
+
+  .adibuz-subpage-hero-grid {
+    gap: clamp(1.25rem, 5vw, 2rem) !important;
+  }
+
+  .adibuz-subpage-hero .adibuz-subpage-hero-title {
+    max-width: 100% !important;
+    font-size: clamp(2rem, 8.2vw, 2.55rem) !important;
+    line-height: 0.98 !important;
+    letter-spacing: -0.035em !important;
+    text-wrap: wrap;
+  }
+
+  .adibuz-subpage-hero-media {
+    max-width: min(100%, 34rem) !important;
+    margin-inline: auto !important;
+  }
+
+  .adibuz-subpage-hero-media [class*="min-h-"] {
+    min-height: clamp(12.5rem, 56vw, 20rem) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .adibuz-subpage-hero .adibuz-subpage-hero-title {
+    font-size: clamp(1.95rem, 8.4vw, 2.25rem) !important;
+    line-height: 1.02 !important;
+  }
+}
+
 /* Keep work and insights thumbnail images clean: no category badges over images. */
 .grid.gap-6 a.group.flex > .relative.overflow-hidden > span.absolute.left-4,
 .grid.gap-6 a.group.flex > .relative.overflow-hidden > div.absolute.left-4,

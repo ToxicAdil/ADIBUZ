@@ -179,15 +179,15 @@ const WorkPage: React.FC = () => {
       <main className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[760px] bg-[radial-gradient(circle_at_50%_0%,rgba(124,58,237,0.16),transparent_40%),linear-gradient(180deg,#fffdf8_0%,#f8f3ff_58%,rgba(248,243,255,0)_100%)]" aria-hidden="true" />
 
-        <section className="relative z-10 pt-32 pb-12 md:pt-40 md:pb-18">
+        <section className="adibuz-subpage-hero relative z-10 pt-32 pb-12 md:pt-40 md:pb-18">
           <div className="container-custom">
-            <div className="grid items-end gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="adibuz-subpage-hero-grid grid items-end gap-10 lg:grid-cols-[1.05fr_0.95fr]">
               <div className="max-w-4xl">
-                <h1 className="adibuz-gradient-text mt-6 max-w-5xl text-[clamp(3rem,8vw,7.8rem)] font-black leading-[0.92] tracking-[-0.055em]">
+                <h1 className="adibuz-subpage-hero-title adibuz-gradient-text mt-6 max-w-5xl text-[clamp(3rem,8vw,7.8rem)] font-black leading-[0.92] tracking-[-0.055em]">
                   Proof-led growth systems.
                 </h1>
               </div>
-              <div className="w-full max-w-[520px] lg:ml-auto">
+              <div className="adibuz-subpage-hero-media w-full max-w-[520px] lg:ml-auto">
                 <div className="relative overflow-hidden rounded-[34px] border border-[rgba(58,15,99,0.14)] bg-white/70 p-3 shadow-[0_24px_80px_rgba(22,8,43,0.08)] backdrop-blur-xl md:p-4">
                   <div className="absolute inset-0 rounded-[34px] bg-gradient-to-br from-white/80 via-purple-100/30 to-white/72" aria-hidden="true" />
                   <div className="relative aspect-[4/3] min-h-[300px] overflow-hidden rounded-[26px] border border-white/80 bg-[#12091f] md:min-h-[370px]">
