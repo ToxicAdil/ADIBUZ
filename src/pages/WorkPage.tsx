@@ -232,7 +232,6 @@ const WorkPage: React.FC = () => {
         <section className="relative z-10 border-y border-[rgba(58,15,99,0.10)] bg-white/50 py-14 md:py-22">
           <div className="container-custom">
             <div className="mb-9 text-center md:mb-14">
-              <span className="adibuz-kicker mx-auto">Website Systems</span>
               <h2 className="adibuz-gradient-text mx-auto mt-5 max-w-3xl text-3xl font-black tracking-tight md:text-5xl">
                 Premium web foundations for different markets.
               </h2>
