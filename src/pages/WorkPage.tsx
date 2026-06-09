@@ -210,13 +210,13 @@ const WorkPage: React.FC = () => {
           </div>
         </section>
 
-        <section className="relative z-10 py-10 md:py-16">
+        <section className="relative z-10 pt-10 pb-1 md:pt-16 md:pb-2">
           <div className="container-custom">
             {featuredStudy && <CaseStudyCard study={featuredStudy} featured />}
           </div>
         </section>
 
-        <section className="relative z-10 py-10 md:py-18">
+        <section className="relative z-10 pt-1 pb-10 md:pt-2 md:pb-18">
           <div className="container-custom">
             <div className="mb-8 md:mb-12">
               <h2 className="adibuz-gradient-text mt-1 text-4xl font-[950] tracking-tight md:text-[3.5rem]">More growth stories</h2>
