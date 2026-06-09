@@ -19,13 +19,12 @@ const AboutAdibuz: React.FC = () => {
         </motion.div>
 
 
-        {/* WORK Box */}
         <motion.div
            initial={{ opacity: 0, y: 40 }}
            whileInView={{ opacity: 1, y: 0 }}
            viewport={{ once: true }}
            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-           className="premium-card mx-auto max-w-[1060px] rounded-3xl md:rounded-[32px] mt-8 overflow-hidden relative min-h-[400px] lg:min-h-[600px] p-6 md:p-12 flex flex-col bg-white/40 backdrop-blur-sm"
+           className="premium-card mx-auto max-w-[1060px] rounded-3xl md:rounded-[32px] mt-16 overflow-hidden relative min-h-[400px] lg:min-h-[600px] p-6 md:p-12 flex flex-col bg-white/40 backdrop-blur-sm"
         >
           <h2 className="adibuz-heading border-b border-[rgba(58,15,99,0.10)] pb-4 w-full text-center mb-2">
             <span className="adibuz-gradient-text">WORK</span>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { FadeInUp } from '@/lib/animations';
 import { JsonLd } from '@/components/SEO';
 
@@ -30,7 +30,7 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faqs" className="py-16 md:py-24">
+    <section id="faqs" className="py-8">
       <JsonLd
         id="faq"
         data={{
@@ -47,52 +47,44 @@ export function FAQSection() {
         }}
       />
       <div className="container-custom">
-        <div className="grid lg:grid-cols-[1fr,2fr] gap-12 lg:gap-20">
-          <div className="space-y-8">
-            <h2 className="adibuz-gradient-text text-3xl md:text-5xl font-bold tracking-tight leading-[1.1]">
-              Frequently Asked <br />
-              Questions.
+        <FadeInUp className="premium-card mx-auto max-w-[1060px] rounded-3xl md:rounded-[36px] p-6 md:p-12 lg:px-16 lg:py-14 bg-white">
+          <div className="text-center mb-10 md:mb-12">
+            <h2 className="text-4xl md:text-5xl font-[900] tracking-tight inline-flex items-center gap-3">
+              <span className="adibuz-gradient-text">Need Help?</span> 🧑🏼‍💻
             </h2>
-            <p className="text-slate-500 text-lg font-medium leading-relaxed max-w-md">
-              Everything you need to know about our AI-driven systems and how we help ambitious brands scale.
-            </p>
           </div>
 
-          <div className="space-y-4">
+          <div className="max-w-3xl mx-auto divide-y divide-slate-200/60">
             {faqs.map((faq, i) => {
               const isOpen = openIndex === i;
 
               return (
-              <FadeInUp
-                key={i}
-                delay={i * 0.1}
-                className="premium-card rounded-[20px] md:rounded-[24px] transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] border border-slate-200/50 bg-white"
-              >
-                <button
-                  type="button"
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="flex w-full items-center justify-between py-4 px-5 text-left md:py-[18px] md:px-7"
-                  aria-expanded={isOpen}
-                >
-                  <span className="text-base md:text-[1.1rem] font-bold text-slate-800 tracking-tight pr-4 leading-snug">
-                    {faq.q}
-                  </span>
-                  <div className={`w-8 h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] flex-shrink-0 ${isOpen ? 'bg-[#3A0F63] shadow-lg shadow-[#3A0F63]/20' : 'bg-slate-50'}`}>
-                    <ChevronDown className={`w-4 h-4 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? 'text-white rotate-180' : 'text-slate-400'}`} />
-                  </div>
-                </button>
-                <div className={`grid transition-[grid-template-rows] duration-[300ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
-                  <div className="overflow-hidden">
-                    <div className={`px-5 md:px-7 pb-5 md:pb-6 text-slate-500 text-[0.95rem] md:text-[1.05rem] leading-[1.65] font-medium transition-all duration-[300ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
-                      {faq.a}
+                <div key={i} className="py-2">
+                  <button
+                    type="button"
+                    onClick={() => setOpenIndex(isOpen ? null : i)}
+                    className="flex w-full items-center justify-between py-4 md:py-5 text-left group"
+                    aria-expanded={isOpen}
+                  >
+                    <span className="text-[1.1rem] md:text-[1.25rem] font-bold text-slate-800 pr-8 group-hover:text-primary transition-colors">
+                      {faq.q}
+                    </span>
+                    <div className={`flex-shrink-0 w-8 h-8 md:w-9 md:h-9 rounded-full border flex items-center justify-center transition-all duration-300 ${isOpen ? 'border-primary/30 bg-primary/5' : 'border-slate-200'}`}>
+                      <Plus className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-45 text-primary' : 'text-slate-400'}`} strokeWidth={2.5} />
+                    </div>
+                  </button>
+                  <div className={`grid transition-[grid-template-rows] duration-[300ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+                    <div className="overflow-hidden">
+                      <div className={`pb-6 text-slate-500 text-[0.95rem] md:text-[1.05rem] leading-relaxed pr-8 transition-all duration-[300ms] ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+                        {faq.a}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </FadeInUp>
               );
             })}
           </div>
-        </div>
+        </FadeInUp>
       </div>
     </section>
   );

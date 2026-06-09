@@ -1,4 +1,4 @@
-﻿import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import MagneticButton from './MagneticButton';
 
 interface ServiceDetailSectionProps {
@@ -90,7 +90,7 @@ const ServiceDetailSection = memo(
                     <span className="adibuz-kicker">{label}</span>
                   </div>
                   <div className="space-y-4">
-                    <h2 className="adibuz-heading">
+                    <h2 className="adibuz-heading !text-[1.75rem] md:!text-[2.25rem] lg:!text-[2.5rem]">
                       <span className="adibuz-gradient-text">{title}</span>
                     </h2>
                     <p className="adibuz-subheading max-lg:max-w-lg max-lg:mx-auto">

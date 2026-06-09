@@ -40,7 +40,7 @@ const CaseStudyCard: React.FC<{ study: (typeof CASE_STUDIES)[number]; featured?:
   <article
     className={`group overflow-hidden rounded-[28px] border border-[rgba(58,15,99,0.12)] bg-white/86 shadow-[0_18px_55px_rgba(22,8,43,0.07)] ${featured ? 'lg:grid lg:grid-cols-[1.08fr_0.92fr]' : ''}`}
   >
-    <div className={`relative overflow-hidden bg-slate-100 ${featured ? 'aspect-[16/11] lg:aspect-auto lg:min-h-[520px]' : 'aspect-[16/10]'}`}>
+    <div className={`relative overflow-hidden bg-slate-100 ${featured ? 'aspect-[16/11] lg:aspect-auto lg:min-h-[400px]' : 'aspect-[16/10]'}`}>
       <img
         src={study.image}
         srcSet={responsiveSrcSet(study.image)}
@@ -55,33 +55,33 @@ const CaseStudyCard: React.FC<{ study: (typeof CASE_STUDIES)[number]; featured?:
       <div className="absolute inset-0 bg-gradient-to-t from-[#12091f]/58 via-[#12091f]/12 to-transparent" />
     </div>
 
-    <div className={`${featured ? 'p-7 sm:p-9 lg:p-12' : 'p-6 md:p-7'} flex min-h-full flex-col`}>
+    <div className={`${featured ? 'p-6 sm:p-8 lg:p-8' : 'p-5 md:p-6'} flex min-h-full flex-col`}>
       <div className="flex items-center justify-between gap-4">
-        <p className="text-[11px] font-black uppercase tracking-[0.22em] text-primary">Case Study</p>
-        <p className="text-[12px] font-bold text-[#827891]">{study.timeline}</p>
+        <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.22em] text-primary">Case Study</p>
+        <p className="text-[11px] md:text-[12px] font-bold text-[#827891]">{study.timeline}</p>
       </div>
 
-      <div className="mt-6 space-y-4">
-        <h3 className={`${featured ? 'text-3xl md:text-5xl' : 'text-2xl md:text-3xl'} font-black leading-[1.04] tracking-tight text-[#12091f]`}>
+      <div className="mt-4 space-y-2 md:space-y-3">
+        <h3 className={`${featured ? 'text-3xl md:text-4xl lg:text-[40px]' : 'text-xl md:text-2xl'} font-black leading-[1.04] tracking-tight text-[#12091f]`}>
           {study.client}
         </h3>
-        <p className="text-sm font-semibold leading-relaxed text-[#6f667d] md:text-base">
+        <p className={`${featured ? 'text-sm md:text-base' : 'text-xs md:text-sm'} font-semibold leading-relaxed text-[#6f667d]`}>
           {study.challenge}
         </p>
       </div>
 
-      <div className="mt-7 rounded-2xl border border-[rgba(58,15,99,0.10)] bg-[#f8f3ff]/70 p-5">
-        <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#827891]">Outcome</p>
-        <p className={`${featured ? 'text-3xl md:text-4xl' : 'text-2xl'} mt-2 font-black tracking-tight text-primary`}>
+      <div className={`${featured ? 'mt-6 p-4' : 'mt-4 p-3'} rounded-2xl border border-[rgba(58,15,99,0.10)] bg-[#f8f3ff]/70`}>
+        <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-[#827891]">Outcome</p>
+        <p className={`${featured ? 'text-3xl' : 'text-xl md:text-2xl'} mt-1 font-black tracking-tight text-primary`}>
           {study.result}
         </p>
       </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-3">
+      <div className={`${featured ? 'mt-5' : 'mt-4'} grid grid-cols-2 gap-2 md:gap-3`}>
         {study.metrics.slice(0, featured ? 4 : 2).map((metric) => (
-          <div key={metric.label} className="rounded-2xl bg-white/70 p-4 ring-1 ring-[rgba(58,15,99,0.08)]">
-            <p className="text-lg font-black tracking-tight text-[#12091f]">{metric.value}</p>
-            <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#827891]">{metric.label}</p>
+          <div key={metric.label} className={`rounded-2xl bg-white/70 ${featured ? 'p-3' : 'px-3 py-2.5'} ring-1 ring-[rgba(58,15,99,0.08)]`}>
+            <p className={`${featured ? 'text-lg' : 'text-base'} font-black tracking-tight text-[#12091f]`}>{metric.value}</p>
+            <p className="mt-0.5 md:mt-1 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.14em] text-[#827891]">{metric.label}</p>
           </div>
         ))}
       </div>
@@ -179,46 +179,33 @@ const WorkPage: React.FC = () => {
       <main className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[760px] bg-[radial-gradient(circle_at_50%_0%,rgba(124,58,237,0.16),transparent_40%),linear-gradient(180deg,#fffdf8_0%,#f8f3ff_58%,rgba(248,243,255,0)_100%)]" aria-hidden="true" />
 
-        <section className="adibuz-subpage-hero relative z-10 pt-32 pb-12 md:pt-40 md:pb-18">
+        <section className="relative z-10 pt-32 pb-12 md:pt-40 md:pb-20">
           <div className="container-custom">
-            <div className="adibuz-subpage-hero-grid grid items-end gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-              <div className="max-w-4xl">
-                <h1 className="adibuz-subpage-hero-title adibuz-gradient-text mt-6 max-w-5xl text-[clamp(3rem,8vw,7.8rem)] font-black leading-[0.92] tracking-[-0.055em]">
-                  Proof-led growth systems.
-                </h1>
-              </div>
-              <div className="adibuz-subpage-hero-media w-full max-w-[520px] lg:ml-auto">
-                <div className="relative overflow-hidden rounded-[34px] border border-[rgba(58,15,99,0.14)] bg-white/70 p-3 shadow-[0_24px_80px_rgba(22,8,43,0.08)] backdrop-blur-xl md:p-4">
-                  <div className="absolute inset-0 rounded-[34px] bg-gradient-to-br from-white/80 via-purple-100/30 to-white/72" aria-hidden="true" />
-                  <div className="relative aspect-[4/3] min-h-[300px] overflow-hidden rounded-[26px] border border-white/80 bg-[#12091f] md:min-h-[370px]">
-                    <img
-                      src="/images/work-hero.jpg"
-                      alt="Purple abstract growth system visual"
-                      width={1200}
-                      height={675}
-                      loading="eager"
-                      decoding="async"
-                      fetchPriority="high"
-                      className="h-full w-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,transparent_0%,transparent_42%,rgba(18,9,31,0.24)_100%)]" aria-hidden="true" />
-                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#12091f]/50 to-transparent" aria-hidden="true" />
-                  </div>
-                </div>
-              </div>
+            <div className="max-w-4xl mx-auto text-center space-y-6">
+              <h1 className="text-5xl md:text-7xl lg:text-[80px] font-black tracking-tight leading-[1.05] text-[#12091f]">
+                Real Results. <br />
+                <span className="adibuz-gradient-text">Real Growth.</span>
+              </h1>
+              <p className="text-lg md:text-xl text-[#6f667d] font-semibold leading-relaxed max-w-2xl mx-auto mt-6">
+                Explore how we've helped brands scale revenue, optimize performance, and build systems that drive consistent growth.
+              </p>
             </div>
+          </div>
+        </section>
 
-            <div className="mt-12 grid gap-4 sm:grid-cols-3">
-              {STATS.map((stat) => {
-                const Icon = stat.icon;
-                return (
-                  <div key={stat.label} className="rounded-[24px] border border-[rgba(58,15,99,0.10)] bg-white/76 p-5 shadow-[0_14px_45px_rgba(22,8,43,0.06)]">
-                    <Icon className="h-5 w-5 text-primary" />
-                    <p className="mt-5 text-3xl font-black tracking-tight text-[#12091f] md:text-4xl">{stat.value}</p>
-                    <p className="mt-1 text-xs font-black uppercase tracking-[0.18em] text-[#827891]">{stat.label}</p>
-                  </div>
-                );
-              })}
+        <section className="py-8 border-y border-[rgba(58,15,99,0.06)] bg-white/40 backdrop-blur-sm relative z-10 mb-8 md:mb-16">
+          <div className="container-custom">
+            <div className="flex flex-col md:flex-row justify-center md:justify-around gap-6 items-center">
+              {[
+                '25+ Clients Served',
+                '₹35L+ Ad Spend Managed',
+                '6 Countries Served'
+              ].map((text, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <CheckCircle2 className="w-[22px] h-[22px] md:w-6 md:h-6 text-emerald-500" strokeWidth={2.5} />
+                  <span className="text-[#12091f] font-bold text-[15px] md:text-[17px] tracking-tight">{text}</span>
+                </div>
+              ))}
             </div>
           </div>
         </section>

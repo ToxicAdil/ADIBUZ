@@ -6,7 +6,7 @@ import MagneticButton from './MagneticButton';
 
 export const AboutPreviewCard: React.FC = () => {
   return (
-    <section className="py-12 md:py-20 relative z-10">
+    <section className="py-8 relative z-10">
       <div className="container-custom px-5 md:px-[37px]">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -18,7 +18,7 @@ export const AboutPreviewCard: React.FC = () => {
           {/* Subtle background glow similar to screenshot */}
           <div className="absolute -inset-4 md:-inset-8 bg-primary/5 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 -z-10 pointer-events-none" />
 
-          <div className="bg-white rounded-[32px] md:rounded-[48px] p-8 md:p-14 lg:p-20 shadow-[0_20px_80px_-20px_rgba(58,15,99,0.08)] border border-slate-100/60 flex flex-col md:flex-row gap-12 md:gap-20 items-center md:items-start relative overflow-hidden">
+          <div className="bg-white rounded-[32px] md:rounded-[40px] p-6 md:p-10 lg:py-12 lg:px-14 shadow-[0_20px_80px_-20px_rgba(58,15,99,0.08)] border border-slate-100/60 flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start relative overflow-hidden">
             
             {/* LEFT SIDE */}
             <div className="w-full md:w-5/12 space-y-8 relative z-10">
@@ -44,7 +44,7 @@ export const AboutPreviewCard: React.FC = () => {
 
             {/* RIGHT SIDE */}
             <div className="w-full md:w-7/12 space-y-8 relative z-10">
-              <h2 className="adibuz-gradient-text text-5xl md:text-6xl lg:text-[72px] font-black tracking-tight leading-[1.05]">
+              <h2 className="adibuz-gradient-text text-[clamp(1.9rem,4.5vw,3.2rem)] font-[950] leading-[1.05] tracking-[-0.04em]">
                 Who are <br />
                 we?
               </h2>

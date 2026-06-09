@@ -292,11 +292,20 @@ export default function App() {
     let raf = 0;
     const updateHero = () => {
       raf = 0;
+      const isPhoneOrTablet = window.innerWidth < 1024 || isMobile;
+      if (isPhoneOrTablet) {
+        node.style.setProperty('--hero-scale', '1');
+        node.style.setProperty('--hero-y', '0px');
+        node.style.setProperty('--hero-opacity', '1');
+        node.style.setProperty('--hero-blur', '0px');
+        return;
+      }
+
       const progress = Math.min(Math.max(window.scrollY / 800, 0), 1);
-      node.style.setProperty('--hero-scale', String(1 + progress * 0.15));
-      node.style.setProperty('--hero-y', `${progress * -100}px`);
-      node.style.setProperty('--hero-opacity', String(1 - progress * 0.8));
-      node.style.setProperty('--hero-blur', isMobile ? '0px' : `${progress * 6}px`);
+      node.style.setProperty('--hero-scale', String(1 + progress * 0.35));
+      node.style.setProperty('--hero-y', `${progress * 180}px`);
+      node.style.setProperty('--hero-opacity', String(1 - progress * 0.85));
+      node.style.setProperty('--hero-blur', `${progress * 6}px`);
     };
 
     const onScroll = () => {
@@ -305,8 +314,10 @@ export default function App() {
 
     updateHero();
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
       if (raf !== 0) cancelAnimationFrame(raf);
     };
   }, []);
@@ -336,28 +347,33 @@ export default function App() {
             HERO SECTION
             ============================================================ */}
         <header id="home" className="sticky top-0 z-[1] h-screen min-h-[100vh] max-h-[100vh] overflow-hidden">
-          <div ref={heroMotionRef} className="adibuz-hero-motion">
-            <BackgroundGradientGlow className="w-full h-full flex flex-col items-center justify-center">
+          {/* Static Background layer */}
+          <BackgroundGradientGlow className="absolute inset-0 z-0" />
+
+          {/* Fixed Globe layer (desktop only) */}
+          {!isMobile && (
+            <Suspense fallback={null}>
+              <DotGlobeHero
+                className="absolute inset-0 z-[1] pointer-events-none"
+                globeRadius={1.3}
+              />
+            </Suspense>
+          )}
+
+          {/* Animating Hero Content layer */}
+          <div ref={heroMotionRef} className="adibuz-hero-motion relative z-10 w-full h-full">
+            <div className="w-full h-full flex flex-col items-center justify-center">
               <FloatingPurpleShapes mode={isLowPowerDevice ? 'low' : isMobile ? 'mobile' : 'full'} />
               <Suspense
                 fallback={
                   <div className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center pt-20" />
                 }
               >
-                {isMobile ? (
-                  <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-[16px]">
-                    <HeroContent />
-                  </div>
-                ) : (
-                  <DotGlobeHero
-                    className="w-full h-full flex flex-col items-center justify-center"
-                    globeRadius={1.3}
-                  >
-                    <HeroContent />
-                  </DotGlobeHero>
-                )}
+                <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-[16px]">
+                  <HeroContent />
+                </div>
               </Suspense>
-            </BackgroundGradientGlow>
+            </div>
           </div>
         </header>
 
@@ -536,9 +552,9 @@ export default function App() {
                 aria-label="Client Success Stories"
               >
                 <div className="container-custom">
-                  <div className="adibuz-reveal adibuz-reveal-auto premium-card mx-auto max-w-[1060px] rounded-3xl md:rounded-[32px] p-6 md:p-10 lg:py-8 lg:px-12 overflow-hidden">
-                    <div className="text-left mb-10 space-y-4 relative z-10">
-                      <span className="adibuz-kicker mb-4">Proof of Growth</span>
+                  <div className="adibuz-reveal adibuz-reveal-auto premium-card mx-auto max-w-[1060px] rounded-3xl md:rounded-[32px] p-5 md:p-7 lg:py-6 lg:px-10 overflow-hidden">
+                    <div className="text-left mb-6 space-y-3 relative z-10">
+                      <span className="adibuz-kicker mb-3">Proof of Growth</span>
                       <h2 className="adibuz-heading">
                         Client <span className="adibuz-gradient-text">Success Stories</span>
                       </h2>
@@ -547,7 +563,7 @@ export default function App() {
                       </p>
                     </div>
                     <div className="flex justify-start relative z-10">
-                      <DeferredRender minHeight={420} rootMargin="900px 0px">
+                      <DeferredRender minHeight={320} rootMargin="900px 0px">
                         <Suspense fallback={<SectionFallback />}>
                           <CircularTestimonials
                             testimonials={testimonialData}
@@ -560,7 +576,7 @@ export default function App() {
                               arrowForeground: '#f1f1f7',
                               arrowHoverBackground: '#3A0F63',
                             }}
-                            fontSizes={{ name: '28px', designation: '18px', quote: '18px' }}
+                            fontSizes={{ name: '22px', designation: '15px', quote: 'clamp(1rem, 1.55vw, 1.18rem)' }}
                           />
                         </Suspense>
                       </DeferredRender>
