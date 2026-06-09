@@ -218,9 +218,6 @@ const WorkPage: React.FC = () => {
 
         <section className="relative z-10 pt-1 pb-10 md:pt-2 md:pb-18">
           <div className="container-custom">
-            <div className="mb-8 md:mb-12">
-              <h2 className="adibuz-gradient-text mt-1 text-4xl font-[950] tracking-tight md:text-[3.5rem]">More growth stories</h2>
-            </div>
             <div className="grid gap-6 md:grid-cols-2">
               {otherStudies.map((study) => (
                 <CaseStudyCard key={study.client} study={study} />
