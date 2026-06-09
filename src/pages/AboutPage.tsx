@@ -38,51 +38,41 @@ const AboutPage = () => {
       <main className="relative z-10">
         
         {/* 1. HERO SECTION */}
-        <section className="adibuz-subpage-hero relative overflow-hidden px-5 pb-12 pt-30 md:px-8 md:pb-16 md:pt-36 lg:min-h-[720px]">
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-[720px] bg-[radial-gradient(circle_at_20%_20%,rgba(168,85,247,0.14),transparent_34%),radial-gradient(circle_at_82%_18%,rgba(58,15,99,0.11),transparent_32%)]" />
-          <div className="adibuz-subpage-hero-grid relative z-10 mx-auto grid w-full max-w-[1320px] items-center gap-10 lg:grid-cols-[1.02fr_0.98fr]">
+        <section className="relative isolate overflow-hidden px-5 pb-12 pt-28 md:px-8 md:pb-16 md:pt-36 lg:min-h-[760px]">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_28%,rgba(124,58,237,0.16),transparent_32%),linear-gradient(180deg,#fffdf8_0%,#f5efff_58%,rgba(251,248,255,0)_100%)]" aria-hidden="true" />
+          <div className="pointer-events-none absolute inset-x-0 top-[43%] h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" aria-hidden="true" />
+
+          <div className="relative z-10 mx-auto flex min-h-[calc(100svh-8rem)] w-full max-w-[1440px] flex-col justify-center gap-8 md:min-h-[620px]">
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 26 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="max-w-[720px]"
+              className="text-center"
             >
-              <h1 className="adibuz-subpage-hero-title adibuz-gradient-text text-[clamp(3.35rem,7.45vw,7.25rem)] font-[950] leading-[0.9] tracking-[-0.058em]">
-                Growth systems with premium execution.
+              <h1 className="mx-auto max-w-[15ch] bg-gradient-to-r from-[#5b1794] via-[#37105f] to-[#8b45e6] bg-clip-text text-[clamp(4.4rem,17vw,15.5rem)] font-[950] uppercase leading-[0.78] tracking-[-0.075em] text-transparent drop-shadow-[0_26px_46px_rgba(58,15,99,0.16)] sm:max-w-none sm:whitespace-nowrap">
+                About Us
               </h1>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-              className="adibuz-subpage-hero-media relative lg:pb-0"
+              transition={{ duration: 0.65, delay: 0.12, ease: "easeOut" }}
+              className="mx-auto w-full max-w-5xl"
             >
-              <div className="mb-8 overflow-hidden rounded-[34px] border border-[rgba(58,15,99,0.12)] bg-white/74 p-6 shadow-[0_24px_80px_rgba(22,8,43,0.08)] backdrop-blur-xl md:p-8">
-                <div className="relative aspect-[16/10] min-h-[300px] overflow-hidden rounded-[28px] bg-[#12091f] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]">
-                  <img
-                    src="/images/about-brand-demand-scale.png"
-                    alt="Adibuz Method brand demand scale growth visual"
-                    width={943}
-                    height={579}
-                    loading="eager"
-                    decoding="async"
-                    fetchPriority="high"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </div>
+              <div className="mx-auto mt-16 max-w-3xl text-center md:mt-20">
+                <p className="text-[clamp(1.25rem,2.4vw,2.15rem)] font-[800] leading-[1.12] tracking-[-0.03em] text-[#251033]">
+                  We build connected growth systems for ambitious brands.
+                </p>
 
-              <p className="max-w-xl text-base font-semibold leading-relaxed text-[#6f667d] md:text-xl">
-                Adibuz helps ambitious brands turn scattered marketing into one connected growth engine: strategy, website, SEO, ads, content, automation, and analytics.
-              </p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Link to="/contact" className="adibuz-button-primary w-full px-7 sm:w-auto">
-                  Book Strategy Call <ArrowRight className="h-5 w-5" />
-                </Link>
-                <Link to="/work" className="adibuz-button-secondary w-full px-7 sm:w-auto">
-                  View Work
-                </Link>
+                <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                  <Link to="/contact" className="adibuz-button-primary w-full px-7 sm:w-auto">
+                    Book Strategy Call <ArrowRight className="h-5 w-5" />
+                  </Link>
+                  <Link to="/work" className="adibuz-button-secondary w-full px-7 sm:w-auto">
+                    View Work
+                  </Link>
+                </div>
               </div>
             </motion.div>
           </div>

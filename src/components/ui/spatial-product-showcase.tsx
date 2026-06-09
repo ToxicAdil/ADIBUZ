@@ -68,7 +68,7 @@ const PROFILE_DATA: Record<ProductId, ProfileData> = {
     label: 'Krish',
     title: 'Krish Rawat',
     description: 'Develops SEO strategies focused on long-term organic growth, search visibility, and sustainable digital authority for modern brands.',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&q=75&fm=webp',
+    image: 'https://res.cloudinary.com/dhty5iilx/image/upload/f_auto,q_auto,w_800,c_fill/v1781007925/krish_adibuz_dvbw4g.jpg',
     colors: {
       gradient: 'from-[#3A0F63] to-purple-800',
       glow: 'bg-[#3A0F63]',

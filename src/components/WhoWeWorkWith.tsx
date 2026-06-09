@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight, Monitor, Rocket, ShoppingBag, Store, User, Building2 } from 'lucide-react';
+import { ArrowUpRight, Building2, Monitor, Rocket, ShoppingBag, Store, User } from 'lucide-react';
 
 const clients = [
   { name: 'D2C Brands', focus: 'Retention systems', desc: 'Funnels, paid acquisition, and lifecycle journeys built around repeat revenue.', icon: ShoppingBag },
@@ -13,57 +13,58 @@ const clients = [
 const WhoWeWorkWith = () => {
   return (
     <section className="relative w-full overflow-hidden bg-transparent px-5 py-12 md:px-[37px] md:py-20">
-      <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/6 blur-[150px] pointer-events-none" />
+      <div className="pointer-events-none absolute inset-x-0 top-10 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" aria-hidden="true" />
 
-      <div className="relative z-10 mx-auto max-w-6xl overflow-hidden rounded-[34px] border border-[rgba(58,15,99,0.10)] bg-white/82 shadow-[0_24px_80px_rgba(22,8,43,0.07)] backdrop-blur-xl">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/35 to-transparent" aria-hidden="true" />
-        <div className="absolute right-[-160px] top-[-160px] h-80 w-80 rounded-full bg-purple-400/12 blur-3xl" aria-hidden="true" />
+      <div className="relative z-10 mx-auto max-w-6xl">
+        <div className="grid gap-8 border-y border-[rgba(58,15,99,0.10)] py-8 md:gap-10 md:py-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <div className="lg:sticky lg:top-28">
+            <span className="adibuz-kicker">Who We Work With</span>
+            <h2 className="adibuz-gradient-text mt-5 max-w-[760px] text-[clamp(2.3rem,7.2vw,5.8rem)] font-[950] leading-[0.95] tracking-[-0.055em] lg:max-w-[560px]">
+              Built for brands ready to grow with focus.
+            </h2>
+            <p className="mt-6 max-w-xl text-base font-semibold leading-relaxed text-[#6f667d] md:text-lg">
+              We partner with teams that need strategy, websites, content, ads, and automation working as one measurable growth system.
+            </p>
 
-        <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="relative flex flex-col justify-between border-b border-[rgba(58,15,99,0.10)] p-7 md:p-10 lg:border-b-0 lg:border-r lg:p-12">
-            <div>
-              <span className="adibuz-kicker">Who We Work With</span>
-              <h2 className="adibuz-gradient-text mt-6 text-[34px] font-[950] leading-[1.02] tracking-[-0.045em] md:text-[58px]">
-                Growth partners for focused, ambitious brands.
-              </h2>
-              <p className="mt-6 max-w-xl text-base font-semibold leading-relaxed text-[#6f667d] md:text-lg">
-                We work best with teams that need strategy, website, content, ads, and automation moving as one operating system.
-              </p>
-            </div>
-
-            <div className="mt-10 grid grid-cols-3 gap-3">
+            <div className="mt-9 grid grid-cols-3 overflow-hidden rounded-[22px] border border-[rgba(58,15,99,0.10)] bg-white/68 shadow-[0_16px_45px_rgba(22,8,43,0.05)]">
               {['Acquire', 'Convert', 'Scale'].map((item) => (
-                <div key={item} className="rounded-2xl border border-[rgba(58,15,99,0.10)] bg-[#fbf8ff]/80 px-3 py-4 text-center">
-                  <p className="text-[11px] font-black uppercase tracking-[0.16em] text-primary">{item}</p>
+                <div key={item} className="border-r border-[rgba(58,15,99,0.10)] px-3 py-4 text-center last:border-r-0">
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-primary sm:text-[11px]">{item}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2">
-            {clients.map((client) => {
-              const Icon = client.icon;
-              return (
-                <article
-                  key={client.name}
-                  className="group min-h-[174px] border-b border-[rgba(58,15,99,0.10)] bg-white/40 p-6 transition-colors duration-300 hover:bg-[#fbf8ff] sm:border-r sm:[&:nth-child(2n)]:border-r-0 lg:p-7"
-                >
-                  <div className="flex h-full flex-col justify-between gap-5">
-                    <div className="flex items-start justify-between gap-5">
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-primary ring-1 ring-[rgba(58,15,99,0.12)] transition-colors group-hover:bg-primary group-hover:text-white">
-                      <Icon className="h-5 w-5" strokeWidth={2.4} />
-                      </div>
-                      <ArrowUpRight className="h-4 w-4 text-[#b8adc5] transition-colors group-hover:text-primary" />
+          <div className="rounded-[28px] border border-[rgba(58,15,99,0.10)] bg-white/74 p-3 shadow-[0_24px_70px_rgba(22,8,43,0.06)] md:p-4">
+            <div className="divide-y divide-[rgba(58,15,99,0.09)] overflow-hidden rounded-[22px] bg-[#fffdf8]/80">
+              {clients.map((client, index) => {
+                const Icon = client.icon;
+                return (
+                  <article
+                    key={client.name}
+                    className="group grid gap-4 p-5 transition-colors duration-200 hover:bg-[#fbf8ff] sm:grid-cols-[3rem_0.78fr_1fr_auto] sm:items-center sm:p-6"
+                  >
+                    <div className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(58,15,99,0.12)] bg-white text-primary shadow-[0_10px_28px_rgba(58,15,99,0.06)]">
+                      <Icon className="h-5 w-5" strokeWidth={2.35} />
                     </div>
+
                     <div>
                       <p className="text-[11px] font-black uppercase tracking-[0.16em] text-primary">{client.focus}</p>
-                      <h3 className="mt-2 text-xl font-black tracking-tight text-[#12091f]">{client.name}</h3>
-                      <p className="mt-2 text-sm font-semibold leading-relaxed text-[#6f667d]">{client.desc}</p>
+                      <h3 className="mt-1 text-xl font-black tracking-tight text-[#12091f] md:text-2xl">{client.name}</h3>
                     </div>
-                  </div>
-                </article>
-              );
-            })}
+
+                    <p className="max-w-xl text-sm font-semibold leading-relaxed text-[#6f667d] md:text-[15px]">
+                      {client.desc}
+                    </p>
+
+                    <div className="flex items-center justify-between gap-3 sm:flex-col sm:justify-center">
+                      <span className="font-mono text-xs font-bold text-[#b9aec8]">{String(index + 1).padStart(2, '0')}</span>
+                      <ArrowUpRight className="h-4 w-4 text-[#b8adc5] transition-colors duration-200 group-hover:text-primary" />
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
