@@ -346,7 +346,7 @@ export default function App() {
         {/* ============================================================
             HERO SECTION
             ============================================================ */}
-        <header id="home" className="sticky top-0 z-[1] h-screen min-h-[100vh] max-h-[100vh] overflow-hidden">
+        <header id="home" className="relative lg:sticky top-0 z-[1] h-screen min-h-[100vh] max-h-[100vh] overflow-hidden">
           {/* Static Background layer */}
           <BackgroundGradientGlow className="absolute inset-0 z-0" />
 
