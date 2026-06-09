@@ -218,13 +218,8 @@ const WorkPage: React.FC = () => {
 
         <section className="relative z-10 py-10 md:py-18">
           <div className="container-custom">
-            <div className="mb-8 flex flex-col justify-between gap-4 md:mb-12 md:flex-row md:items-end">
-              <div>
-                <h2 className="adibuz-gradient-text mt-5 text-3xl font-black tracking-tight md:text-5xl">More growth stories</h2>
-              </div>
-              <p className="max-w-md text-sm font-semibold leading-relaxed text-[#6f667d] md:text-base">
-                Each project pairs strategy, creative, tracking, and conversion systems around one measurable business target.
-              </p>
+            <div className="mb-8 md:mb-12">
+              <h2 className="adibuz-gradient-text mt-1 text-4xl font-[950] tracking-tight md:text-[3.5rem]">More growth stories</h2>
             </div>
             <div className="grid gap-6 md:grid-cols-2">
               {otherStudies.map((study) => (
