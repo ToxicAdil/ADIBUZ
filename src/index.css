@@ -1622,7 +1622,7 @@
 
 /* â”€â”€ PHASE 1: Nav scroll clearance (sticky header = ~80px tall) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #home, #services, #clients, #strategic-marketing,
-#web-development, #seo, #about, #contact {
+#web-development, #seo, #about, #contact, #faqs {
   scroll-margin-top: 88px;
 }
 

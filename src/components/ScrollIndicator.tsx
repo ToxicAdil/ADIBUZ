@@ -11,39 +11,42 @@ const ScrollIndicator = () => {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const observers = new Map();
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    };
-    const observer = new IntersectionObserver(observerCallback, {
-      root: null,
-      rootMargin: '-40% 0px -40% 0px',
-      threshold: 0
-    });
-
-    sections.forEach(({ id }) => {
-      const element = document.getElementById(id);
-      if (element) {
-        observer.observe(element);
-        observers.set(id, element);
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + window.innerHeight * 0.3; // 30% viewport offset
+      
+      // If we are at the very top of the page, force "home" to be active
+      if (window.scrollY < 120) {
+        setActiveSection('home');
+        return;
       }
-    });
-
-    setTimeout(() => {
+      
+      let currentSection = 'home';
       sections.forEach(({ id }) => {
         const element = document.getElementById(id);
-        if (element && !observers.has(id)) {
-          observer.observe(element);
-          observers.set(id, element);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          const topRelativeToViewport = rect.top + window.scrollY;
+          // If the element's top has scrolled past the threshold, mark it as current
+          if (scrollPos >= topRelativeToViewport - 120) {
+            currentSection = id;
+          }
         }
       });
-    }, 1000);
+      setActiveSection(currentSection);
+    };
 
-    return () => observer.disconnect();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Also run on resize to adapt to layout shifts
+    window.addEventListener('resize', handleScroll, { passive: true });
+    
+    // Defer initial check slightly to allow page elements to mount fully
+    const timer = setTimeout(handleScroll, 100);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      clearTimeout(timer);
+    };
   }, []);
 
   const handleScrollTo = (id: string) => {
