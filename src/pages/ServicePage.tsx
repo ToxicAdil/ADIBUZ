@@ -98,7 +98,7 @@ const SERVICES_MAP: Record<string, any> = {
     title: "Professional Strategic Marketing & Advertising Services",
     description: "Ready to scale your brand with data-driven advertising? We craft high-performing campaigns across platforms that maximize ROI and drive consistent growth.",
     buttons: ['Facebook Ads', 'Google Ads'],
-    videoId: VIDEOS.marketing,
+    imageUrl: 'https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=800&auto=format&fit=crop&q=75',
     videoRight: false,
     content: (
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed mt-8 md:mt-12">
@@ -118,7 +118,7 @@ const SERVICES_MAP: Record<string, any> = {
     title: "Expert Social Media Management & Growth Services",
     description: "Build a strong online presence with high-performing social media strategies that engage your audience and drive real business growth.",
     buttons: ['Instagram', 'LinkedIn', 'Content Strategy'],
-    videoId: VIDEOS.social,
+    imageUrl: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&auto=format&fit=crop&q=75',
     videoRight: true,
     content: (
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed mt-8 md:mt-12">
@@ -138,7 +138,7 @@ const SERVICES_MAP: Record<string, any> = {
     title: "AI Workflow Automation & Business Efficiency Solutions",
     description: "Automate repetitive tasks, streamline workflows, and scale your operations efficiently while focusing on what truly matters.",
     buttons: ['CRM', 'Lead Gen', 'Business Flows'],
-    videoId: VIDEOS.automation,
+    imageUrl: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&auto=format&fit=crop&q=75',
     videoRight: false,
     content: (
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed mt-8 md:mt-12">
@@ -158,7 +158,7 @@ const SERVICES_MAP: Record<string, any> = {
     title: "High-Performance Website Development & Web Design",
     description: "Build fast, scalable, and high-converting websites that deliver seamless user experiences and drive real business growth.",
     buttons: ['Website Development', 'Landing Pages'],
-    videoId: VIDEOS.webdev,
+    imageUrl: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&auto=format&fit=crop&q=75',
     videoRight: true,
     content: (
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed mt-8 md:mt-12">
@@ -178,7 +178,7 @@ const SERVICES_MAP: Record<string, any> = {
     title: "Advanced Search Engine Optimization (SEO) Agency Services",
     description: "Elevate your online presence with data-driven SEO strategies, optimized content, and scalable workflows that drive long-term organic growth.",
     buttons: ['Keyword Research', 'Content Strategy', 'Analytics'],
-    videoId: VIDEOS.seo,
+    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=75',
     videoRight: false,
     content: (
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed mt-8 md:mt-12">
@@ -198,7 +198,7 @@ const SERVICES_MAP: Record<string, any> = {
     title: "Premium Visual Branding & Brand Identity Design",
     description: "We craft visually stunning designs that connect with your audience, elevate your brand identity, and drive meaningful engagement.",
     buttons: ['Social Media', 'Ads', 'Videos'],
-    videoId: VIDEOS.branding,
+    imageUrl: 'https://images.unsplash.com/photo-1561070791-26c113006238?w=800&auto=format&fit=crop&q=75',
     videoRight: true,
     content: (
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed mt-8 md:mt-12">
@@ -270,16 +270,14 @@ export default function ServicePage() {
               description={service.description}
               buttons={service.buttons}
               videoRight={service.videoRight}
-              posterUrl={cloudinaryPoster(service.videoId)}
               videoSlot={
-                <Suspense fallback={<div className="w-full h-full bg-slate-100 animate-pulse rounded-2xl" />}>
-                  <LazyVideo
-                    src={cloudinaryVideo(service.videoId)}
-                    className="w-full h-full object-cover block"
-                    style={{ borderRadius: 'inherit' }}
-                    ariaLabel={`${service.title} showcase video`}
-                  />
-                </Suspense>
+                <img
+                  src={service.imageUrl}
+                  alt={`${service.title} showcase visual`}
+                  className="w-full h-full object-cover block"
+                  style={{ borderRadius: 'inherit' }}
+                  loading="eager"
+                />
               }
             />
 

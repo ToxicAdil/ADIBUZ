@@ -120,11 +120,11 @@ export default function InsightDetailPage() {
 
       {/* Hero Section */}
       <div className="relative pt-32 pb-16 lg:pt-40 lg:pb-24 overflow-hidden bg-white border-b border-slate-200">
-        <div className="container-custom relative z-10 max-w-4xl">
+        <div className="container-custom relative z-10 max-w-3xl">
           <Link to="/insights" className="inline-flex items-center gap-2 text-slate-500 hover:text-[#3A0F63] font-medium text-sm mb-8 transition-colors">
             <ArrowLeft className="w-4 h-4" /> Back to all insights
           </Link>
-
+ 
           {insight.category && (
             <div className="mb-6">
               <span className="px-3 py-1 bg-[#3A0F63]/10 text-[#3A0F63] text-xs font-bold tracking-widest uppercase rounded-full">
@@ -132,7 +132,7 @@ export default function InsightDetailPage() {
               </span>
             </div>
           )}
-
+ 
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -141,7 +141,7 @@ export default function InsightDetailPage() {
           >
             {insight.title}
           </motion.h1>
-
+ 
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -169,14 +169,14 @@ export default function InsightDetailPage() {
           </motion.div>
         </div>
       </div>
-
+ 
       {/* Featured Image */}
-      <div className="container-custom max-w-5xl -mt-8 sm:-mt-12 relative z-20 mb-16">
+      <div className="container-custom max-w-3xl mt-6 sm:mt-10 relative z-20 mb-16">
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="aspect-video w-full rounded-2xl sm:rounded-[32px] overflow-hidden shadow-2xl bg-slate-100"
+          className="aspect-[21/9] w-full rounded-2xl sm:rounded-[32px] overflow-hidden shadow-2xl bg-slate-100"
         >
           <img 
             src={insight.featured_image} 
@@ -185,9 +185,9 @@ export default function InsightDetailPage() {
           />
         </motion.div>
       </div>
-
+ 
       {/* Content Body */}
-      <div className="container-custom max-w-4xl pb-16">
+      <div className="container-custom max-w-3xl pb-16">
         <div className="flex flex-col lg:flex-row gap-12">
           
           {/* Social Share (Sticky) */}
