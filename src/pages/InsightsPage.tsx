@@ -264,7 +264,7 @@ export default function InsightsPage() {
                 <div className="container-custom">
                   <div className="mb-9 flex flex-col gap-2 max-w-4xl">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                      <h2 className="adibuz-gradient-text mt-5 pb-2 text-3xl font-black tracking-tight md:text-5xl">Latest insights</h2>
+                      <h2 className="adibuz-gradient-text mt-5 pb-2 text-4xl font-black tracking-tight md:text-[54px] lg:text-6xl leading-[1.1]">Latest insights</h2>
                       {activeCategory && (
                         <button
                           onClick={() => setActiveCategory(null)}
@@ -296,7 +296,7 @@ export default function InsightsPage() {
                     </div>
                     <div>
                       <p className="text-[11px] font-black uppercase tracking-[0.22em] text-primary">Most read</p>
-                      <h2 className="adibuz-gradient-text text-2xl font-black tracking-tight md:text-3xl">Trending this week</h2>
+                      <h2 className="adibuz-gradient-text pb-2 text-4xl font-black tracking-tight md:text-[54px] lg:text-6xl leading-[1.1]">Trending this week</h2>
                     </div>
                   </div>
                   <div className="grid gap-4 md:grid-cols-2">
