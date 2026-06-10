@@ -231,7 +231,7 @@ export default function InsightsPage() {
             <section className="relative z-10 border-y border-[rgba(58,15,99,0.10)] bg-white/50 pt-8 pb-14 md:pt-10 md:pb-18">
               <div className="container-custom">
                 <div className="mb-9 flex flex-col gap-2 max-w-3xl">
-                  <h2 className="adibuz-gradient-text mt-5 pb-2 text-3xl font-black tracking-tight md:text-5xl">Growth topics</h2>
+                  <h2 className="adibuz-gradient-text mt-5 pb-2 text-4xl font-black tracking-tight md:text-[54px] lg:text-6xl leading-[1.1]">Growth topics</h2>
                   <p className="text-sm font-medium leading-relaxed text-[#6f667d] md:text-base">
                     Jump into the strategic areas that shape acquisition, authority, conversion, and retention.
                   </p>
