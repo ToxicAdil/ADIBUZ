@@ -1508,17 +1508,19 @@
 #stcm-icon {
   width: 52px !important;
   height: 52px !important;
-  bottom: 28px !important;
+  bottom: 28.5px !important;
   left: 44px !important;
   background: linear-gradient(135deg, #3A0F63 0%, #6D28D9 100%) !important;
   box-shadow: 0 4px 20px rgba(58, 15, 99, 0.35) !important;
   border-radius: 50% !important;
   transition: transform 0.2s ease, box-shadow 0.2s ease !important;
 }
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   #stcm-icon {
-    bottom: 20px !important;
+    bottom: 22.5px !important;
     left: 32px !important;
+    width: 48px !important;
+    height: 48px !important;
   }
 }
 #stcm-icon:hover {
