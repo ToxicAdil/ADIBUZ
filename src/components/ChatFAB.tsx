@@ -44,23 +44,23 @@ export default function ChatFAB() {
       <div className="relative">
         <button
           onClick={() => navigate('/assistant')}
-          className="w-[40px] h-[32px] sm:w-[50px] sm:h-[40px] bg-[#3A0F63] border-2 border-white/30 shadow-[0_10px_30px_rgba(58,15,99,0.4)] flex flex-col items-center justify-center relative overflow-hidden group-hover/btn:border-white/50 transition-all duration-300 hover:scale-105 active:scale-95"
+          className="w-[46px] h-[37px] sm:w-[56px] sm:h-[45px] bg-[#3A0F63] border-2 border-white/30 shadow-[0_10px_30px_rgba(58,15,99,0.4)] flex flex-col items-center justify-center relative overflow-hidden group-hover/btn:border-white/50 transition-all duration-300 hover:scale-105 active:scale-95"
           style={{ borderRadius: '38%' }}
           aria-label="Open Adibuz assistant"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
 
-          <div className="flex flex-col items-center gap-1 relative z-10 pt-0.5">
+          <div className="flex flex-col items-center gap-1.5 relative z-10 pt-0.5">
             <div className="flex gap-1.5 sm:gap-2" aria-hidden="true">
-              <div className="w-[6px] h-[6px] sm:w-[8px] sm:h-[8px] rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)] origin-center adibuz-fab-eye" />
-              <div className="w-[6px] h-[6px] sm:w-[8px] sm:h-[8px] rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)] origin-center adibuz-fab-eye" />
+              <div className="w-[7px] h-[7px] sm:w-[9px] sm:h-[9px] rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)] origin-center adibuz-fab-eye" />
+              <div className="w-[7px] h-[7px] sm:w-[9px] sm:h-[9px] rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)] origin-center adibuz-fab-eye" />
             </div>
             <svg
-              width="18"
-              height="5"
+              width="20"
+              height="6"
               viewBox="0 0 20 6"
               fill="none"
-              className="sm:w-[22px] sm:h-[6px]"
+              className="sm:w-[24px] sm:h-[7px]"
               aria-hidden="true"
             >
               <path

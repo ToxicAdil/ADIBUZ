@@ -1508,7 +1508,7 @@
 #stcm-icon {
   width: 52px !important;
   height: 52px !important;
-  bottom: 32px !important;
+  bottom: 28px !important;
   left: 44px !important;
   background: linear-gradient(135deg, #3A0F63 0%, #6D28D9 100%) !important;
   box-shadow: 0 4px 20px rgba(58, 15, 99, 0.35) !important;
@@ -1517,7 +1517,7 @@
 }
 @media (max-width: 1024px) {
   #stcm-icon {
-    bottom: 24px !important;
+    bottom: 20px !important;
     left: 32px !important;
   }
 }
@@ -1584,7 +1584,7 @@
     padding: 16px !important;
   }
   #stcm-icon {
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px) !important;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 10.5px) !important;
     left: 24px !important;
     width: 48px !important;
     height: 48px !important;
