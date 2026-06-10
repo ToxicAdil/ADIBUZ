@@ -72,7 +72,7 @@ const AboutTeam = () => {
         </FadeInUp>
 
         {/* Team Grid */}
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 xl:gap-6 w-full">
+        <StaggerContainer className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-5 xl:gap-6 w-full">
           {teamMembers.map((member, index) => (
             <StaggerItem key={index}>
               <TeamCard member={member} index={index} />
@@ -112,8 +112,6 @@ const TeamCard: React.FC<{ member: any, index: number }> = ({ member, index }) =
           height={500}
           loading="lazy"
           decoding="async"
-          srcSet={`${member.image.replace(/&w=\d+/, '&w=480')} 480w, ${member.image.replace(/&w=\d+/, '&w=768')} 768w, ${member.image} 1200w`}
-          sizes="(max-width: 479px) 100vw, (max-width: 767px) calc(50vw - 20px), (max-width: 1279px) calc(33vw - 24px), 280px"
           className="w-full h-full object-cover object-center filter grayscale contrast-125 transition-all duration-500 group-hover:grayscale-0 group-hover:scale-[1.03]"
         />
         
@@ -122,17 +120,17 @@ const TeamCard: React.FC<{ member: any, index: number }> = ({ member, index }) =
       </div>
 
       {/* Content Container */}
-      <div className="p-5 md:p-6 relative z-30 flex flex-col">
-        <h3 className="text-white text-[18px] lg:text-[20px] font-bold tracking-tight mb-0.5">{member.name}</h3>
-        <p className="text-[#e9d5ff] text-[10px] font-bold uppercase tracking-widest mb-4 block">
+      <div className="p-3.5 sm:p-5 md:p-6 relative z-30 flex flex-col">
+        <h3 className="text-white text-[14px] sm:text-[18px] lg:text-[20px] font-bold tracking-tight mb-0.5 leading-tight">{member.name}</h3>
+        <p className="text-[#e9d5ff] text-[9px] sm:text-[10px] font-bold uppercase tracking-widest mb-2.5 sm:mb-4 block">
           {member.role}
         </p>
 
-        <ul className="space-y-2.5">
+        <ul className="space-y-1.5 sm:space-y-2.5">
           {member.bullets.map((bullet: string, i: number) => (
             <li key={i} className="flex items-start">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1 mr-2.5 flex-shrink-0" />
-              <span className="text-purple-100/80 text-[12px] leading-[1.4] font-medium">{bullet}</span>
+              <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-purple-400 mt-1.5 mr-1.5 sm:mr-2.5 flex-shrink-0" />
+              <span className="text-purple-100/80 text-[10px] sm:text-[12px] leading-[1.3] sm:leading-[1.4] font-medium">{bullet}</span>
             </li>
           ))}
         </ul>
