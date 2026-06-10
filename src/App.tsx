@@ -292,7 +292,10 @@ export default function App() {
     let raf = 0;
     const updateHero = () => {
       raf = 0;
-      const isPhoneOrTablet = window.innerWidth < 1024 || isMobile;
+      const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isPhoneOrTablet = window.innerWidth < 1200 || isMobileUA || isTouchDevice;
+      
       if (isPhoneOrTablet) {
         node.style.setProperty('--hero-scale', '1');
         node.style.setProperty('--hero-y', '0px');
