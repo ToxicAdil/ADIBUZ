@@ -27,7 +27,7 @@ export default function ChatFAB() {
           transition: 'opacity 0.4s ease, transform 0.4s ease',
         }}
       >
-        <div className="bg-gradient-to-br from-[#EDE9FE] to-[#DDD6FE] text-[#1E1B4B] px-2.5 py-1 rounded-full shadow-xl border border-[#C4B5FD]/50 flex items-center justify-center">
+        <div className="bg-gradient-to-br from-[#EDE9FE] to-[#DDD6FE] text-[#1E1B4B] px-4 py-1 rounded-full shadow-xl border border-[#C4B5FD]/50 flex items-center justify-center">
           <span className="text-[9px] font-black uppercase tracking-[0.2em] whitespace-nowrap">Let's Talk</span>
         </div>
         <svg width="10" height="6" viewBox="0 0 12 8" fill="none" className="-mt-0.5 opacity-60" aria-hidden="true">
