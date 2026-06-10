@@ -38,7 +38,7 @@ function responsiveSrcSet(src: string) {
 
 const CaseStudyCard: React.FC<{ study: (typeof CASE_STUDIES)[number]; featured?: boolean }> = ({ study, featured = false }) => (
   <article
-    className={`group overflow-hidden rounded-[28px] border border-[rgba(58,15,99,0.12)] bg-white/86 shadow-[0_18px_55px_rgba(22,8,43,0.07)] ${featured ? 'lg:grid lg:grid-cols-[1.08fr_0.92fr]' : ''}`}
+    className={`group overflow-hidden rounded-[28px] border-[2.5px] border-[#6D28D9]/12 bg-white/86 shadow-[0_18px_55px_rgba(22,8,43,0.07)] ${featured ? 'lg:grid lg:grid-cols-[1.08fr_0.92fr]' : ''}`}
   >
     <div className={`relative overflow-hidden bg-slate-100 ${featured ? 'aspect-[16/11] lg:aspect-auto lg:min-h-[400px]' : 'aspect-[16/10]'}`}>
       <img
@@ -92,7 +92,7 @@ const CaseStudyCard: React.FC<{ study: (typeof CASE_STUDIES)[number]; featured?:
 
 const SampleWebsiteCard: React.FC<{ item: (typeof SAMPLE_WEBSITES)[number] }> = ({ item }) => {
   const content = (
-    <div className="group h-full overflow-hidden rounded-[24px] border border-[rgba(58,15,99,0.10)] bg-white/82 shadow-[0_16px_45px_rgba(22,8,43,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(58,15,99,0.12)]">
+    <div className="group h-full overflow-hidden rounded-[24px] border-[2.5px] border-[#6D28D9]/12 bg-white/82 shadow-[0_16px_45px_rgba(22,8,43,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(58,15,99,0.12)]">
       <div className="relative aspect-[16/10] overflow-hidden">
         <img
           src={item.img}
@@ -156,6 +156,22 @@ const BottomCTA: React.FC = () => (
 
 const WorkPage: React.FC = () => {
   const [featuredStudy, ...otherStudies] = CASE_STUDIES;
+  const [scrollY, setScrollY] = React.useState(0);
+
+  React.useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#fbf8ff] text-[#12091f] selection:bg-primary selection:text-white">
@@ -179,21 +195,94 @@ const WorkPage: React.FC = () => {
       <main className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[760px] bg-[radial-gradient(circle_at_50%_0%,rgba(124,58,237,0.16),transparent_40%),linear-gradient(180deg,#fffdf8_0%,#f8f3ff_58%,rgba(248,243,255,0)_100%)]" aria-hidden="true" />
 
-        <section className="relative z-10 pt-32 pb-12 md:pt-40 md:pb-20">
-          <div className="container-custom">
-            <div className="max-w-4xl mx-auto text-center space-y-6">
-              <h1 className="text-5xl md:text-7xl lg:text-[80px] font-black tracking-tight leading-[1.05] text-[#12091f]">
-                Real Results. <br />
-                <span className="adibuz-gradient-text">Real Growth.</span>
-              </h1>
-              <p className="text-lg md:text-xl text-[#6f667d] font-semibold leading-relaxed max-w-2xl mx-auto mt-6">
-                Explore how we've helped brands scale revenue, optimize performance, and build systems that drive consistent growth.
+        <section className="relative z-10 pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
+          <div className="container-custom relative z-10">
+            {/* Central visual container with overlay typography */}
+            <div className="relative w-full flex flex-col items-center justify-center pt-3 pb-10 md:pt-5 md:pb-14 mt-2 md:mt-4">
+              {/* Central portrait image box */}
+              <div 
+                className="relative w-full max-w-[320px] sm:max-w-[380px] md:max-w-[440px] aspect-[9/13.5] rounded-3xl overflow-hidden border-[2.5px] border-[#6D28D9]/25 z-0 bg-white flex items-center justify-center -translate-y-4 md:-translate-y-8"
+                style={{
+                  boxShadow: 'inset 0 0 32px 4px rgba(109, 40, 217, 0.22), 0 16px 48px rgba(58, 15, 99, 0.06)'
+                }}
+              >
+                <img 
+                  src="/images/work-process.png"
+                  alt="Adibuz Performance Visual"
+                  className="w-full h-full object-cover opacity-80"
+                />
+                {/* Soft local fade mask to hide sketches directly behind the text */}
+                <div 
+                  className="absolute inset-0 pointer-events-none z-[1]"
+                  style={{
+                    background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.8) 35%, rgba(255,255,255,0) 75%)'
+                  }}
+                />
+              </div>
+
+              {/* Overlay Typography (Centered over visual box and aligned end-to-end matching the navbar size) */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center -translate-y-14 md:-translate-y-24 pointer-events-none z-10 w-full px-4 sm:px-6">
+                <div className="w-full max-w-[1060px] flex flex-col items-center justify-center">
+                  {(() => {
+                    const scrollScale = Math.min(1.35, 1 + scrollY * 0.0008);
+                    return (
+                      <>
+                        <h2 
+                          className="text-[clamp(2rem,6.8vw,5.8rem)] uppercase tracking-[-0.04em] adibuz-gradient-text leading-none text-center select-none drop-shadow-[0_8px_24px_rgba(58,15,99,0.08)] drop-shadow-[0_0_30px_rgba(124,58,237,0.35)] inline-block"
+                          style={{ 
+                            fontFamily: '"Syncopate", sans-serif',
+                            fontWeight: 700,
+                            transform: `scaleX(${1.15 * scrollScale}) scaleY(${0.95 * scrollScale}) translateY(18px)`, 
+                            transformOrigin: 'center',
+                            willChange: 'transform'
+                          }}
+                        >
+                          PERFORMANCE
+                        </h2>
+                        
+                        <h2 
+                          className="text-[clamp(2rem,6.8vw,5.8rem)] uppercase tracking-[-0.04em] text-transparent leading-none text-center select-none mt-2 drop-shadow-[0_0_20px_rgba(109,40,217,0.2)]"
+                          style={{ 
+                            fontFamily: '"Syncopate", sans-serif',
+                            fontWeight: 700,
+                            WebkitTextStroke: '1.5px #6D28D9', 
+                            transform: `scaleX(${0.9 * scrollScale}) scaleY(${0.95 * scrollScale})`, 
+                            transformOrigin: 'center',
+                            willChange: 'transform'
+                          }}
+                        >
+                          AND DESIGN
+                        </h2>
+                      </>
+                    );
+                  })()}
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Text Description */}
+            <div className="w-full text-center -mt-5 md:-mt-8">
+              <p className="text-lg sm:text-xl md:text-2xl font-extrabold leading-relaxed tracking-tight w-full">
+                {"We create high-performance digital experiences that blend strategic design, AI automation, and growth marketing to help businesses attract, convert, and scale more effectively".split(' ').map((word, idx) => (
+                  <span 
+                    key={idx} 
+                    className="inline-block mr-[0.25em]"
+                    style={{
+                      background: 'linear-gradient(135deg, #12091f 0%, #3A0F63 50%, #6D28D9 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text'
+                    }}
+                  >
+                    {word}
+                  </span>
+                ))}
               </p>
             </div>
           </div>
         </section>
 
-        <section className="py-8 border-y border-[rgba(58,15,99,0.06)] bg-white/40 backdrop-blur-sm relative z-10 mb-8 md:mb-16">
+        <section className="py-8 border-y border-[rgba(58,15,99,0.06)] bg-white/40 backdrop-blur-sm relative z-10 mb-2 md:mb-4">
           <div className="container-custom">
             <div className="flex flex-col md:flex-row justify-center md:justify-around gap-6 items-center">
               {[
@@ -210,16 +299,22 @@ const WorkPage: React.FC = () => {
           </div>
         </section>
 
-        <section className="relative z-10 pt-10 pb-1 md:pt-16 md:pb-2">
+        <section className="relative z-10 pt-4 pb-12 md:pt-6 md:pb-20">
           <div className="container-custom">
-            {featuredStudy && <CaseStudyCard study={featuredStudy} featured />}
-          </div>
-        </section>
-
-        <section className="relative z-10 pt-1 pb-10 md:pt-2 md:pb-18">
-          <div className="container-custom">
-            <div className="grid gap-6 md:grid-cols-2">
-              {otherStudies.map((study) => (
+            {/* Split Case Studies Header */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12 border-b border-[rgba(58,15,99,0.08)] pb-8">
+              <div className="max-w-xl">
+                <span className="inline-flex rounded-full border border-[#6D28D9]/10 bg-[#f8f3ff] px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.2em] text-[#6D28D9] mb-4">
+                  Case Studies
+                </span>
+                <h2 className="adibuz-gradient-text text-3xl md:text-5xl font-black tracking-tight">
+                  Proven growth systems <br className="hidden md:inline" /> in action.
+                </h2>
+              </div>
+            </div>
+            
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {CASE_STUDIES.map((study) => (
                 <CaseStudyCard key={study.client} study={study} />
               ))}
             </div>
@@ -229,7 +324,7 @@ const WorkPage: React.FC = () => {
         <section className="relative z-10 border-y border-[rgba(58,15,99,0.10)] bg-white/50 pt-8 pb-14 md:pt-12 md:pb-22">
           <div className="container-custom">
             <div className="mb-9 text-center md:mb-14">
-              <h2 className="adibuz-gradient-text mx-auto mt-0 max-w-3xl text-3xl font-black tracking-tight md:text-5xl">
+              <h2 className="adibuz-gradient-text mx-auto mt-0 max-w-4xl text-4xl font-black tracking-tight md:text-[54px] lg:text-6xl leading-[1.1]">
                 Premium web foundations for different markets.
               </h2>
               <p className="mx-auto mt-5 max-w-2xl text-base font-semibold leading-relaxed text-[#6f667d]">

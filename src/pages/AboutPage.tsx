@@ -49,7 +49,7 @@ const AboutPage = () => {
           {/* BIG TEXT (Layer 2) */}
           <motion.div 
             style={{ opacity: textOpacity }}
-            className="relative z-10 w-full flex justify-center items-center pointer-events-none"
+            className="relative z-10 w-full flex justify-center items-center pointer-events-none mt-8 md:mt-12"
           >
             <div className="relative inline-block px-6">
               {/* Blur Glow duplicate layer */}
@@ -57,7 +57,13 @@ const AboutPage = () => {
                 initial={{ opacity: 0, filter: "blur(20px)" }}
                 animate={{ opacity: 0.6, filter: "blur(30px)" }}
                 transition={{ duration: 2, ease: "easeOut" }}
-                className="absolute inset-0 text-[18vw] md:text-[17.5vw] font-[900] text-gradient leading-none tracking-tighter select-none whitespace-nowrap pointer-events-none"
+                className="absolute inset-0 text-[13vw] md:text-[12.5vw] adibuz-gradient-text leading-none tracking-[-0.04em] select-none whitespace-nowrap pointer-events-none drop-shadow-[0_8px_24px_rgba(58,15,99,0.08)] drop-shadow-[0_0_30px_rgba(124,58,237,0.35)]"
+                style={{
+                  fontFamily: '"Syncopate", sans-serif',
+                  fontWeight: 700,
+                  transform: 'scaleX(1.15) scaleY(0.95)',
+                  transformOrigin: 'center'
+                }}
                 aria-hidden="true"
               >
                 ABOUT US
@@ -68,7 +74,13 @@ const AboutPage = () => {
                 initial={{ opacity: 0, filter: "blur(10px)" }}
                 animate={{ opacity: 1, filter: "blur(0px)" }}
                 transition={{ duration: 2, ease: "easeOut" }}
-                className="text-[18vw] md:text-[17.5vw] font-[900] text-gradient leading-none tracking-tighter select-none whitespace-nowrap relative z-10 opacity-90"
+                className="text-[13vw] md:text-[12.5vw] adibuz-gradient-text leading-none tracking-[-0.04em] select-none whitespace-nowrap relative z-10 opacity-90 drop-shadow-[0_8px_24px_rgba(58,15,99,0.08)] drop-shadow-[0_0_30px_rgba(124,58,237,0.35)]"
+                style={{
+                  fontFamily: '"Syncopate", sans-serif',
+                  fontWeight: 700,
+                  transform: 'scaleX(1.15) scaleY(0.95)',
+                  transformOrigin: 'center'
+                }}
               >
                 ABOUT US
               </motion.h1>

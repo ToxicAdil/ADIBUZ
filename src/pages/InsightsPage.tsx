@@ -32,9 +32,9 @@ function FeaturedInsight({ insight }: { insight: Insight }) {
   return (
     <Link
       to={`/insights/${insight.slug}`}
-      className="group block overflow-hidden rounded-[32px] border border-[rgba(58,15,99,0.12)] bg-white/88 shadow-[0_24px_80px_rgba(22,8,43,0.09)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-[0_34px_95px_rgba(58,15,99,0.16)] lg:grid lg:grid-cols-[1.08fr_0.92fr]"
+      className="group block overflow-hidden rounded-[24px] border border-[rgba(58,15,99,0.12)] bg-white/88 shadow-[0_20px_65px_rgba(22,8,43,0.07)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-[0_28px_80px_rgba(58,15,99,0.14)] lg:grid lg:grid-cols-[1.02fr_0.98fr]"
     >
-      <div className="relative aspect-[16/11] overflow-hidden bg-slate-100 lg:aspect-auto lg:min-h-[520px]">
+      <div className="relative aspect-[16/9] overflow-hidden bg-slate-100 lg:aspect-auto lg:min-h-[320px]">
         <img
           src={insight.featured_image}
           alt={insight.title}
@@ -47,33 +47,33 @@ function FeaturedInsight({ insight }: { insight: Insight }) {
         <div className="absolute inset-0 bg-gradient-to-t from-[#12091f]/58 via-[#12091f]/10 to-transparent" />
       </div>
 
-      <div className="flex min-h-full flex-col p-7 sm:p-9 lg:p-12">
-        <div className="flex flex-wrap items-center gap-3 text-[12px] font-black uppercase tracking-[0.16em] text-[#827891]">
+      <div className="flex min-h-full flex-col p-5 sm:p-7 lg:p-8">
+        <div className="flex flex-wrap items-center gap-3 text-[11px] font-black uppercase tracking-[0.16em] text-[#827891]">
           <span>{formatDate(insight.created_at, 'long')}</span>
           <span className="h-1 w-1 rounded-full bg-[#c9bfd3]" />
-          <span className="inline-flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> {insight.read_time} min read</span>
+          <span className="inline-flex items-center gap-1.5"><Clock className="h-3 w-3" /> {insight.read_time} min read</span>
         </div>
 
-        <h2 className="adibuz-gradient-text mt-7 text-3xl font-black leading-[1.02] tracking-tight md:text-5xl">
+        <h2 className="adibuz-gradient-text mt-4 text-xl font-black leading-[1.1] tracking-tight md:text-3xl">
           {insight.title}
         </h2>
-        <p className="mt-5 line-clamp-4 text-base font-medium leading-relaxed text-[#6f667d] md:text-lg">
+        <p className="mt-3 line-clamp-2 text-sm font-medium leading-relaxed text-[#6f667d] md:text-base">
           {insight.excerpt}
         </p>
 
-        <div className="mt-8 rounded-2xl border border-[rgba(58,15,99,0.10)] bg-[#f8f3ff]/70 p-5">
-          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#827891]">Written by</p>
-          <div className="mt-3 flex items-center justify-between gap-4">
+        <div className="mt-5 rounded-2xl border border-[rgba(58,15,99,0.10)] bg-[#f8f3ff]/70 p-3.5">
+          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#827891]">Written by</p>
+          <div className="mt-2.5 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#3A0F63] to-[#8B5CF6] text-sm font-black text-white shadow-md">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#3A0F63] to-[#8B5CF6] text-xs font-black text-white shadow-md">
                 {insight.author_name.charAt(0)}
               </div>
               <div>
-                <p className="font-black text-[#12091f]">{insight.author_name}</p>
-                <p className="text-sm font-semibold text-[#827891]">Adibuz Team</p>
+                <p className="text-sm font-black text-[#12091f]">{insight.author_name}</p>
+                <p className="text-xs font-semibold text-[#827891]">Adibuz Team</p>
               </div>
             </div>
-            <ArrowRight className="h-5 w-5 text-primary transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover:translate-x-1" />
           </div>
         </div>
       </div>
@@ -132,11 +132,14 @@ export default function InsightsPage() {
 
         <section className="adibuz-subpage-hero relative z-10 pt-32 pb-10 md:pt-40 md:pb-14">
           <div className="container-custom">
-            <div className="adibuz-subpage-hero-grid grid items-end gap-10 lg:grid-cols-[1.04fr_0.96fr]">
-              <div>
-                <h1 className="adibuz-subpage-hero-title adibuz-gradient-text mt-6 max-w-5xl text-[clamp(2.8rem,7.5vw,7rem)] font-black leading-[0.94] tracking-[-0.055em]">
+            <div className="adibuz-subpage-hero-grid grid items-start gap-10 lg:grid-cols-[1.04fr_0.96fr]">
+              <div className="pt-2">
+                <h1 className="adibuz-subpage-hero-title adibuz-gradient-text mt-0 max-w-5xl text-[clamp(2.2rem,5vw,4.2rem)] font-black leading-[1.08] tracking-tight">
                   Growth thinking for modern operators.
                 </h1>
+                <p className="mt-6 max-w-lg text-base font-medium leading-relaxed text-[#6f667d]">
+                  Actionable playbooks, strategic frameworks, and technical guides on custom web design, conversion optimization, and growth marketing.
+                </p>
               </div>
               <div className="adibuz-subpage-hero-media w-full max-w-[520px] lg:ml-auto">
                 <div className="relative w-full overflow-hidden rounded-[34px] border border-[rgba(58,15,99,0.14)] bg-white/70 p-3 shadow-[0_24px_80px_rgba(22,8,43,0.08)] backdrop-blur-xl md:p-4">
@@ -212,26 +215,24 @@ export default function InsightsPage() {
         ) : (
           <>
             {featuredPost && (
-              <section className="relative z-10 py-10 md:py-16">
+              <section className="relative z-10 border-y border-[rgba(58,15,99,0.08)] bg-white/40 py-12 md:py-16 mt-0 mb-2 md:mt-0 md:mb-4">
                 <div className="container-custom">
-                  <div className="mb-7 flex items-center justify-between gap-4">
-                    <div>
-                      <p className="adibuz-kicker">Featured Article</p>
-                      <h2 className="adibuz-gradient-text mt-5 text-3xl font-black tracking-tight md:text-5xl">Start here</h2>
-                    </div>
+                  <div className="mb-7 flex flex-col gap-2 max-w-3xl">
+                    <h2 className="adibuz-gradient-text mt-0 pb-2 text-4xl font-black tracking-tight md:text-[54px] lg:text-6xl leading-[1.1]">Start here</h2>
+                    <p className="text-sm font-medium leading-relaxed text-[#6f667d] md:text-base">
+                      Our latest featured article highlighting high-impact strategies, tactical playbooks, and modern approaches to scaling businesses.
+                    </p>
                   </div>
                   <FeaturedInsight insight={featuredPost} />
                 </div>
               </section>
             )}
 
-            <section className="relative z-10 border-y border-[rgba(58,15,99,0.10)] bg-white/50 py-14 md:py-18">
+            <section className="relative z-10 border-y border-[rgba(58,15,99,0.10)] bg-white/50 pt-8 pb-14 md:pt-10 md:pb-18">
               <div className="container-custom">
-                <div className="mb-9 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-                  <div>
-                    <h2 className="adibuz-gradient-text mt-5 text-3xl font-black tracking-tight md:text-5xl">Growth topics</h2>
-                  </div>
-                  <p className="max-w-md text-sm font-semibold leading-relaxed text-[#6f667d] md:text-base">
+                <div className="mb-9 flex flex-col gap-2 max-w-3xl">
+                  <h2 className="adibuz-gradient-text mt-5 pb-2 text-3xl font-black tracking-tight md:text-5xl">Growth topics</h2>
+                  <p className="text-sm font-medium leading-relaxed text-[#6f667d] md:text-base">
                     Jump into the strategic areas that shape acquisition, authority, conversion, and retention.
                   </p>
                 </div>
@@ -259,20 +260,23 @@ export default function InsightsPage() {
             </section>
 
             {gridPosts.length > 0 && (
-              <section className="relative z-10 py-14 md:py-20">
+              <section className="relative z-10 pt-6 pb-14 md:pt-8 md:pb-20">
                 <div className="container-custom">
-                  <div className="mb-9 flex flex-col justify-between gap-4 md:mb-12 md:flex-row md:items-end">
-                    <div>
-                      <h2 className="adibuz-gradient-text mt-5 text-3xl font-black tracking-tight md:text-5xl">Latest insights</h2>
+                  <div className="mb-9 flex flex-col gap-2 max-w-4xl">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                      <h2 className="adibuz-gradient-text mt-5 pb-2 text-3xl font-black tracking-tight md:text-5xl">Latest insights</h2>
+                      {activeCategory && (
+                        <button
+                          onClick={() => setActiveCategory(null)}
+                          className="w-fit rounded-full border border-primary/20 bg-white px-5 py-2 text-sm font-black text-primary transition-colors hover:bg-primary hover:text-white"
+                        >
+                          Clear filter
+                        </button>
+                      )}
                     </div>
-                    {activeCategory && (
-                      <button
-                        onClick={() => setActiveCategory(null)}
-                        className="w-fit rounded-full border border-primary/20 bg-white px-5 py-2 text-sm font-black text-primary transition-colors hover:bg-primary hover:text-white"
-                      >
-                        Clear filter
-                      </button>
-                    )}
+                    <p className="text-sm font-medium leading-relaxed text-[#6f667d] md:text-base">
+                      Browse all of our recent articles, business updates, analysis, and tactical playbooks.
+                    </p>
                   </div>
                   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {gridPosts.map((insight, index) => (
