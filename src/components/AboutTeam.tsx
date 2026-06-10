@@ -120,17 +120,17 @@ const TeamCard: React.FC<{ member: any, index: number }> = ({ member, index }) =
       </div>
 
       {/* Content Container */}
-      <div className="p-3.5 sm:p-5 md:p-6 relative z-30 flex flex-col">
-        <h3 className="text-white text-[14px] sm:text-[18px] lg:text-[20px] font-bold tracking-tight mb-0.5 leading-tight">{member.name}</h3>
-        <p className="text-[#e9d5ff] text-[9px] sm:text-[10px] font-bold uppercase tracking-widest mb-2.5 sm:mb-4 block">
+      <div className="p-2.5 sm:p-5 md:p-6 relative z-30 flex flex-col">
+        <h3 className="text-white text-[12px] sm:text-[18px] lg:text-[20px] font-bold tracking-tight mb-0.5 leading-tight">{member.name}</h3>
+        <p className="text-[#e9d5ff] text-[8px] sm:text-[10px] font-bold uppercase tracking-widest mb-2 sm:mb-4 block">
           {member.role}
         </p>
 
-        <ul className="space-y-1.5 sm:space-y-2.5">
+        <ul className="space-y-1 sm:space-y-2.5">
           {member.bullets.map((bullet: string, i: number) => (
             <li key={i} className="flex items-start">
-              <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-purple-400 mt-1.5 mr-1.5 sm:mr-2.5 flex-shrink-0" />
-              <span className="text-purple-100/80 text-[10px] sm:text-[12px] leading-[1.3] sm:leading-[1.4] font-medium">{bullet}</span>
+              <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-purple-400 mt-1.5 mr-1 sm:mr-2.5 flex-shrink-0" />
+              <span className="text-purple-100/80 text-[9px] sm:text-[12px] leading-[1.3] sm:leading-[1.4] font-medium">{bullet}</span>
             </li>
           ))}
         </ul>
