@@ -20,7 +20,7 @@ export default function ChatFAB() {
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-[9999] flex flex-col items-center gap-0 pointer-events-auto group/btn">
       <div
-        className="hidden sm:flex flex-col items-center mb-1 group-hover/btn:translate-y-[-4px] transition-transform duration-300 adibuz-chat-label"
+        className="flex flex-col items-center mb-1 group-hover/btn:translate-y-[-4px] transition-transform duration-300 adibuz-chat-label"
         style={{
           opacity: mounted ? 1 : 0,
           transform: mounted ? 'scale(1)' : 'scale(0.9)',
