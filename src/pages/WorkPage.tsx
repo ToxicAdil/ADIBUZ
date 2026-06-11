@@ -219,7 +219,7 @@ const WorkPage: React.FC = () => {
               <div 
                 className="absolute -translate-y-4 md:-translate-y-8 w-full max-w-[210px] sm:max-w-[380px] md:max-w-[440px] aspect-[9/13.5] pointer-events-none z-0"
                 style={{
-                  transform: `rotateX(${rotateX * 0.8}deg) translateY(${translateY * 0.95}px) translateZ(${translateZ - 20}px)`,
+                  transform: isPhone ? undefined : `rotateX(${rotateX * 0.8}deg) translateY(${translateY * 0.95}px) translateZ(${translateZ - 20}px)`,
                   transformOrigin: 'top center',
                   willChange: 'transform',
                   transition: 'transform 0.05s ease-out'
@@ -235,7 +235,7 @@ const WorkPage: React.FC = () => {
                 className="relative w-full max-w-[210px] sm:max-w-[380px] md:max-w-[440px] aspect-[9/13.5] rounded-3xl overflow-hidden border-[2.5px] border-[#a78bfa]/45 z-[1] bg-white flex items-center justify-center -translate-y-4 md:-translate-y-8"
                 style={{
                   boxShadow: 'inset 0 0 36px 6px rgba(167, 139, 250, 0.35), 0 0 45px rgba(217, 70, 239, 0.4), 0 20px 55px rgba(58, 15, 99, 0.08)',
-                  transform: `rotateX(${rotateX}deg) translateY(${translateY}px) translateZ(${translateZ}px)`,
+                  transform: isPhone ? undefined : `rotateX(${rotateX}deg) translateY(${translateY}px) translateZ(${translateZ}px)`,
                   transformOrigin: 'top center',
                   willChange: 'transform',
                   transition: 'transform 0.05s ease-out'
