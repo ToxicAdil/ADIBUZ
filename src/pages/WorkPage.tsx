@@ -157,6 +157,14 @@ const BottomCTA: React.FC = () => (
 const WorkPage: React.FC = () => {
   const [featuredStudy, ...otherStudies] = CASE_STUDIES;
   const [scrollY, setScrollY] = React.useState(0);
+  const [isPhone, setIsPhone] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsPhone(window.innerWidth < 640);
+    const handleResize = () => setIsPhone(window.innerWidth < 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   React.useEffect(() => {
     let ticking = false;
@@ -172,6 +180,11 @@ const WorkPage: React.FC = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // 3D rolling parameters based on scroll
+  const rotateX = Math.min(24, scrollY * 0.05); // Roll/tilt backwards
+  const translateY = scrollY * -0.22; // Slide upwards
+  const translateZ = scrollY * -0.06; // Translate deeper in 3D space
 
   return (
     <div className="min-h-screen bg-[#fbf8ff] text-[#12091f] selection:bg-primary selection:text-white">
@@ -198,41 +211,68 @@ const WorkPage: React.FC = () => {
         <section className="relative z-10 pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
           <div className="container-custom relative z-10">
             {/* Central visual container with overlay typography */}
-            <div className="relative w-full flex flex-col items-center justify-center pt-3 pb-10 md:pt-5 md:pb-14 mt-2 md:mt-4">
+            <div 
+              className="relative w-full flex flex-col items-center justify-center pt-3 pb-10 md:pt-5 md:pb-14 mt-2 md:mt-4"
+              style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
+            >
+              {/* Outer Glowing Backdrop Blur */}
+              <div 
+                className="absolute -translate-y-4 md:-translate-y-8 w-full max-w-[210px] sm:max-w-[380px] md:max-w-[440px] aspect-[9/13.5] pointer-events-none z-0"
+                style={{
+                  transform: `rotateX(${rotateX * 0.8}deg) translateY(${translateY * 0.95}px) translateZ(${translateZ - 20}px)`,
+                  transformOrigin: 'top center',
+                  willChange: 'transform',
+                  transition: 'transform 0.05s ease-out'
+                }}
+                aria-hidden="true"
+              >
+                <div className="absolute -inset-5 bg-gradient-to-tr from-[#7c3aed] via-[#d946ef] to-[#06b6d4] rounded-[32px] blur-3xl opacity-65 animate-pulse duration-[6000ms]" />
+                <div className="absolute -inset-1.5 bg-gradient-to-tr from-[#8b5cf6] via-[#ec4899] to-[#22d3ee] rounded-[30px] opacity-30" />
+              </div>
+
               {/* Central portrait image box */}
               <div 
-                className="relative w-full max-w-[320px] sm:max-w-[380px] md:max-w-[440px] aspect-[9/13.5] rounded-3xl overflow-hidden border-[2.5px] border-[#6D28D9]/25 z-0 bg-white flex items-center justify-center -translate-y-4 md:-translate-y-8"
+                className="relative w-full max-w-[210px] sm:max-w-[380px] md:max-w-[440px] aspect-[9/13.5] rounded-3xl overflow-hidden border-[2.5px] border-[#a78bfa]/45 z-[1] bg-white flex items-center justify-center -translate-y-4 md:-translate-y-8"
                 style={{
-                  boxShadow: 'inset 0 0 32px 4px rgba(109, 40, 217, 0.22), 0 16px 48px rgba(58, 15, 99, 0.06)'
+                  boxShadow: 'inset 0 0 36px 6px rgba(167, 139, 250, 0.35), 0 0 45px rgba(217, 70, 239, 0.4), 0 20px 55px rgba(58, 15, 99, 0.08)',
+                  transform: `rotateX(${rotateX}deg) translateY(${translateY}px) translateZ(${translateZ}px)`,
+                  transformOrigin: 'top center',
+                  willChange: 'transform',
+                  transition: 'transform 0.05s ease-out'
                 }}
               >
                 <img 
                   src="/images/work-process.png"
                   alt="Adibuz Performance Visual"
-                  className="w-full h-full object-cover opacity-80"
+                  className="w-full h-full object-cover opacity-95 filter saturate-[1.3] contrast-[1.05]"
                 />
-                {/* Soft local fade mask to hide sketches directly behind the text */}
+                {/* Colorful local glow and fade mask to preserve text readability while glowing */}
                 <div 
                   className="absolute inset-0 pointer-events-none z-[1]"
                   style={{
-                    background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.8) 35%, rgba(255,255,255,0) 75%)'
+                    background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.78) 0%, rgba(243,232,255,0.5) 45%, rgba(139,92,246,0.15) 75%, rgba(217,70,239,0.1) 100%)'
                   }}
                 />
               </div>
 
               {/* Overlay Typography (Centered over visual box and aligned end-to-end matching the navbar size) */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center -translate-y-14 md:-translate-y-24 pointer-events-none z-10 w-full px-4 sm:px-6">
+              <div 
+                className="absolute inset-0 flex flex-col items-center justify-center -translate-y-14 md:-translate-y-24 pointer-events-none z-30 w-full px-4 sm:px-6"
+                style={{ transform: 'translate3d(0, 0, 100px)', transformStyle: 'preserve-3d' }}
+              >
                 <div className="w-full max-w-[1060px] flex flex-col items-center justify-center">
                   {(() => {
                     const scrollScale = Math.min(1.35, 1 + scrollY * 0.0008);
+                    const baseScaleX = isPhone ? 0.8 : 1.15;
+                    const baseScaleY = isPhone ? 1.35 : 0.95;
                     return (
                       <>
                         <h2 
-                          className="text-[clamp(2rem,6.8vw,5.8rem)] uppercase tracking-[-0.04em] adibuz-gradient-text leading-none text-center select-none drop-shadow-[0_8px_24px_rgba(58,15,99,0.08)] drop-shadow-[0_0_30px_rgba(124,58,237,0.35)] inline-block"
+                          className="text-[clamp(2.45rem,6.8vw,5.8rem)] uppercase tracking-[-0.04em] adibuz-gradient-text leading-none text-center select-none drop-shadow-[0_8px_24px_rgba(58,15,99,0.08)] drop-shadow-[0_0_30px_rgba(124,58,237,0.35)] inline-block"
                           style={{ 
                             fontFamily: '"Syncopate", sans-serif',
                             fontWeight: 700,
-                            transform: `scaleX(${1.15 * scrollScale}) scaleY(${0.95 * scrollScale}) translateY(18px)`, 
+                            transform: `scaleX(${baseScaleX * scrollScale}) scaleY(${baseScaleY * scrollScale}) translateY(18px)`, 
                             transformOrigin: 'center',
                             willChange: 'transform'
                           }}
@@ -241,12 +281,12 @@ const WorkPage: React.FC = () => {
                         </h2>
                         
                         <h2 
-                          className="text-[clamp(2rem,6.8vw,5.8rem)] uppercase tracking-[-0.04em] text-transparent leading-none text-center select-none mt-2 drop-shadow-[0_0_20px_rgba(109,40,217,0.2)]"
+                          className="text-[clamp(2.45rem,6.8vw,5.8rem)] uppercase tracking-[-0.04em] text-transparent leading-none text-center select-none mt-2 drop-shadow-[0_0_20px_rgba(109,40,217,0.2)]"
                           style={{ 
                             fontFamily: '"Syncopate", sans-serif',
                             fontWeight: 700,
                             WebkitTextStroke: '1.5px #6D28D9', 
-                            transform: `scaleX(${0.9 * scrollScale}) scaleY(${0.95 * scrollScale})`, 
+                            transform: `scaleX(${(isPhone ? 0.76 : 0.9) * scrollScale}) scaleY(${baseScaleY * scrollScale})`, 
                             transformOrigin: 'center',
                             willChange: 'transform'
                           }}

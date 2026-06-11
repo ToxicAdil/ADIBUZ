@@ -75,9 +75,8 @@ const DotGlobeHero = React.forwardRef<HTMLDivElement, DotGlobeHeroProps>(
         )}
         {...props}
       >
-        {/* Globe Container — opacity 0.10 on mobile, 0.18 on desktop */}
         <motion.div
-          className="absolute inset-0 z-0 pointer-events-none opacity-[0.18] md:opacity-[0.26]"
+          className="absolute inset-0 z-0 pointer-events-none opacity-[0.12] md:opacity-[0.18]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.4, ease: "easeOut", delay: 0.3 }}
