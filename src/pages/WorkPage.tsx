@@ -158,8 +158,10 @@ const WorkPage: React.FC = () => {
   const [featuredStudy, ...otherStudies] = CASE_STUDIES;
   const [scrollY, setScrollY] = React.useState(0);
   const [isPhone, setIsPhone] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
+    setMounted(true);
     setIsPhone(window.innerWidth < 640);
     const handleResize = () => setIsPhone(window.innerWidth < 640);
     window.addEventListener('resize', handleResize);
@@ -219,7 +221,7 @@ const WorkPage: React.FC = () => {
               <div 
                 className="absolute -translate-y-4 md:-translate-y-8 w-full max-w-[210px] sm:max-w-[380px] md:max-w-[440px] aspect-[9/13.5] pointer-events-none z-0"
                 style={{
-                  transform: isPhone ? undefined : `rotateX(${rotateX * 0.8}deg) translateY(${translateY * 0.95}px) translateZ(${translateZ - 20}px)`,
+                  transform: (mounted && isPhone) ? undefined : `rotateX(${rotateX * 0.8}deg) translateY(${translateY * 0.95}px) translateZ(${translateZ - 20}px)`,
                   transformOrigin: 'top center',
                   willChange: 'transform',
                   transition: 'transform 0.05s ease-out'
@@ -235,7 +237,7 @@ const WorkPage: React.FC = () => {
                 className="relative w-full max-w-[210px] sm:max-w-[380px] md:max-w-[440px] aspect-[9/13.5] rounded-3xl overflow-hidden border-[2.5px] border-[#a78bfa]/45 z-[1] bg-white flex items-center justify-center -translate-y-4 md:-translate-y-8"
                 style={{
                   boxShadow: 'inset 0 0 36px 6px rgba(167, 139, 250, 0.35), 0 0 45px rgba(217, 70, 239, 0.4), 0 20px 55px rgba(58, 15, 99, 0.08)',
-                  transform: isPhone ? undefined : `rotateX(${rotateX}deg) translateY(${translateY}px) translateZ(${translateZ}px)`,
+                  transform: (mounted && isPhone) ? undefined : `rotateX(${rotateX}deg) translateY(${translateY}px) translateZ(${translateZ}px)`,
                   transformOrigin: 'top center',
                   willChange: 'transform',
                   transition: 'transform 0.05s ease-out'
@@ -263,8 +265,9 @@ const WorkPage: React.FC = () => {
                 <div className="w-full max-w-[1060px] flex flex-col items-center justify-center">
                   {(() => {
                     const scrollScale = Math.min(1.35, 1 + scrollY * 0.0008);
-                    const baseScaleX = isPhone ? 0.8 : 1.15;
-                    const baseScaleY = isPhone ? 1.35 : 0.95;
+                    const isMobilePhone = mounted && isPhone;
+                    const baseScaleX = isMobilePhone ? 0.8 : 1.15;
+                    const baseScaleY = isMobilePhone ? 1.35 : 0.95;
                     return (
                       <>
                         <h2 
@@ -272,7 +275,7 @@ const WorkPage: React.FC = () => {
                           style={{ 
                             fontFamily: '"Syncopate", sans-serif',
                             fontWeight: 700,
-                            transform: `scaleX(${baseScaleX * scrollScale}) scaleY(${baseScaleY * scrollScale}) translateY(${isPhone ? 8 : 18}px)`, 
+                            transform: `scaleX(${baseScaleX * scrollScale}) scaleY(${baseScaleY * scrollScale}) translateY(${isMobilePhone ? 8 : 18}px)`, 
                             transformOrigin: 'center',
                             willChange: 'transform'
                           }}
@@ -281,12 +284,12 @@ const WorkPage: React.FC = () => {
                         </h2>
                         
                         <h2 
-                          className={`text-[clamp(2.45rem,6.8vw,5.8rem)] uppercase tracking-[-0.04em] text-transparent leading-none text-center select-none ${isPhone ? 'mt-4' : 'mt-2'} drop-shadow-[0_0_20px_rgba(109,40,217,0.2)]`}
+                          className={`text-[clamp(2.45rem,6.8vw,5.8rem)] uppercase tracking-[-0.04em] text-transparent leading-none text-center select-none ${isMobilePhone ? 'mt-4' : 'mt-2'} drop-shadow-[0_0_20px_rgba(109,40,217,0.2)]`}
                           style={{ 
                             fontFamily: '"Syncopate", sans-serif',
                             fontWeight: 700,
                             WebkitTextStroke: '1.5px #6D28D9', 
-                            transform: `scaleX(${(isPhone ? 0.76 : 0.9) * scrollScale}) scaleY(${baseScaleY * scrollScale})`, 
+                            transform: `scaleX(${(isMobilePhone ? 0.76 : 0.9) * scrollScale}) scaleY(${baseScaleY * scrollScale})`, 
                             transformOrigin: 'center',
                             willChange: 'transform'
                           }}
