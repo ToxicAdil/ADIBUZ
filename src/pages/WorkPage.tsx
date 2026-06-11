@@ -272,7 +272,7 @@ const WorkPage: React.FC = () => {
                           style={{ 
                             fontFamily: '"Syncopate", sans-serif',
                             fontWeight: 700,
-                            transform: `scaleX(${baseScaleX * scrollScale}) scaleY(${baseScaleY * scrollScale}) translateY(${isPhone ? 0 : 18}px)`, 
+                            transform: `scaleX(${baseScaleX * scrollScale}) scaleY(${baseScaleY * scrollScale}) translateY(${isPhone ? 8 : 18}px)`, 
                             transformOrigin: 'center',
                             willChange: 'transform'
                           }}
@@ -281,7 +281,7 @@ const WorkPage: React.FC = () => {
                         </h2>
                         
                         <h2 
-                          className={`text-[clamp(2.45rem,6.8vw,5.8rem)] uppercase tracking-[-0.04em] text-transparent leading-none text-center select-none ${isPhone ? 'mt-8' : 'mt-2'} drop-shadow-[0_0_20px_rgba(109,40,217,0.2)]`}
+                          className={`text-[clamp(2.45rem,6.8vw,5.8rem)] uppercase tracking-[-0.04em] text-transparent leading-none text-center select-none ${isPhone ? 'mt-4' : 'mt-2'} drop-shadow-[0_0_20px_rgba(109,40,217,0.2)]`}
                           style={{ 
                             fontFamily: '"Syncopate", sans-serif',
                             fontWeight: 700,
