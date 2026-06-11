@@ -59,6 +59,20 @@ function upsertJsonLd(id: string, json: string) {
   }
 }
 
+function injectPreloadLink(href: string, as: string, type?: string, crossOrigin?: string) {
+  const id = `adibuz-preload-${href}`;
+  if (document.querySelector(`link[data-preload-id="${id}"]`)) return;
+  const link = document.createElement('link');
+  link.rel = 'preload';
+  link.href = href;
+  link.setAttribute('as', as);
+  link.setAttribute('data-preload-id', id);
+  if (type) link.setAttribute('type', type);
+  if (crossOrigin) link.crossOrigin = crossOrigin;
+  document.head.appendChild(link);
+  return () => { link.parentNode?.removeChild(link); };
+}
+
 export function JsonLd({ id, data }: JsonLdProps) {
   const json = useMemo(() => JSON.stringify(data), [data]);
 
@@ -66,6 +80,22 @@ export function JsonLd({ id, data }: JsonLdProps) {
     upsertJsonLd(id, json);
   }, [id, json]);
 
+  return null;
+}
+
+interface PreloadLinkProps {
+  href: string;
+  as: string;
+  type?: string;
+  crossOrigin?: string;
+}
+
+/** Injects a <link rel="preload"> into <head> and cleans it up on unmount. */
+export function PreloadLink({ href, as, type, crossOrigin }: PreloadLinkProps) {
+  useEffect(() => {
+    const cleanup = injectPreloadLink(href, as, type, crossOrigin);
+    return cleanup;
+  }, [href, as, type, crossOrigin]);
   return null;
 }
 

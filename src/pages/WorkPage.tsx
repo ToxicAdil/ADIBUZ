@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowRight, CheckCircle2, ExternalLink, Target, TrendingUp } from 'lucide-react';
 import { SimpleHeader } from '@/components/ui/simple-header';
 import { Footer } from '@/components/ui/footer-section';
-import { JsonLd, SEO } from '@/components/SEO';
+import { JsonLd, PreloadLink, SEO } from '@/components/SEO';
 import { CASE_STUDIES } from '@/data/case-studies';
 import { FreeAuditModal } from '@/components/funnels/FreeAuditModal';
 import { BookStrategyCallModal } from '@/components/funnels/BookStrategyCallModal';
@@ -205,6 +205,8 @@ const WorkPage: React.FC = () => {
           ],
         }}
       />
+      {/* Preload hero image for faster LCP on the Work page */}
+      <PreloadLink href="/images/work-process.png" as="image" />
       <SimpleHeader />
 
       <main className="relative overflow-hidden">
@@ -247,6 +249,8 @@ const WorkPage: React.FC = () => {
                   src="/images/work-process.png"
                   alt="Adibuz Performance Visual"
                   className="w-full h-full object-cover opacity-80"
+                  fetchPriority="high"
+                  decoding="sync"
                 />
                 {/* Soft local fade mask to hide sketches directly behind the text */}
                 <div 
