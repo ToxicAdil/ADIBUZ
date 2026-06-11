@@ -244,13 +244,13 @@ const WorkPage: React.FC = () => {
                 <img 
                   src="/images/work-process.png"
                   alt="Adibuz Performance Visual"
-                  className="w-full h-full object-cover opacity-95 filter saturate-[1.3] contrast-[1.05]"
+                  className="w-full h-full object-cover opacity-80"
                 />
-                {/* Colorful local glow and fade mask to preserve text readability while glowing */}
+                {/* Soft local fade mask to hide sketches directly behind the text */}
                 <div 
                   className="absolute inset-0 pointer-events-none z-[1]"
                   style={{
-                    background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.78) 0%, rgba(243,232,255,0.5) 45%, rgba(139,92,246,0.15) 75%, rgba(217,70,239,0.1) 100%)'
+                    background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.8) 35%, rgba(255,255,255,0) 75%)'
                   }}
                 />
               </div>
