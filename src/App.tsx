@@ -115,38 +115,31 @@ const services = [
 const testimonialData = [
   {
     quote:
-      'Adibuz completely transformed our ROAS. We went from 2x to 5.5x in just three months. Their AI tools are a game changer!',
-    name: 'Sarah Chen',
-    designation: 'CEO, LuxeDecor',
-    src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=75&w=150&fm=webp&fit=crop',
+      'Adibuz helped us improve our online visibility and generate more qualified leads through a structured digital marketing strategy.',
+    name: 'Rahul Sharma',
+    designation: 'Technology Startup Founder | +142% Qualified Leads',
+    src: 'https://res.cloudinary.com/dtzo88csm/image/upload/f_auto,q_auto,w_400,c_fill/v1782219133/WhatsApp_Image_2026-06-11_at_3.04.27_PM_qiiqtn.jpg',
   },
   {
     quote:
-      "The attention to detail in their creative testing is impressive. We've seen significant improvements in our application's load times and overall user experience.",
-    name: 'Michael Rodriguez',
-    designation: 'Founder, TechStart',
-    src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=75&w=150&fm=webp&fit=crop',
+      'The Adibuz team strengthened our digital presence through targeted campaigns and data-driven optimization.',
+    name: 'Arjun Mehta',
+    designation: 'Healthcare Brand Manager | +185% Engagement Growth',
+    src: 'https://res.cloudinary.com/dtzo88csm/image/upload/f_auto,q_auto,w_400,c_fill/v1782219127/WhatsApp_Image_2026-06-11_at_3.08.14_PM_ljgmkq.jpg',
   },
   {
     quote:
-      "What sets Adibuz apart is its flexibility. We've been able to maintain consistency across our applications while still customizing components to match our brand identity.",
-    name: 'Emily Thompson',
-    designation: 'Marketing Director, GlowUp',
-    src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=75&w=150&fm=webp&fit=crop',
+      'Adibuz streamlined our online presence and helped us attract higher-quality leads through a well-structured marketing strategy.',
+    name: 'Emily Carter',
+    designation: 'Consulting Firm Director | +210% Website Traffic',
+    src: 'https://res.cloudinary.com/dtzo88csm/image/upload/f_auto,q_auto,w_400,c_fill/v1782219121/WhatsApp_Image_2026-06-11_at_3.58.15_PM_nlvfqz.jpg',
   },
   {
     quote:
-      "The performance optimization in these components is outstanding. We've seen significant improvements in our application's load times and overall user experience.",
-    name: 'James Wilson',
-    designation: 'Performance Lead, SwiftScale',
-    src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=75&w=150&fm=webp&fit=crop',
-  },
-  {
-    quote:
-      "The community support and regular updates make this component library a reliable choice for our projects. It's clear that the team behind it is committed to quality.",
-    name: 'Sophia Martinez',
-    designation: 'E-commerce Manager, UrbanStyle',
-    src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=75&w=150&fm=webp&fit=crop',
+      'Adibuz developed practical growth strategies that improved conversions and generated measurable business results.',
+    name: 'Daniel Foster',
+    designation: 'Professional Services Founder | 3.1× Conversion Growth',
+    src: 'https://res.cloudinary.com/dtzo88csm/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_auto:face/v1782219113/WhatsApp_Image_2026-06-11_at_4.02.26_PM_qaq8dp.jpg',
   },
 ];
 
