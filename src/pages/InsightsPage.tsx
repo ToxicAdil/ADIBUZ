@@ -146,7 +146,7 @@ export default function InsightsPage() {
                   <div className="absolute inset-0 rounded-[34px] bg-gradient-to-br from-white/80 via-purple-100/32 to-white/72" aria-hidden="true" />
                   <div className="relative aspect-[4/3] min-h-[280px] overflow-hidden rounded-[26px] border border-white/80 bg-[#12091f] md:min-h-[360px]">
                     <img
-                      src="/images/insights-hero.jpg"
+                      src="https://res.cloudinary.com/dtzo88csm/image/upload/v1783370114/IMG_0114_ylvm8j.jpg"
                       alt="Premium purple abstract editorial insight visual"
                       width={1200}
                       height={675}

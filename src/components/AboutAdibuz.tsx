@@ -47,10 +47,10 @@ const AboutAdibuz: React.FC = () => {
             </div>
 
             {/* Video Box - Square (now slightly wider) */}
-            <div className="w-full lg:w-auto flex justify-center">
-              <div className="relative w-full max-w-[320px] md:max-w-[420px] aspect-[16/10] rounded-[40px] overflow-hidden shadow-2xl ring-1 ring-black/5">
+            <div className="w-full lg:w-auto flex justify-center lg:mt-10">
+              <div className="relative w-full max-w-[320px] md:max-w-[420px] aspect-[16/10] rounded-[24px] overflow-hidden shadow-2xl ring-1 ring-black/5">
                 <video
-                  src="https://res.cloudinary.com/dtzo88csm/video/upload/v1774898094/web_dev_video_hoheur.mp4"
+                  src="https://res.cloudinary.com/dtzo88csm/video/upload/v1783368501/From_Klickpin.com-_Try_Cozy_meal_prep_recipes_that_feel_fresh_practical_and_surprisingly_easy_to_try_for_ideas_worth_saving_right_now-pin-id-10752_fvznho.mp4"
                   autoPlay
                   muted
                   loop

@@ -27,7 +27,14 @@ export const InsightPreviewCard: React.FC = () => {
             {/* LEFT SIDE (FEATURED BLOG) */}
             <div className="w-full md:w-5/12 relative z-10 flex items-center">
               {loading || !featuredInsight ? (
-                <div className="w-full aspect-[4/5] rounded-[32px] bg-slate-100 animate-pulse border border-slate-200/50" />
+                <div className="w-full rounded-[28px] overflow-hidden bg-white border border-slate-200/60 shadow-[0_10px_40px_-10px_rgba(58,15,99,0.05)]">
+                  <div className="aspect-[16/9] bg-slate-100 animate-pulse" />
+                  <div className="p-5 md:p-6 bg-white flex flex-col gap-3">
+                    <div className="h-3 w-1/3 bg-slate-100 rounded animate-pulse" />
+                    <div className="h-5 w-3/4 bg-slate-100 rounded animate-pulse" />
+                    <div className="h-4 w-1/2 bg-slate-100 rounded animate-pulse mt-2" />
+                  </div>
+                </div>
               ) : (
                 <Link to={`/insights/${featuredInsight.slug}`} className="group/card w-full block relative rounded-[28px] overflow-hidden bg-white border border-slate-200/60 shadow-[0_10px_40px_-10px_rgba(58,15,99,0.1)] hover:shadow-[0_20px_60px_-15px_rgba(58,15,99,0.2)] transition-all duration-500">
                   <div className="aspect-[16/9] overflow-hidden relative bg-slate-50">
