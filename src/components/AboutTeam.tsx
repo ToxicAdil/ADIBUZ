@@ -6,7 +6,7 @@ const teamMembers = [
   {
     name: 'Md Adil Ali',
     role: 'Founder & Growth Strategist',
-    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: 'https://res.cloudinary.com/dtzo88csm/image/upload/v1774977463/IMG_6729_q6mmay.jpg',
     bullets: [
       'Leads Adibuz\'s growth and digital strategy.',
       'Architects scalable marketing systems and brand positioning.',
@@ -16,7 +16,7 @@ const teamMembers = [
   {
     name: 'Krish Rawat',
     role: 'Co-Founder & SEO Specialist',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: 'https://res.cloudinary.com/dhty5iilx/image/upload/v1781007925/krish_adibuz_dvbw4g.jpg',
     bullets: [
       'Develops SEO strategies for long-term organic growth.',
       'Optimizes content structure, keywords, and search visibility.',
@@ -26,7 +26,7 @@ const teamMembers = [
   {
     name: 'Mozzamil Hussain',
     role: 'Brand & Creative Designer',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: 'https://res.cloudinary.com/dhty5iilx/image/upload/v1783412437/mozammil_professional_image_q1d56p.png',
     bullets: [
       'Creates modern visual identities and marketing creatives.',
       'Focused on clean UI/UX and high-converting brand experiences.',
@@ -34,9 +34,9 @@ const teamMembers = [
     ]
   },
   {
-    name: 'Deepak Rawat',
+    name: 'Anzar Imam',
     role: 'Full Stack Developer',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: 'https://res.cloudinary.com/dhty5iilx/image/upload/v1783414421/Gemini_Generated_Image_kxwvghkxwvghkxwv_b1liah.png',
     bullets: [
       'Builds fast, scalable, and modern digital platforms.',
       'Specializes in responsive frontend and backend integrations.',
@@ -46,7 +46,7 @@ const teamMembers = [
   {
     name: 'Dev Rawat',
     role: 'Performance Marketing Specialist',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: 'https://res.cloudinary.com/dhty5iilx/image/upload/v1783413125/Gemini_Generated_Image_8689re8689re8689_lc2mih.png',
     bullets: [
       'Manages paid advertising and campaign optimization.',
       'Focused on improving conversions and customer acquisition.',

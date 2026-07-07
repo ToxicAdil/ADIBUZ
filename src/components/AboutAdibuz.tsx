@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 import EarbudShowcase from './ui/spatial-product-showcase';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
 import MagneticButton from './MagneticButton';
@@ -69,9 +70,9 @@ const AboutAdibuz: React.FC = () => {
           {/* Centered CTA Button */}
           <div className="mt-6 md:mt-8 flex justify-center w-full relative z-20">
             <MagneticButton>
-              <button className="adibuz-button-primary px-10 py-4 text-[15px]">
+              <Link to="/work" className="adibuz-button-primary px-10 py-4 text-[15px]">
                 View Case Studies <ArrowRight className="w-5 h-5" />
-              </button>
+              </Link>
             </MagneticButton>
           </div>
         </motion.div>

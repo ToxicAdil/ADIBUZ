@@ -55,8 +55,8 @@ export const AboutPreviewCTA: React.FC = () => {
                                     {/* dark tint overlay */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent z-10" />
                                     <img
-                                        src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop"
-                                        srcSet="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=75&w=480&auto=format&fit=crop&fm=webp 480w, https://images.unsplash.com/photo-1560250097-0b93528c311a?q=75&w=768&auto=format&fit=crop&fm=webp 768w, https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1200&auto=format&fit=crop&fm=webp 1200w"
+                                        src="https://res.cloudinary.com/dtzo88csm/image/upload/v1774977463/IMG_6729_q6mmay.jpg"
+                                        srcSet="https://res.cloudinary.com/dtzo88csm/image/upload/v1774977463/IMG_6729_q6mmay.jpg"
                                         sizes="(max-width: 767px) 60vw, (max-width: 1023px) 40vw, 280px"
                                         alt="Adibuz Leadership"
                                         width={600}
@@ -83,8 +83,8 @@ export const AboutPreviewCTA: React.FC = () => {
                                     animate={{ y: [6, -6, 6] }}
                                 >
                                     <img
-                                        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop"
-                                        srcSet="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=75&w=480&auto=format&fit=crop&fm=webp 480w, https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop&fm=webp 768w"
+                                        src="https://res.cloudinary.com/dhty5iilx/image/upload/v1781007925/krish_adibuz_dvbw4g.jpg"
+                                        srcSet="https://res.cloudinary.com/dhty5iilx/image/upload/v1781007925/krish_adibuz_dvbw4g.jpg"
                                         sizes="(max-width: 767px) 44vw, 180px"
                                         alt="Strategy Team"
                                         width={400}
