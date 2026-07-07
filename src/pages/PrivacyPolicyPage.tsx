@@ -8,7 +8,7 @@ import { Shield, Lock, Eye, Users, Mail, Globe, Bell, RefreshCw } from 'lucide-r
 
 const EFFECTIVE_DATE = 'May 15, 2026';
 const CONTACT_EMAIL = 'hello@adibuz.com';
-const SITE_URL = 'https://www.adibuz.com';
+const SITE_URL = 'https://adibuz.com';
 
 // â”€â”€â”€ Section wrapper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const Section = memo(({ id, icon: Icon, title, children }: {

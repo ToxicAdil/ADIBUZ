@@ -200,8 +200,8 @@ const WorkPage: React.FC = () => {
           '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
           itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.adibuz.com/' },
-            { '@type': 'ListItem', position: 2, name: 'Work', item: 'https://www.adibuz.com/work' },
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://adibuz.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Work', item: 'https://adibuz.com/work' },
           ],
         }}
       />

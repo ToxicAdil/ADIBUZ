@@ -7,10 +7,10 @@
       "has": [
         {
           "type": "host",
-          "value": "adibuz.com"
+          "value": "www.adibuz.com"
         }
       ],
-      "destination": "https://www.adibuz.com/:path*",
+      "destination": "https://adibuz.com/:path*",
       "permanent": true
     }
   ],

@@ -1,8 +1,8 @@
 import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const CANONICAL_BASE = 'https://www.adibuz.com';
-const OG_IMAGE_DEFAULT = 'https://www.adibuz.com/og-image.png';
+const CANONICAL_BASE = 'https://adibuz.com';
+const OG_IMAGE_DEFAULT = 'https://adibuz.com/og-image.png';
 
 interface SEOProps {
   title?: string;
@@ -152,7 +152,7 @@ export function SEO({
           '@type': 'Organization',
           name: 'Adibuz',
           url: CANONICAL_BASE,
-          logo: 'https://www.adibuz.com/adibuz-logo.png',
+          logo: 'https://adibuz.com/adibuz-logo.png',
           contactPoint: {
             '@type': 'ContactPoint',
             telephone: '+91-93415-86751',

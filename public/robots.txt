@@ -151,5 +151,5 @@ Disallow: /
 # Both Google and Bing discover the sitemap from here.
 # www-canonical URL used â€” must match canonical in <head>.
 # ---------------------------------------------------------------------------
-Sitemap: https://www.adibuz.com/sitemap.xml
+Sitemap: https://adibuz.com/sitemap.xml
 

@@ -25,7 +25,7 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://www.adibuz.com/</loc>
+    <loc>https://adibuz.com/</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -33,7 +33,7 @@
 
   <!-- About -->
   <url>
-    <loc>https://www.adibuz.com/about</loc>
+    <loc>https://adibuz.com/about</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -41,7 +41,7 @@
 
   <!-- Work / Portfolio index -->
   <url>
-    <loc>https://www.adibuz.com/work</loc>
+    <loc>https://adibuz.com/work</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -49,7 +49,7 @@
 
   <!-- Insights / Blog index -->
   <url>
-    <loc>https://www.adibuz.com/insights</loc>
+    <loc>https://adibuz.com/insights</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -57,7 +57,7 @@
 
   <!-- Contact Us -->
   <url>
-    <loc>https://www.adibuz.com/contact</loc>
+    <loc>https://adibuz.com/contact</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
@@ -69,37 +69,37 @@
 
   <!-- Services -->
   <url>
-    <loc>https://www.adibuz.com/services/seo</loc>
+    <loc>https://adibuz.com/services/seo</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.adibuz.com/services/web-development</loc>
+    <loc>https://adibuz.com/services/web-development</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.adibuz.com/services/strategic-marketing</loc>
+    <loc>https://adibuz.com/services/strategic-marketing</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.adibuz.com/services/social-media</loc>
+    <loc>https://adibuz.com/services/social-media</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.adibuz.com/services/automation</loc>
+    <loc>https://adibuz.com/services/automation</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.adibuz.com/services/visual-branding</loc>
+    <loc>https://adibuz.com/services/visual-branding</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -116,7 +116,7 @@
 
   <!-- Blog: AI-Powered Marketing Systems -->
   <url>
-    <loc>https://www.adibuz.com/insights/ai-powered-marketing-systems</loc>
+    <loc>https://adibuz.com/insights/ai-powered-marketing-systems</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -124,7 +124,7 @@
 
   <!-- Blog: Why Agency Websites Fail -->
   <url>
-    <loc>https://www.adibuz.com/insights/why-agency-websites-fail</loc>
+    <loc>https://adibuz.com/insights/why-agency-websites-fail</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -132,7 +132,7 @@
 
   <!-- Blog: Future of SEO in the AI Era -->
   <url>
-    <loc>https://www.adibuz.com/insights/future-of-seo-ai-era</loc>
+    <loc>https://adibuz.com/insights/future-of-seo-ai-era</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -140,7 +140,7 @@
 
   <!-- Blog: How Automation Is Changing Digital Marketing -->
   <url>
-    <loc>https://www.adibuz.com/insights/automation-changing-digital-marketing</loc>
+    <loc>https://adibuz.com/insights/automation-changing-digital-marketing</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -148,7 +148,7 @@
 
   <!-- Blog: Building a Premium Brand Identity -->
   <url>
-    <loc>https://www.adibuz.com/insights/building-premium-brand-identity</loc>
+    <loc>https://adibuz.com/insights/building-premium-brand-identity</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -156,7 +156,7 @@
 
   <!-- Blog: Scaling Paid Ads with Machine Learning -->
   <url>
-    <loc>https://www.adibuz.com/insights/scaling-paid-ads-machine-learning</loc>
+    <loc>https://adibuz.com/insights/scaling-paid-ads-machine-learning</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -164,7 +164,7 @@
 
   <!-- Blog: Growth System Framework for SaaS -->
   <url>
-    <loc>https://www.adibuz.com/insights/growth-system-framework-saas</loc>
+    <loc>https://adibuz.com/insights/growth-system-framework-saas</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -172,7 +172,7 @@
 
   <!-- Blog: Digital Strategy for Agencies -->
   <url>
-    <loc>https://www.adibuz.com/insights/digital-strategy-for-agencies</loc>
+    <loc>https://adibuz.com/insights/digital-strategy-for-agencies</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -186,7 +186,7 @@
 
   <!-- Privacy Policy -->
   <url>
-    <loc>https://www.adibuz.com/privacy-policy</loc>
+    <loc>https://adibuz.com/privacy-policy</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.30</priority>
@@ -194,7 +194,7 @@
 
   <!-- Terms of Use -->
   <url>
-    <loc>https://www.adibuz.com/terms</loc>
+    <loc>https://adibuz.com/terms</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.30</priority>

@@ -8,7 +8,7 @@ import { FileText, Shield, AlertTriangle, Globe, Mail, CreditCard, Users, Zap, L
 
 const EFFECTIVE_DATE = 'May 15, 2026';
 const CONTACT_EMAIL = 'hello@adibuz.com';
-const SITE_URL = 'https://www.adibuz.com';
+const SITE_URL = 'https://adibuz.com';
 
 const Section = memo(({ id, icon: Icon, title, children }: {
   id: string; icon: React.ComponentType<{ className?: string }>; title: string; children: React.ReactNode;
