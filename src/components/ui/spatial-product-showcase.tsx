@@ -47,24 +47,6 @@ export interface ProfileData {
 const PROFILE_DATA: Record<ProductId, ProfileData> = {
   left: {
     id: 'left',
-    label: 'Adil',
-    title: 'Md Adil Ali',
-    description: 'Leading Adibuz\'s vision through strategic growth systems, digital innovation, and scalable marketing solutions for modern brands.',
-    image: 'https://res.cloudinary.com/dtzo88csm/image/upload/f_auto,q_auto,w_800,c_fill/v1774977463/IMG_6729_q6mmay.jpg',
-    colors: {
-      gradient: 'from-[#3A0F63] to-purple-800',
-      glow: 'bg-[#3A0F63]',
-      ring: 'border-[#3A0F63]',
-      shadow: 'shadow-[0_0_100px_rgba(58,15,99,0.7)]',
-    },
-    stats: { status: 'Building Systems', focusLevel: 100 },
-    features: [
-      { label: 'Strategy', value: 98, icon: Target },
-      { label: 'Execution', value: 95, icon: TrendingUp },
-    ],
-  },
-  right: {
-    id: 'right',
     label: 'Krish',
     title: 'Krish Rawat',
     description: 'Develops SEO strategies focused on long-term organic growth, search visibility, and sustainable digital authority for modern brands.',
@@ -73,12 +55,30 @@ const PROFILE_DATA: Record<ProductId, ProfileData> = {
       gradient: 'from-[#3A0F63] to-purple-800',
       glow: 'bg-[#3A0F63]',
       ring: 'border-[#3A0F63]',
-      shadow: 'shadow-[0_0_100px_rgba(58,15,99,0.65)]',
+      shadow: 'shadow-[0_0_100px_rgba(58,15,99,0.7)]',
     },
     stats: { status: 'Crafting Brands', focusLevel: 98 },
     features: [
       { label: 'SEO Strategy', value: 99, icon: Sparkles },
       { label: 'Brand Design', value: 96, icon: PenTool },
+    ],
+  },
+  right: {
+    id: 'right',
+    label: 'Adil',
+    title: 'Md Adil Ali',
+    description: 'Leading Adibuz\'s vision through strategic growth systems, digital innovation, and scalable marketing solutions for modern brands.',
+    image: 'https://res.cloudinary.com/dtzo88csm/image/upload/f_auto,q_auto,w_800,c_fill/v1774977463/IMG_6729_q6mmay.jpg',
+    colors: {
+      gradient: 'from-[#3A0F63] to-purple-800',
+      glow: 'bg-[#3A0F63]',
+      ring: 'border-[#3A0F63]',
+      shadow: 'shadow-[0_0_100px_rgba(58,15,99,0.65)]',
+    },
+    stats: { status: 'Building Systems', focusLevel: 100 },
+    features: [
+      { label: 'Strategy', value: 98, icon: Target },
+      { label: 'Execution', value: 95, icon: TrendingUp },
     ],
   },
 };
@@ -224,7 +224,7 @@ const ProfileDetails = ({ data, isLeft }: { data: ProfileData; isLeft: boolean; 
         {data.title}
       </motion.h1>
       <motion.p variants={ANIMATIONS.item} className="text-xs font-bold uppercase tracking-[0.2em] text-[#3A0F63]/70 mb-4">
-        {data.id === 'left' ? 'Founder & Growth Strategist' : 'Co-Founder & SEO Specialist'}
+        {data.id === 'left' ? 'Founder & SEO Specialist' : 'Co-Founder & Growth Strategist'}
       </motion.p>
       <motion.p variants={ANIMATIONS.item} className={`text-slate-500 mb-8 max-w-sm leading-relaxed text-sm md:text-base font-medium ${isLeft ? 'mr-auto' : 'ml-auto'}`}>
         {data.description}

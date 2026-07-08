@@ -5,7 +5,7 @@ import { FadeInUp, StaggerContainer, StaggerItem } from '@/lib/animations';
 const teamMembers = [
   {
     name: 'Md Adil Ali',
-    role: 'Founder & Growth Strategist',
+    role: 'Co-Founder & Growth Strategist',
     image: 'https://res.cloudinary.com/dtzo88csm/image/upload/v1774977463/IMG_6729_q6mmay.jpg',
     bullets: [
       'Leads Adibuz\'s growth and digital strategy.',
@@ -15,7 +15,7 @@ const teamMembers = [
   },
   {
     name: 'Krish Rawat',
-    role: 'Co-Founder & SEO Specialist',
+    role: 'Founder & SEO Specialist',
     image: 'https://res.cloudinary.com/dhty5iilx/image/upload/v1781007925/krish_adibuz_dvbw4g.jpg',
     bullets: [
       'Develops SEO strategies for long-term organic growth.',
@@ -36,7 +36,7 @@ const teamMembers = [
   {
     name: 'Anzar Imam',
     role: 'Full Stack Developer',
-    image: 'https://res.cloudinary.com/dhty5iilx/image/upload/v1783414421/Gemini_Generated_Image_kxwvghkxwvghkxwv_b1liah.png',
+    image: 'https://res.cloudinary.com/dhty5iilx/image/upload/v1783540587/apsar_adibuz_qosji7.jpg',
     bullets: [
       'Builds fast, scalable, and modern digital platforms.',
       'Specializes in responsive frontend and backend integrations.',

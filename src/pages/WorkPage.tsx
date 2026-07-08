@@ -3,7 +3,6 @@ import { ArrowRight, CheckCircle2, ExternalLink, Target, TrendingUp } from 'luci
 import { SimpleHeader } from '@/components/ui/simple-header';
 import { Footer } from '@/components/ui/footer-section';
 import { JsonLd, PreloadLink, SEO } from '@/components/SEO';
-import { CASE_STUDIES } from '@/data/case-studies';
 import { FreeAuditModal } from '@/components/funnels/FreeAuditModal';
 import { BookStrategyCallModal } from '@/components/funnels/BookStrategyCallModal';
 
@@ -35,60 +34,6 @@ function responsiveSrcSet(src: string) {
   const base = src.replace(/[?&]w=\d+/, '').replace('fm=webp', '').split('&q=')[0];
   return `${base}?w=480&q=75&fm=webp 480w, ${base}?w=768&q=75&fm=webp 768w, ${src} 1200w`;
 }
-
-const CaseStudyCard: React.FC<{ study: (typeof CASE_STUDIES)[number]; featured?: boolean }> = ({ study, featured = false }) => (
-  <article
-    className={`group overflow-hidden rounded-[28px] border-[2.5px] border-[#6D28D9]/12 bg-white/86 shadow-[0_18px_55px_rgba(22,8,43,0.07)] ${featured ? 'lg:grid lg:grid-cols-[1.08fr_0.92fr]' : ''}`}
-  >
-    <div className={`relative overflow-hidden bg-slate-100 ${featured ? 'aspect-[16/11] lg:aspect-auto lg:min-h-[400px]' : 'aspect-[16/10]'}`}>
-      <img
-        src={study.image}
-        srcSet={responsiveSrcSet(study.image)}
-        sizes={featured ? '(max-width: 1023px) 100vw, 52vw' : '(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw'}
-        alt={`${study.client} ${study.industry} case study`}
-        width={1000}
-        height={650}
-        loading="lazy"
-        decoding="async"
-        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#12091f]/58 via-[#12091f]/12 to-transparent" />
-    </div>
-
-    <div className={`${featured ? 'p-6 sm:p-8 lg:p-8' : 'p-5 md:p-6'} flex min-h-full flex-col`}>
-      <div className="flex items-center justify-between gap-4">
-        <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.22em] text-primary">Case Study</p>
-        <p className="text-[11px] md:text-[12px] font-bold text-[#827891]">{study.timeline}</p>
-      </div>
-
-      <div className="mt-4 space-y-2 md:space-y-3">
-        <h3 className={`${featured ? 'text-3xl md:text-4xl lg:text-[40px]' : 'text-xl md:text-2xl'} font-black leading-[1.04] tracking-tight text-[#12091f]`}>
-          {study.client}
-        </h3>
-        <p className={`${featured ? 'text-sm md:text-base' : 'text-xs md:text-sm'} font-semibold leading-relaxed text-[#6f667d]`}>
-          {study.challenge}
-        </p>
-      </div>
-
-      <div className={`${featured ? 'mt-6 p-4' : 'mt-4 p-3'} rounded-2xl border border-[rgba(58,15,99,0.10)] bg-[#f8f3ff]/70`}>
-        <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-[#827891]">Outcome</p>
-        <p className={`${featured ? 'text-3xl' : 'text-xl md:text-2xl'} mt-1 font-black tracking-tight text-primary`}>
-          {study.result}
-        </p>
-      </div>
-
-      <div className={`${featured ? 'mt-5' : 'mt-4'} grid grid-cols-2 gap-2 md:gap-3`}>
-        {study.metrics.slice(0, featured ? 4 : 2).map((metric) => (
-          <div key={metric.label} className={`rounded-2xl bg-white/70 ${featured ? 'p-3' : 'px-3 py-2.5'} ring-1 ring-[rgba(58,15,99,0.08)]`}>
-            <p className={`${featured ? 'text-lg' : 'text-base'} font-black tracking-tight text-[#12091f]`}>{metric.value}</p>
-            <p className="mt-0.5 md:mt-1 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.14em] text-[#827891]">{metric.label}</p>
-          </div>
-        ))}
-      </div>
-
-    </div>
-  </article>
-);
 
 const SampleWebsiteCard: React.FC<{ item: (typeof SAMPLE_WEBSITES)[number] }> = ({ item }) => {
   const content = (
@@ -155,7 +100,6 @@ const BottomCTA: React.FC = () => (
 );
 
 const WorkPage: React.FC = () => {
-  const [featuredStudy, ...otherStudies] = CASE_STUDIES;
   const [scrollY, setScrollY] = React.useState(0);
   const [isPhone, setIsPhone] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
@@ -341,28 +285,6 @@ const WorkPage: React.FC = () => {
                   <CheckCircle2 className="w-[22px] h-[22px] md:w-6 md:h-6 text-emerald-500" strokeWidth={2.5} />
                   <span className="text-[#12091f] font-bold text-[15px] md:text-[17px] tracking-tight">{text}</span>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="relative z-10 pt-4 pb-12 md:pt-6 md:pb-20">
-          <div className="container-custom">
-            {/* Split Case Studies Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12 border-b border-[rgba(58,15,99,0.08)] pb-8">
-              <div className="max-w-xl">
-                <span className="inline-flex rounded-full border border-[#6D28D9]/10 bg-[#f8f3ff] px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.2em] text-[#6D28D9] mb-4">
-                  Case Studies
-                </span>
-                <h2 className="adibuz-gradient-text text-3xl md:text-5xl font-black tracking-tight">
-                  Proven growth systems <br className="hidden md:inline" /> in action.
-                </h2>
-              </div>
-            </div>
-            
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {CASE_STUDIES.map((study) => (
-                <CaseStudyCard key={study.client} study={study} />
               ))}
             </div>
           </div>
