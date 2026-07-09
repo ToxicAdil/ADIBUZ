@@ -200,6 +200,14 @@
     <priority>0.30</priority>
   </url>
 
+  <!-- Cookie Preferences -->
+  <url>
+    <loc>https://adibuz.com/cookie-preferences</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.30</priority>
+  </url>
+
   <!--
     NOTE: /assistant (Chat AI tool) is intentionally omitted.
     It is a dynamic interactive tool, not indexable content.

@@ -27,6 +27,7 @@ Allow: /insights
 Allow: /insights/
 Allow: /privacy-policy
 Allow: /terms
+Allow: /cookie-preferences
 
 # Note: /assistant (Chat AI tool) is intentionally excluded from indexing â€”
 # it is an interactive UI tool, not a content page, and has no SEO value.

@@ -20,6 +20,7 @@ const InsightsPage = lazy(() => import('./pages/InsightsPage.tsx'));
 const InsightDetailPage = lazy(() => import('./pages/InsightDetailPage.tsx'));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage.tsx'));
 const TermsOfUsePage = lazy(() => import('./pages/TermsOfUsePage.tsx'));
+const CookiePreferencesPage = lazy(() => import('./pages/CookiePreferencesPage.tsx'));
 const ContactPage = lazy(() => import('./pages/ContactPage.tsx'));
 const ServicePage = lazy(() => import('./pages/ServicePage.tsx'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage.tsx'));
@@ -112,6 +113,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path="/services/:slug" element={<ServicePage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="/terms" element={<TermsOfUsePage />} />
+            <Route path="/cookie-preferences" element={<CookiePreferencesPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>

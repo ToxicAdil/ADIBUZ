@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { InstagramIcon, LinkedinIcon } from 'lucide-react';
 import AdibuzLogo from '@/components/AdibuzLogo';
 
@@ -25,16 +26,16 @@ export function Footer() {
               <a href="/terms" title="Adibuz Terms of Use" className="inline-flex min-h-5 items-center text-sm font-semibold leading-none text-[#5f6f88] transition-colors hover:text-[#3A0F63]">
                 Terms of Use
               </a>
-              <button
-                type="button"
+              <Link
+                to="/cookie-preferences"
                 id="cookie-preferences-btn"
-                aria-label="Manage cookie preferences"
-                onClick={() => window.adibuzOpenCookiePrefs?.()}
+                aria-label="Cookie preferences page"
+                title="Cookie preferences page"
                 className="inline-flex min-h-5 min-w-0 items-center border-none bg-transparent p-0 text-sm font-semibold leading-none text-[#5f6f88] transition-colors hover:text-[#3A0F63]"
                 style={{ cursor: 'pointer' }}
               >
                 Cookie Preferences
-              </button>
+              </Link>
             </nav>
 
             <a

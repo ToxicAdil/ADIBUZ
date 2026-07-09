@@ -160,6 +160,12 @@ const staticRouteMeta = [
     description:
       'Read the Terms of Use for Adibuz - an AI-powered digital marketing agency. Understand our service terms, client responsibilities, IP rights, and legal policies.',
   },
+  {
+    path: '/cookie-preferences',
+    title: 'Cookie Preferences | Adibuz',
+    description:
+      'Review how Adibuz uses essential, analytics, and marketing cookies, and manage your cookie preferences.',
+  },
 ];
 
 const serviceRouteMeta = [
