@@ -47,7 +47,7 @@ export function InsightArticleHero({ insight, formattedDate }: InsightArticleHer
           </ol>
         </nav>
 
-        <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
           <div className="max-w-3xl">
             {insight.category && (
               <span className="inline-flex rounded-full border border-primary/15 bg-primary/8 px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.22em] text-primary">
@@ -55,7 +55,7 @@ export function InsightArticleHero({ insight, formattedDate }: InsightArticleHer
               </span>
             )}
 
-            <h1 className="adibuz-gradient-text mt-5 text-[clamp(2.4rem,5vw,4.9rem)] font-black leading-[1.05] tracking-tight">
+            <h1 className="adibuz-gradient-text mt-5 text-[clamp(1.55rem,3.2vw,2.6rem)] font-black leading-[1.12] tracking-tight">
               {insight.title}
             </h1>
 
